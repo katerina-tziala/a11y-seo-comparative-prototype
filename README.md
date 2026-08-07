@@ -15,7 +15,7 @@ The scaffold includes a complete responsive landing page, reusable Nuxt componen
 
 ## Versions
 
-- `setup/visual-scaffold`: current project setup and shared visual scaffold
+- `prototype-scaffold`: current project setup and shared visual scaffold
 - `main`: future frozen baseline prototype
 - `accessibility-governed`: future governed prototype derived from the baseline
 
@@ -55,7 +55,15 @@ Tailwind classes before checking.
 
 ## Deployment
 
-The Pages workflow runs on pushes to `setup/visual-scaffold` or by manual dispatch. It installs with `npm ci`, generates the site with the GitHub Pages Nitro preset and deploys `.output/public` using the official artifact workflow. The base path comes from GitHub Pages configuration, allowing the site to run at `/a11y-seo-comparative-prototype/` without hardcoding an account name.
+The repository uses one GitHub Pages site with one path for each research branch:
+
+- `prototype-scaffold` → `/scaffold/`
+- `main` → `/baseline/`
+- `accessibility-governed` → `/accessibility-governed/`
+
+Whenever one of these branches changes, the workflow rebuilds every existing, initialised research branch independently. CI never merges or synchronises their source code. It combines only their generated static outputs into one Pages artifact and performs one deployment. Branches that do not exist yet, or have not yet been initialised as a Nuxt project, are skipped.
+
+The workflow file must exist in every branch whose push should trigger deployment. It will be inherited when the frozen scaffold is transferred to `main` and when `accessibility-governed` is later created from the baseline.
 
 In the repository settings, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. A successful local generation does not confirm that remote Pages deployment has succeeded.
 
