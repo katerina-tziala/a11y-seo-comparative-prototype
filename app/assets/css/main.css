@@ -1,0 +1,170 @@
+@import 'tailwindcss';
+
+:root {
+  /* LucidReach semantic design tokens */
+  --lr-color-ink: #173331;
+  --lr-color-ink-soft: #415b58;
+  --lr-color-deep: #123d39;
+  --lr-color-deep-hover: #1d5550;
+  --lr-color-green: #176d60;
+  --lr-color-mint: #a9e2d1;
+  --lr-color-mint-light: #e7f5f0;
+  --lr-color-sand: #f5f0e7;
+  --lr-color-cream: #fbfaf6;
+  --lr-color-white: #fff;
+  --lr-color-line: #dce5e1;
+  --lr-font-heading: 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  --lr-font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --lr-text-sm: 0.875rem;
+  --lr-text-base: 1rem;
+  --lr-text-lg: 1.2rem;
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4.5rem;
+  --space-8: 7rem;
+  --lr-radius-sm: 0.6rem;
+  --lr-radius-md: 1rem;
+  --lr-radius-lg: 1.6rem;
+  --lr-content-width: 1180px;
+  --lr-shadow: 0 24px 60px rgba(20, 60, 56, 10%);
+}
+
+/* Tailwind utilities are generated from the semantic tokens above. */
+@theme inline {
+  --color-ink: var(--lr-color-ink);
+  --color-ink-soft: var(--lr-color-ink-soft);
+  --color-deep: var(--lr-color-deep);
+  --color-deep-hover: var(--lr-color-deep-hover);
+  --color-brand: var(--lr-color-green);
+  --color-green: var(--lr-color-green);
+  --color-mint: var(--lr-color-mint);
+  --color-mint-light: var(--lr-color-mint-light);
+  --color-sand: var(--lr-color-sand);
+  --color-cream: var(--lr-color-cream);
+  --color-white: var(--lr-color-white);
+  --color-surface: var(--lr-color-white);
+  --color-line: var(--lr-color-line);
+
+  --font-heading: var(--lr-font-heading);
+  --font-body: var(--lr-font-body);
+
+  --text-sm: var(--lr-text-sm);
+  --text-base: var(--lr-text-base);
+  --text-lg: var(--lr-text-lg);
+  --text-copy-sm: var(--lr-text-sm);
+  --text-copy: var(--lr-text-base);
+  --text-copy-lg: var(--lr-text-lg);
+
+  --spacing-section-sm: var(--space-7);
+  --spacing-section: var(--space-8);
+
+  --radius-sm: var(--lr-radius-sm);
+  --radius-md: var(--lr-radius-md);
+  --radius-lg: var(--lr-radius-lg);
+
+  --shadow-soft: var(--lr-shadow);
+  --container-content: var(--lr-content-width);
+  --breakpoint-sm: 37.5rem;
+  --breakpoint-md: 53.75rem;
+  --breakpoint-lg: 73.75rem;
+}
+
+*,
+*::before,
+*::after {
+  @apply box-border
+    motion-reduce:duration-[.01ms]!;
+}
+
+html {
+  @apply scroll-smooth
+    motion-reduce:scroll-auto;
+}
+
+body {
+  @apply m-0
+    bg-cream
+    font-body
+    leading-[1.65]
+    text-ink;
+}
+
+body,
+button,
+input,
+textarea {
+  @apply [font:inherit];
+}
+
+img {
+  @apply block
+    h-auto
+    max-w-full;
+}
+
+a {
+  @apply text-inherit;
+}
+
+h1,
+h2,
+h3,
+p {
+  @apply mt-0;
+}
+
+h1,
+h2,
+h3 {
+  @apply font-heading
+    leading-[1.12]
+    tracking-[-.035em];
+}
+
+h1 {
+  @apply mb-6
+    max-w-[780px]
+    text-[clamp(2.7rem,14vw,4rem)]
+    sm:text-[clamp(3rem,7vw,5.5rem)];
+}
+
+h2 {
+  @apply mb-6
+    text-[clamp(2.15rem,4vw,3.4rem)];
+}
+
+h3 {
+  @apply mb-3
+    text-[1.28rem];
+}
+
+p {
+  @apply text-ink-soft;
+}
+
+.section {
+  @apply py-16
+    sm:py-20
+    md:py-28;
+}
+
+.eyebrow {
+  @apply mb-4
+    text-[.78rem]
+    font-bold
+    tracking-[.14em]
+    text-green
+    uppercase;
+}
+
+.eyebrow--center {
+  @apply text-center;
+}
+
+.eyebrow--mint {
+  @apply text-mint;
+}

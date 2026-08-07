@@ -1,0 +1,50 @@
+<template>
+  <svg
+    viewBox="0 0 48 48"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <rect
+      x="5"
+      y="6"
+      width="38"
+      height="36"
+      rx="4"
+    />
+    <path d="M5 14h38" />
+    <circle
+      cx="10"
+      cy="10"
+      r="1"
+      fill="currentColor"
+      stroke="none"
+    />
+    <circle
+      cx="14"
+      cy="10"
+      r="1"
+      fill="currentColor"
+      stroke="none"
+    />
+    <rect
+      x="10"
+      y="20"
+      width="11"
+      height="7"
+      rx="1.5"
+    />
+    <path d="M26 21h11M26 26h8M10 33h12" />
+    <rect
+      x="27"
+      y="31"
+      width="11"
+      height="7"
+      rx="1.5"
+    />
+  </svg>
+</template>

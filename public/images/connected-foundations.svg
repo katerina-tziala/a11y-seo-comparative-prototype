@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="64 52 429 408" fill="none">
+  <circle cx="215" cy="245" r="148" fill="#176d60" fill-opacity=".34" stroke="#6db8a7"/>
+  <circle cx="342" cy="245" r="148" fill="#a9e2d1" fill-opacity=".14" stroke="#a9e2d1"/>
+  <circle cx="215" cy="245" r="81" fill="#0d312e" stroke="#6db8a7"/>
+  <path d="M178 230h74M178 251h53M178 272h64" stroke="#a9e2d1" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="342" cy="245" r="81" fill="#0d312e" stroke="#a9e2d1"/>
+  <circle cx="342" cy="245" r="28" stroke="#a9e2d1" stroke-width="7"/><path d="m362 266 24 24" stroke="#a9e2d1" stroke-width="7" stroke-linecap="round"/>
+  <rect x="203" y="55" width="151" height="47" rx="23" fill="#fff"/><text x="278" y="85" text-anchor="middle" fill="#153e3a" font-family="system-ui" font-size="15" font-weight="700">SHARED CLARITY</text>
+  <path d="M280 103v54M280 338v70" stroke="#a9e2d1" stroke-dasharray="5 8"/>
+  <circle cx="280" cy="430" r="27" fill="#a9e2d1"/><path d="m268 430 8 8 17-18" stroke="#153e3a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

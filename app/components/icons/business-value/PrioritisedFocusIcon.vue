@@ -1,0 +1,29 @@
+<template>
+  <svg
+    viewBox="0 0 48 48"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="3.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle
+      cx="22"
+      cy="26"
+      r="16"
+    />
+    <circle
+      cx="22"
+      cy="26"
+      r="9"
+    />
+    <circle
+      cx="22"
+      cy="26"
+      r="2"
+    />
+    <path d="m24 24 15-15M32 9h7v7" />
+  </svg>
+</template>

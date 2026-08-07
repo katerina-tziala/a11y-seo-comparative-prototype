@@ -1,0 +1,45 @@
+{
+  "name": "a11y-seo-comparative-prototype",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "typecheck": "nuxt typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "stylelint": "stylelint \"app/**/*.{vue,css}\"",
+    "stylelint:fix": "stylelint \"app/**/*.{vue,css}\" --fix",
+    "format:tailwind-apply": "node scripts/format-tailwind-apply.mjs --write",
+    "format:tailwind-apply:check": "node scripts/format-tailwind-apply.mjs --check",
+    "format": "prettier . --write && npm run format:tailwind-apply",
+    "format:check": "node scripts/check-format.mjs",
+    "check": "npm run typecheck && npm run lint && npm run stylelint && npm run format:check",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^4.5.1",
+    "vue": "^3.5.0",
+    "vue-router": "^5.2.0"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^1.17.0",
+    "@tailwindcss/vite": "^4.1.0",
+    "@types/node": "^24.0.0",
+    "eslint": "^10.8.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "stylelint": "^17.14.1",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-config-standard-vue": "^2.0.0",
+    "stylelint-config-tailwindcss": "^1.0.1",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.9.0",
+    "vue-tsc": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=24 <25"
+  }
+}
