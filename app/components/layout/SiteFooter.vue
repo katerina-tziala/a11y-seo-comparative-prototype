@@ -24,7 +24,7 @@ import { primaryNavigationLinks } from '../../data/navigation'
           >
         </div>
         <div>
-          <p class="footer-label">Start a conversation</p>
+          <p class="footer-label">Contact</p>
           <a href="#audit">Request an Audit</a>
         </div>
       </div>

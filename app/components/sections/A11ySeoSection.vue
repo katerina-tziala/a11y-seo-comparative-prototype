@@ -29,8 +29,8 @@ const features = [
       <div class="relationship-art">
         <img
           :src="`${baseURL}images/connected-foundations.svg`"
-          width="560"
-          height="533"
+          width="640"
+          height="auto"
         />
       </div>
       <div>
@@ -47,7 +47,7 @@ const features = [
             v-for="feature in features"
             :key="feature.number"
           >
-            <span>{{ feature.number }}</span>
+            <span class="pt-0.5">{{ feature.number }}</span>
             <p>
               <strong>{{ feature.title }}</strong
               >{{ feature.description }}
