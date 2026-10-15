@@ -22,7 +22,7 @@ env:
   DEPLOYMENTS: |
     prototype-scaffold scaffold
     main baseline
-    accessibility-governed accessibility-governed
+    accessibility-governed a11y-governed
 
 jobs:
   build:

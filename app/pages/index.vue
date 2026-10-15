@@ -2,12 +2,12 @@
 const title = 'Accessible, Search-Ready Websites | LucidReach Digital'
 const description =
   'LucidReach Digital combines accessible web design, technical SEO and content optimisation to create clearer, more usable and more discoverable websites.'
-const canonicalUrl = 'https://katerina-tziala.github.io/a11y-seo-comparative-prototype/'
+const config = useRuntimeConfig()
+const canonicalUrl = `https://katerina-tziala.github.io${config.app.baseURL}`
 
 useSeoMeta({
-  title,
+  title: '',
   description,
-  robots: 'noindex, follow',
   ogTitle: title,
   ogDescription: description,
   ogType: 'website',
@@ -20,7 +20,6 @@ useSeoMeta({
 })
 
 useHead({
-  htmlAttrs: { lang: 'en' },
   link: [{ rel: 'canonical', href: canonicalUrl }],
   meta: [
     { name: 'google-site-verification', content: 'r9ATHs78Q8T3fapv4hc8TaGFlNERBIBZKbohzZ4vTTc' },

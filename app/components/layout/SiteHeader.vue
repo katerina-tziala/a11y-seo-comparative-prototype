@@ -1,6 +1,24 @@
 <script setup lang="ts">
 import MenuIcon from '../icons/MenuIcon.vue'
 import { primaryNavigationLinks } from '../../data/navigation'
+
+const baseURL = useRuntimeConfig().app.baseURL
+const showMenuToggle = ref(false)
+let mobileMediaQuery: MediaQueryList | undefined
+
+function updateMenuToggleVisibility() {
+  showMenuToggle.value = mobileMediaQuery?.matches ?? false
+}
+
+onMounted(() => {
+  mobileMediaQuery = window.matchMedia('(width < 73.75rem)')
+  updateMenuToggleVisibility()
+  mobileMediaQuery.addEventListener('change', updateMenuToggleVisibility)
+})
+
+onBeforeUnmount(() => {
+  mobileMediaQuery?.removeEventListener('change', updateMenuToggleVisibility)
+})
 </script>
 
 <template>
@@ -10,12 +28,16 @@ import { primaryNavigationLinks } from '../../data/navigation'
         class="brand"
         href="#top"
       >
-        <span class="brand-mark">L</span>
-        <span>LucidReach <b>Digital</b></span>
+        <img
+          :src="`${baseURL}images/logo.svg`"
+          width="248"
+          height="55"
+        />
       </a>
       <BaseToggleMenu>
         <template #trigger="{ toggle }">
           <BaseButton
+            v-if="showMenuToggle"
             class="menu-toggle"
             type="button"
             variant="icon"
@@ -54,105 +76,27 @@ import { primaryNavigationLinks } from '../../data/navigation'
 @reference "../../assets/css/main.css";
 
 .site-header {
-  @apply sticky
-    top-0
-    z-10
-    border-b
-    border-ink/10
-    bg-cream/95
-    backdrop-blur-xl;
+  @apply sticky top-0 z-10 border-b border-ink/10 bg-cream/95 backdrop-blur-xl;
 }
 
 .header-inner {
-  @apply flex
-    min-h-[82px]
-    items-center
-    justify-between;
+  @apply flex min-h-[82px] items-center justify-between;
 }
 
 .brand {
-  @apply inline-flex
-    items-center
-    gap-2.5
-    font-heading
-    font-bold
-    no-underline
-    focus-visible:rounded-sm
-    focus-visible:outline-2
-    focus-visible:outline-offset-4
-    focus-visible:outline-brand;
+  @apply inline-flex items-center no-underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand;
 }
 
-.brand b {
-  @apply text-brand;
-}
-
-.brand-mark {
-  @apply grid
-    size-9
-    place-items-center
-    rounded-[50%_50%_50%_14%]
-    bg-deep
-    font-extrabold
-    text-mint
-    transition-colors
-    duration-200;
-}
-
-.brand:hover .brand-mark {
-  @apply bg-deep-hover;
+.brand img {
+  @apply h-12 w-auto;
 }
 
 .nav {
-  @apply absolute
-    top-[82px]
-    right-5
-    left-5
-    hidden
-    gap-3
-    rounded-md
-    border
-    border-line
-    bg-white
-    p-6
-    shadow-soft
-    lg:static
-    lg:flex
-    lg:items-center
-    lg:gap-7
-    lg:border-0
-    lg:bg-transparent
-    lg:p-0
-    lg:shadow-none;
+  @apply absolute top-[82px] right-5 left-5 hidden gap-3 rounded-md border border-line bg-white p-6 shadow-soft lg:static lg:flex lg:items-center lg:gap-7 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none;
 }
 
 .nav > a:not(.button) {
-  @apply rounded-sm
-    bg-cream
-    px-4
-    py-3
-    text-sm
-    font-semibold
-    no-underline
-    transition-colors
-    duration-200
-    hover:bg-mint-light
-    hover:text-brand
-    focus-visible:bg-mint-light
-    focus-visible:text-brand
-    focus-visible:outline-2
-    focus-visible:outline-offset-0
-    focus-visible:outline-brand
-    lg:bg-transparent
-    lg:px-0
-    lg:py-0
-    lg:hover:bg-transparent
-    lg:hover:underline
-    lg:hover:underline-offset-4
-    lg:focus-visible:bg-transparent
-    lg:focus-visible:underline
-    lg:focus-visible:underline-offset-4
-    lg:focus-visible:outline-offset-4;
+  @apply rounded-sm bg-cream px-4 py-3 text-sm font-semibold no-underline transition-colors duration-200 hover:bg-mint-light hover:text-brand focus-visible:bg-mint-light focus-visible:text-brand focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-brand lg:bg-transparent lg:px-0 lg:py-0 lg:hover:bg-transparent lg:hover:underline lg:hover:underline-offset-4 lg:focus-visible:bg-transparent lg:focus-visible:underline lg:focus-visible:underline-offset-4 lg:focus-visible:outline-offset-4;
 }
 
 .menu-toggle {
@@ -160,10 +104,6 @@ import { primaryNavigationLinks } from '../../data/navigation'
 }
 
 .nav--open {
-  @apply flex
-    flex-col
-    items-stretch
-    lg:flex-row
-    lg:items-center;
+  @apply flex flex-col items-stretch lg:flex-row lg:items-center;
 }
 </style>

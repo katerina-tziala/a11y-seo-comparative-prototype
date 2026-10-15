@@ -5,6 +5,7 @@ All assets are stored locally under `public/images/`; the page does not hotlink 
 | Asset                       | Purpose                                              | Source / status                                                                             |
 | --------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | `favicon.svg`               | Browser icon and simple LucidReach brand mark        | Original SVG created for this research scaffold; replaceable before the baseline is frozen. |
+| `logo.svg`                  | LucidReach Digital header logo                       | Original SVG created for this research scaffold; replaceable before the baseline is frozen. |
 | `hero-dashboard.svg`        | Abstract website-analysis illustration in the hero   | Original SVG created for this research scaffold; no third-party source material.            |
 | `connected-foundations.svg` | Abstract accessibility/SEO relationship illustration | Original SVG created for this research scaffold; no third-party source material.            |
 
