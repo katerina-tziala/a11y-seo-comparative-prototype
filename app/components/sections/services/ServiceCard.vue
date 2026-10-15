@@ -18,14 +18,15 @@ defineProps<{
       </span>
     </div>
     <p>{{ text }}</p>
-    <ul>
-      <li
+    <div class="feature-list">
+      <div
         v-for="item in items"
         :key="item"
+        class="feature-item"
       >
         {{ item }}
-      </li>
-    </ul>
+      </div>
+    </div>
   </BaseCard>
 </template>
 
@@ -83,7 +84,7 @@ defineProps<{
   @apply drop-shadow-sm;
 }
 
-.service-card ul {
+.service-card .feature-list {
   @apply mt-6
     list-none
     border-t
@@ -91,13 +92,13 @@ defineProps<{
     pt-6;
 }
 
-.service-card li {
+.service-card .feature-item {
   @apply mt-2
     text-[.92rem]
     text-ink-soft;
 }
 
-.service-card li::before {
+.service-card .feature-item::before {
   @apply mr-2.5
     text-brand
     content-['✓'];
