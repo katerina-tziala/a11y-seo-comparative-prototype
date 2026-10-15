@@ -36,7 +36,10 @@ const benefits = [
 <template>
   <div class="section section--cream">
     <BaseSectionContainer>
-      <BaseSectionIntro class="section-heading">
+      <BaseSectionIntro
+        class="section-heading"
+        heading-tag="p"
+      >
         <template #eyebrow>The business value</template>
         <template #heading>Good experiences create room to grow</template>
         The right improvements support your visitors, your team and the long-term health of your

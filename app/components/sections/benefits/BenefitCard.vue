@@ -13,7 +13,7 @@ defineProps<{
     variant="brand"
     class="benefit"
   >
-    <span><component :is="icon" /></span>
+    <h3 class="benefit-icon"><component :is="icon" /></h3>
     <h3>{{ title }}</h3>
     <p>{{ description }}</p>
   </BaseCard>
@@ -39,9 +39,10 @@ defineProps<{
     shadow-sm;
 }
 
-.benefit > span {
+.benefit > .benefit-icon {
   @apply absolute
     bottom-0
+    m-0
     mx-auto
     grid
     size-16
@@ -49,11 +50,15 @@ defineProps<{
     rounded-full
     border
     border-cream
+    [font-family:inherit]
+    [font-weight:inherit]
+    [line-height:inherit]
+    [letter-spacing:inherit]
     text-[2rem]
     text-cream;
 }
 
-.benefit h3 {
+.benefit h3:not(.benefit-icon) {
   @apply m-auto
     max-w-[80%]
     text-[1.4rem]

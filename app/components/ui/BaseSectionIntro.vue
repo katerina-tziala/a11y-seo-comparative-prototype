@@ -1,6 +1,7 @@
 <script setup lang="ts">
-withDefaults(defineProps<{ variant?: 'split' | 'vertical' }>(), {
+withDefaults(defineProps<{ variant?: 'split' | 'vertical'; headingTag?: 'h2' | 'p' }>(), {
   variant: 'split',
+  headingTag: 'h2',
 })
 </script>
 
@@ -11,7 +12,12 @@ withDefaults(defineProps<{ variant?: 'split' | 'vertical' }>(), {
       class="intro-grid"
       :class="`intro-grid--${variant}`"
     >
-      <h2><slot name="heading" /></h2>
+      <component
+        :is="headingTag"
+        class="section-title"
+      >
+        <slot name="heading" />
+      </component>
       <p class="section-lede"><slot /></p>
     </div>
   </div>
@@ -41,8 +47,13 @@ withDefaults(defineProps<{ variant?: 'split' | 'vertical' }>(), {
     md:gap-4;
 }
 
-.intro-grid h2 {
-  @apply mb-0
+.intro-grid .section-title {
+  @apply m-0
+    font-heading
+    text-[clamp(2.15rem,4vw,3.4rem)]
+    leading-[1.12]
+    tracking-[-.035em]
+    [font-weight:inherit]
     [color:var(--section-intro-heading-color,var(--color-ink))];
 }
 

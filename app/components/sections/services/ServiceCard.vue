@@ -12,7 +12,7 @@ defineProps<{
 <template>
   <BaseCard class="service-card">
     <div class="card-top">
-      <h3>{{ title }}</h3>
+      <h4 class="card-title">{{ title }}</h4>
       <span class="icon-box">
         <component :is="icon" />
       </span>
@@ -46,8 +46,12 @@ defineProps<{
     pr-20;
 }
 
-.card-top h3 {
-  @apply mb-0
+.card-top .card-title {
+  @apply m-0
+    font-heading
+    leading-[1.12]
+    tracking-[-.035em]
+    [font-weight:inherit]
     text-left
     text-[1.4rem]
     text-brand;
