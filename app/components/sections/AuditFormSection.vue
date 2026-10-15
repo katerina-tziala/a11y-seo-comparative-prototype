@@ -60,7 +60,7 @@ function submitForm() {
             placeholder="What would you like to improve?"
           />
         </label>
-        <BaseButton type="submit">Request an Audit <span>→</span></BaseButton>
+        <BaseButton type="submit" aria-label="Send form">Request an Audit <span aria-hidden="true">→</span></BaseButton>
         <p
           v-if="submitted"
           class="confirmation"

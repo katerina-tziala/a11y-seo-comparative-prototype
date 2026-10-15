@@ -43,7 +43,6 @@ onBeforeUnmount(() => {
             variant="icon"
             @click="toggle"
           >
-            <span class="sr-only">Toggle navigation</span>
             <MenuIcon />
           </BaseButton>
         </template>
