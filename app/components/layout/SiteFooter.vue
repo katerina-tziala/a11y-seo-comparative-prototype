@@ -10,8 +10,10 @@ import { primaryNavigationLinks } from '../../data/navigation'
           <a
             class="brand brand--light"
             href="#top"
-            ><span class="brand-mark">L</span><span>LucidReach <b>Digital</b></span></a
           >
+            <LogoIcon class="footer-logo" aria-hidden="true" />
+            <span>LucidReach <span class="brand-accent">Digital</span></span>
+          </a>
           <p>Clearer websites. Wider reach.</p>
         </div>
         <div>
@@ -80,30 +82,23 @@ import { primaryNavigationLinks } from '../../data/navigation'
 }
 
 .brand--light {
+  @apply text-mint!;
+  --brand-mark-bg: var(--color-mint);
+  --brand-mark-l: var(--color-deep);
+  --brand-mark-r: var(--color-deep);
+}
+
+.footer-logo {
+  @apply size-9 shrink-0;
+}
+
+.brand--light .brand-accent {
+  @apply text-white;
+}
+
+.brand--light:hover {
   @apply text-white!;
-}
-
-.brand--light b {
-  @apply text-mint;
-}
-
-.brand-mark {
-  @apply grid
-    size-9
-    place-items-center
-    rounded-[50%_50%_50%_14%]
-    font-extrabold
-    transition-colors
-    duration-200;
-}
-
-.brand--light .brand-mark {
-  @apply bg-mint
-    text-deep;
-}
-
-.brand--light:hover .brand-mark {
-  @apply bg-white;
+  --brand-mark-bg: var(--color-white);
 }
 
 .footer-grid {
