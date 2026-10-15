@@ -25,7 +25,7 @@ const baseURL = useRuntimeConfig().app.baseURL
       <div class="hero-art">
         <img
           :src="`${baseURL}images/hero-dashboard.svg`"
-          alt=""
+          alt="hero-dashboard.svg"
           width="680"
           height="505"
         />
