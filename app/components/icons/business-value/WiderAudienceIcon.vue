@@ -4,6 +4,7 @@ defineProps<{ accentColor?: string }>()
 
 <template>
   <svg
+    aria-hidden="true"
     viewBox="0 0 48 48"
     width="1em"
     height="1em"
