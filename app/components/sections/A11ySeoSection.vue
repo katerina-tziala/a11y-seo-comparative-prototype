@@ -30,7 +30,7 @@ const features = [
         <img
           :src="`${baseURL}images/connected-foundations.svg`"
           width="640"
-          height="auto"
+          height="609"
         />
       </div>
       <div>
