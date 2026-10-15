@@ -22,6 +22,8 @@ const steps = [
     description: 'We help you make considered changes and build momentum for what comes next.',
   },
 ]
+
+const renderedSteps = [steps[2]!, steps[0]!, steps[3]!, steps[1]!]
 </script>
 
 <template>
@@ -37,9 +39,11 @@ const steps = [
       </BaseSectionIntro>
       <div class="process-grid">
         <div
-          v-for="step in steps"
+          v-for="step in renderedSteps"
           :key="step.number"
           class="process-step"
+          :class="{ 'process-step--last': step.number === '04' }"
+          :style="{ order: Number(step.number) }"
         >
           <span>{{ step.number }}</span>
           <p class="font-semibold tracking-wide">{{ step.title }}</p>
@@ -89,7 +93,7 @@ const steps = [
     sm:text-center;
 }
 
-.process-step:not(:last-child)::after {
+.process-step:not(.process-step--last)::after {
   @apply absolute
     top-14
     left-6

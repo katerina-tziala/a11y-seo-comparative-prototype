@@ -6,7 +6,7 @@ import { primaryNavigationLinks } from '../../data/navigation'
   <footer class="site-footer">
     <BaseSectionContainer>
       <div class="footer-grid">
-        <div>
+        <div class="footer-column--brand">
           <a
             class="brand brand--light"
             href="#top"
@@ -16,7 +16,11 @@ import { primaryNavigationLinks } from '../../data/navigation'
           </a>
           <p>Clearer websites. Wider reach.</p>
         </div>
-        <div>
+        <div class="footer-column--contact">
+          <p class="footer-label">Contact</p>
+          <a href="#audit">Request an Audit</a>
+        </div>
+        <div class="footer-column--explore">
           <p class="footer-label">Explore</p>
           <a
             v-for="link in primaryNavigationLinks"
@@ -24,10 +28,6 @@ import { primaryNavigationLinks } from '../../data/navigation'
             :href="link.href"
             >{{ link.label }}</a
           >
-        </div>
-        <div>
-          <p class="footer-label">Contact</p>
-          <a href="#audit">Request an Audit</a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -114,6 +114,18 @@ import { primaryNavigationLinks } from '../../data/navigation'
     flex-col
     items-start
     gap-2;
+}
+
+.footer-column--brand {
+  order: 1;
+}
+
+.footer-column--explore {
+  order: 2;
+}
+
+.footer-column--contact {
+  order: 3;
 }
 
 .footer-grid p {
