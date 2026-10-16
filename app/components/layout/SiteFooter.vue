@@ -32,7 +32,7 @@ import { primaryNavigationLinks } from '../../data/navigation'
       </div>
       <div class="footer-bottom">
         <span>© {{ new Date().getFullYear() }} LucidReach Digital</span
-        ><span>Fictional company created for academic research.</span>
+        ><span>Fictional company created for academic research. <a href="https://github.com/katerina-tziala/a11y-seo-comparative-prototype" target="_blank" rel="noopener noreferrer">Source code on GitHub</a></span>
       </div>
     </BaseSectionContainer>
   </footer>
@@ -56,20 +56,27 @@ import { primaryNavigationLinks } from '../../data/navigation'
 .site-footer a {
   @apply transition-colors
     duration-200
-    focus-visible:rounded-sm
     focus-visible:outline-2
     focus-visible:outline-offset-4
     focus-visible:outline-mint;
 }
 
 .footer-grid a:not(.brand) {
-  @apply no-underline
-    decoration-mint
+  @apply underline
+    decoration-transparent
     underline-offset-4
     hover:text-white
-    hover:underline
-    focus-visible:text-white
-    focus-visible:underline;
+    hover:decoration-white;
+}
+
+.footer-bottom a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: currentColor;
+  text-underline-offset: 4px;
+  @apply hover:text-white
+    hover:decoration-white;
 }
 
 .brand {
@@ -94,6 +101,14 @@ import { primaryNavigationLinks } from '../../data/navigation'
 
 .brand--light .brand-accent {
   @apply text-white;
+}
+
+.brand--light > span {
+  @apply underline decoration-transparent underline-offset-4 transition-colors duration-200;
+}
+
+.brand--light:hover > span {
+  @apply decoration-current;
 }
 
 .brand--light:hover {

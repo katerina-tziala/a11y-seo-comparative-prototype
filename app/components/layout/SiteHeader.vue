@@ -83,7 +83,7 @@ onBeforeUnmount(() => {
 }
 
 .brand {
-  @apply inline-flex items-center no-underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand;
+  @apply inline-flex items-center no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand;
 }
 
 .brand img {
@@ -95,7 +95,7 @@ onBeforeUnmount(() => {
 }
 
 .nav > a:not(.button) {
-  @apply rounded-sm bg-cream px-4 py-3 text-sm font-semibold no-underline transition-colors duration-200 hover:bg-mint-light hover:text-brand focus-visible:bg-mint-light focus-visible:text-brand focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-brand lg:bg-transparent lg:px-0 lg:py-0 lg:hover:bg-transparent lg:hover:underline lg:hover:underline-offset-4 lg:focus-visible:bg-transparent lg:focus-visible:underline lg:focus-visible:underline-offset-4 lg:focus-visible:outline-offset-4;
+  @apply rounded-sm bg-cream px-4 py-3 text-base font-semibold underline decoration-transparent underline-offset-4 hover:bg-mint-light hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-brand lg:bg-transparent lg:px-0 lg:py-0 lg:hover:bg-transparent lg:hover:decoration-brand lg:focus-visible:outline-offset-4;
 }
 
 .menu-toggle {
