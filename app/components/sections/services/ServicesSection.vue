@@ -8,6 +8,7 @@ const services = [
   {
     icon: AccessibleWebDesignIcon,
     title: 'Accessible Web Design',
+    href: '#approach',
     text: 'Create clear, flexible experiences shaped around how real people navigate, read and take action.',
     items: [
       'Interface and journey reviews',
@@ -18,12 +19,14 @@ const services = [
   {
     icon: TechnicalSeoIcon,
     title: 'Technical SEO',
+    href: '#packages',
     text: 'Build a dependable technical foundation that helps search engines discover and interpret your content.',
     items: ['Technical health checks', 'On-page structure reviews', 'Performance priorities'],
   },
   {
     icon: ContentConversionIcon,
     title: 'Content & Conversion Optimization',
+    href: '#benefits',
     text: 'Turn complex messages into useful content and confident next steps for the people you want to reach.',
     items: ['Content hierarchy', 'Calls-to-action', 'Conversion journey reviews'],
   },

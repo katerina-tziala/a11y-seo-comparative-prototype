@@ -4,6 +4,7 @@ import type { Component } from 'vue'
 defineProps<{
   icon: Component
   title: string
+  href: string
   text: string
   items: string[]
 }>()
@@ -27,6 +28,11 @@ defineProps<{
         {{ item }}
       </div>
     </div>
+    <a
+      class="card-link"
+      :href="href"
+      >Learn more</a
+    >
   </BaseCard>
 </template>
 
@@ -35,6 +41,8 @@ defineProps<{
 
 .service-card {
   @apply relative
+    flex
+    flex-col
     overflow-hidden
     p-8;
 }
@@ -86,6 +94,7 @@ defineProps<{
 
 .service-card .feature-list {
   @apply mt-6
+    mb-6
     list-none
     border-t
     border-line
@@ -102,5 +111,20 @@ defineProps<{
   @apply mr-2.5
     text-brand
     content-['✓'];
+}
+
+.card-link {
+  @apply mt-auto
+    self-start
+    text-deep
+    underline
+    decoration-transparent
+    decoration-1
+    underline-offset-4
+    hover:text-brand
+    hover:decoration-brand
+    focus-visible:outline-2
+    focus-visible:outline-offset-4
+    focus-visible:outline-brand;
 }
 </style>
