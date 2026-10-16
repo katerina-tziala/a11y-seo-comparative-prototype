@@ -197,14 +197,6 @@ p {
     uppercase;
 }
 
-.eyebrow--center {
-  @apply text-center;
-}
-
-.eyebrow--mint {
-  @apply text-mint;
-}
-
 .button {
   @apply inline-flex
     min-h-12

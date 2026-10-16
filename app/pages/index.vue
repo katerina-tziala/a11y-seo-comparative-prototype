@@ -36,6 +36,7 @@ useHead({
       <A11ySeoSection id="approach" />
       <BenefitsSection id="benefits" />
       <ProcessSection id="process" />
+      <PackagesSection id="packages" />
       <FaqSection id="faq" />
       <RequestAuditSection id="audit" />
     </div>

@@ -38,7 +38,7 @@ withDefaults(defineProps<{ variant?: 'split' | 'vertical'; headingTag?: 'h2' | '
     gap-6
     text-left
     md:grid-cols-[1.2fr_.8fr]
-    md:gap-12;
+    md:gap-14;
 }
 
 .intro-grid--vertical {
