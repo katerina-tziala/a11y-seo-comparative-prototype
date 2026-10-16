@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { primaryNavigationLinks } from '../../data/navigation'
+
+const baseURL = useRuntimeConfig().app.baseURL
 </script>
 
 <template>
@@ -19,6 +21,11 @@ import { primaryNavigationLinks } from '../../data/navigation'
         <div class="footer-column--contact">
           <p class="footer-label">Contact</p>
           <a href="#audit">Request an Audit</a>
+          <div class="social-links">
+            <a href="https://www.example.com/lucidreach/linkedin" class="social-link"><img :src="`${baseURL}images/social/linkedin.png`" alt="" width="32" height="32"></a>
+            <a href="https://www.example.com/lucidreach/instagram" class="social-link"><img :src="`${baseURL}images/social/instagram.png`" alt="" width="32" height="32"></a>
+            <a href="https://www.example.com/lucidreach/youtube" class="social-link"><img :src="`${baseURL}images/social/youtube.png`" alt="" width="32" height="32" class="social-image-youtube"></a>
+          </div>
         </div>
         <div class="footer-column--explore">
           <p class="footer-label">Explore</p>
@@ -61,12 +68,41 @@ import { primaryNavigationLinks } from '../../data/navigation'
     focus-visible:outline-mint;
 }
 
-.footer-grid a:not(.brand) {
+.footer-grid a:not(.brand):not(.social-link) {
   @apply underline
     decoration-transparent
     underline-offset-4
     hover:text-white
     hover:decoration-white;
+}
+
+.social-links {
+  @apply flex items-center gap-0;
+  margin-inline-start: calc((2rem * 840 / 779 - 4rem) / 2);
+}
+
+.social-links .social-link {
+  @apply inline-flex size-16 shrink-0 items-center justify-center rounded-full no-underline transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 motion-reduce:hover:translate-y-0;
+}
+
+.social-link img {
+  @apply h-8 w-auto shrink-0;
+}
+
+.social-link:last-child {
+  @apply ml-2;
+}
+
+.social-link .social-image-youtube {
+  @apply h-[calc(2rem*1075/579)] w-auto max-w-none;
+}
+
+@media (forced-colors: active) {
+  .social-links .social-link,
+  .social-links .social-link:hover {
+    forced-color-adjust: none;
+    background-color: var(--color-footer-bg);
+  }
 }
 
 .footer-bottom a {
