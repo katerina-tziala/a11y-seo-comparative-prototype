@@ -1,5 +1,9 @@
 <script setup lang="ts">
 const baseURL = useRuntimeConfig().app.baseURL
+
+function goToServices() {
+  window.location.hash = 'services'
+}
 </script>
 
 <template>
@@ -14,12 +18,7 @@ const baseURL = useRuntimeConfig().app.baseURL
         </p>
         <div class="button-row">
           <BaseButton href="#audit">Request an Audit</BaseButton>
-          <BaseButton
-            href="#services"
-            variant="secondary"
-          >
-            Explore Our Services
-          </BaseButton>
+          <span role="link" tabindex="0" class="button button-secondary" @click="goToServices">Explore Our Services</span>
         </div>
       </div>
       <div class="hero-art">

@@ -11,30 +11,21 @@ defineProps<{
 }>()
 
 const expandedItems = ref(new Set([0]))
-const closingItems = ref(new Set<number>())
 
 function isExpanded(index: number) {
   return expandedItems.value.has(index)
 }
 
-function isOpen(index: number) {
-  return isExpanded(index) || closingItems.value.has(index)
-}
-
 function toggleItem(index: number) {
   const expanded = new Set(expandedItems.value)
-  const closing = new Set(closingItems.value)
 
   if (expanded.has(index)) {
-    closing.add(index)
     expanded.delete(index)
   } else {
-    closing.delete(index)
     expanded.add(index)
   }
 
   expandedItems.value = expanded
-  closingItems.value = closing
 }
 
 function prefersReducedMotion() {
@@ -67,6 +58,7 @@ function enter(element: Element, done: () => void) {
   }
 
   content.style.transition = 'height 300ms ease-out, opacity 220ms ease-out'
+  void content.offsetHeight
   content.style.height = `${content.scrollHeight}px`
   content.style.opacity = '1'
   finishOnHeightTransition(content, done)
@@ -75,6 +67,7 @@ function enter(element: Element, done: () => void) {
 function afterEnter(element: Element) {
   const content = element as HTMLElement
   content.style.height = 'auto'
+  content.style.opacity = '1'
   content.style.overflow = ''
   content.style.transition = ''
 }
@@ -101,28 +94,28 @@ function leave(element: Element, done: () => void) {
   finishOnHeightTransition(content, done)
 }
 
-function afterLeave(element: Element, index: number) {
+function afterLeave(element: Element) {
   const content = element as HTMLElement
-  const closing = new Set(closingItems.value)
-  closing.delete(index)
-  closingItems.value = closing
-  content.removeAttribute('style')
+  content.style.height = ''
+  content.style.opacity = ''
+  content.style.overflow = ''
+  content.style.transition = ''
 }
 </script>
 
 <template>
   <div class="accordion">
-    <details
+    <div
       v-for="(item, index) in items"
       :key="item.title"
-      :open="isOpen(index)"
+      class="accordion-item"
     >
-      <summary @click.prevent="toggleItem(index)">
+      <div class="accordion-trigger" @click="toggleItem(index)">
         {{ item.title }}
         <span :class="{ 'is-expanded': isExpanded(index) }">
           <ChevronDownIcon />
         </span>
-      </summary>
+      </div>
       <Transition
         :css="false"
         @before-enter="beforeEnter"
@@ -130,46 +123,53 @@ function afterLeave(element: Element, index: number) {
         @after-enter="afterEnter"
         @before-leave="beforeLeave"
         @leave="leave"
-        @after-leave="(element) => afterLeave(element, index)"
+        @after-leave="afterLeave"
       >
         <div
-          v-if="isExpanded(index)"
-          class="accordion-content"
+          v-show="isExpanded(index)"
+          class="accordion-panel"
+          :id="`faq-panel-${index}`"
         >
           <p>{{ item.content }}</p>
         </div>
       </Transition>
-    </details>
+    </div>
   </div>
 </template>
 
 <style scoped>
 @reference "../../assets/css/main.css";
 
-.accordion details {
+.accordion-item {
   @apply border-t
     border-line;
 }
 
-.accordion details:first-child {
+.accordion-item:first-child {
   @apply border-t-0;
 }
 
-.accordion summary {
-  @apply flex
+.accordion-trigger {
+  @apply m-0
+    flex
+    w-full
     cursor-pointer
     items-center
     justify-between
+    border-0
+    bg-transparent
+    px-0
     py-6
+    text-start
+    [font-size:inherit]
+    [line-height:inherit]
+    [letter-spacing:inherit]
     font-heading
-    font-bold;
+    font-bold
+    text-inherit;
 }
 
-.accordion summary::marker {
-  @apply content-[''];
-}
-
-.accordion summary span {
+.accordion-trigger span {
   @apply grid
     shrink-0
     place-items-center
@@ -179,11 +179,11 @@ function afterLeave(element: Element, index: number) {
     ease-out;
 }
 
-.accordion summary span.is-expanded {
+.accordion-trigger span.is-expanded {
   @apply rotate-180;
 }
 
-.accordion-content p {
+.accordion-panel p {
   @apply mb-4
     pr-8;
 }

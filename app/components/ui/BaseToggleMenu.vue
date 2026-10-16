@@ -48,15 +48,9 @@ function toggleMenu() {
 function handleKeydown(event: KeyboardEvent) {
   if (!isOpen.value) return
 
-  if (event.key === 'Escape') {
-    event.preventDefault()
-    closeMenu(true)
-    return
-  }
-
   if (event.key !== 'Tab') return
 
-  const focusableElements = getFocusableElements()
+  const focusableElements = getFocusableElements(menuPanel.value)
   if (!focusableElements.length) return
 
   const firstElement = focusableElements[0]
