@@ -38,6 +38,7 @@ useHead({
       <ProcessSection id="process" />
       <PackagesSection id="packages" />
       <FaqSection id="faq" />
+      <TestimonialsSection id="testimonials" />
       <RequestAuditSection id="audit" />
     </div>
     <SiteFooter />
