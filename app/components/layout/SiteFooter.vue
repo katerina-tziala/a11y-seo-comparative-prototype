@@ -42,7 +42,7 @@ import { primaryNavigationLinks } from '../../data/navigation'
 @reference "../../assets/css/main.css";
 
 .site-footer {
-  @apply bg-[#0b2d2a]
+  @apply bg-footer-bg
     pt-18
     pb-6
     text-white;
@@ -50,7 +50,7 @@ import { primaryNavigationLinks } from '../../data/navigation'
 
 .site-footer p,
 .site-footer a {
-  @apply text-[#bcd0cb];
+  @apply text-footer-copy;
 }
 
 .site-footer a {
@@ -147,7 +147,7 @@ import { primaryNavigationLinks } from '../../data/navigation'
     border-white/10
     pt-6
     text-[.8rem]
-    text-[#8fabaa]
+    text-footer-muted
     sm:flex-row
     sm:justify-between;
 }

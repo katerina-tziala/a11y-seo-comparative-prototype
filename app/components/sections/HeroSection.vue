@@ -46,7 +46,7 @@ const baseURL = useRuntimeConfig().app.baseURL
 
 .hero {
   @apply overflow-hidden
-    bg-[radial-gradient(ellipse_58%_72%_at_100%_0%,var(--color-mint-light)_0%,color-mix(in_srgb,var(--color-mint)_28%,transparent)_48%,transparent_74%),linear-gradient(to_bottom_left,color-mix(in_srgb,var(--color-mint-light)_72%,var(--color-cream))_0%,var(--color-cream)_75%)];
+    bg-[radial-gradient(ellipse_58%_72%_at_100%_0%,var(--color-mint-light)_0%,color-mix(in_srgb,var(--color-mint)_28%,var(--color-transparent))_48%,var(--color-transparent)_74%),linear-gradient(to_bottom_left,color-mix(in_srgb,var(--color-mint-light)_72%,var(--color-cream))_0%,var(--color-cream)_75%)];
 }
 
 .hero-grid {

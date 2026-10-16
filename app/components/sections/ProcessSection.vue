@@ -100,7 +100,7 @@ const renderedSteps = [steps[2]!, steps[0]!, steps[3]!, steps[1]!]
     h-[calc(100%-1rem)]
     border-l
     border-dashed
-    border-[#95aaa4]
+    border-process-line
     sm:hidden
     md:top-6
     md:left-[calc(50%+2rem)]

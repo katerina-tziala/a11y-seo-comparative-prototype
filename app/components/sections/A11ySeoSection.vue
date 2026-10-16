@@ -68,7 +68,7 @@ const features = [
 }
 
 .section--dark p {
-  @apply text-[#cee0dc];
+  @apply text-approach-copy;
 }
 
 .split-grid {

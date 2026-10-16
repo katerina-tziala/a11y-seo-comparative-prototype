@@ -16,7 +16,7 @@ useSeoMeta({
   twitterCard: 'summary',
   twitterTitle: title,
   twitterDescription: description,
-  themeColor: '#123d39',
+  themeColor: config.public.themeColor,
 })
 
 useHead({
@@ -37,7 +37,7 @@ useHead({
       <BenefitsSection id="benefits" />
       <ProcessSection id="process" />
       <FaqSection id="faq" />
-      <AuditFormSection id="audit" />
+      <RequestAuditSection id="audit" />
     </div>
     <SiteFooter />
   </div>

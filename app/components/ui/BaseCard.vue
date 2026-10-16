@@ -1,23 +1,20 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    as?: string
     variant?: 'default' | 'brand'
   }>(),
   {
-    as: 'div',
     variant: 'default',
   },
 )
 </script>
 
 <template>
-  <component
-    :is="as"
+  <div
     :class="['card', `card--${variant}`]"
   >
     <slot />
-  </component>
+  </div>
 </template>
 
 <style scoped>

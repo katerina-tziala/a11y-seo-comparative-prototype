@@ -36,7 +36,7 @@ withDefaults(
 
 .button {
   @apply inline-flex
-    min-h-13
+    min-h-12
     cursor-pointer
     items-center
     justify-center

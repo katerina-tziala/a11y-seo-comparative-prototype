@@ -4,6 +4,8 @@
   /* LucidReach semantic design tokens */
   --lr-color-ink: #173331;
   --lr-color-ink-soft: #415b58;
+  --lr-color-muted: #525252;
+  --lr-color-error: #b42318;
   --lr-color-deep: #123d39;
   --lr-color-deep-hover: #1d5550;
   --lr-color-green: #176d60;
@@ -12,7 +14,22 @@
   --lr-color-sand: #f5f0e7;
   --lr-color-cream: #fbfaf6;
   --lr-color-white: #fff;
+  --lr-color-black: #000;
+  --lr-color-transparent: transparent;
   --lr-color-line: #dce5e1;
+  --lr-color-footer-bg: #0b2d2a;
+  --lr-color-footer-copy: #bcd0cb;
+  --lr-color-footer-muted: #8fabaa;
+  --lr-color-services-bg: #edf5f1;
+  --lr-color-process-line: #95aaa4;
+  --lr-color-approach-copy: #cee0dc;
+  --lr-color-audit-start: #10433d;
+  --lr-color-audit-end: #17665b;
+  --lr-color-audit-copy: #d5e5e1;
+  --lr-color-audit-overlay: color-mix(in srgb, var(--lr-color-black) 40%, var(--lr-color-transparent));
+  --lr-color-logo-bg: #153e3a;
+  --lr-color-logo-letter: #c9f4e7;
+  --lr-color-shadow: rgba(20, 60, 56, 10%);
   --lr-font-heading: 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
   --lr-font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
   --lr-text-sm: 0.875rem;
@@ -30,13 +47,15 @@
   --lr-radius-md: 1rem;
   --lr-radius-lg: 1.6rem;
   --lr-content-width: 1180px;
-  --lr-shadow: 0 24px 60px rgba(20, 60, 56, 10%);
+  --lr-shadow: 0 24px 60px var(--lr-color-shadow);
 }
 
 /* Tailwind utilities are generated from the semantic tokens above. */
 @theme inline {
   --color-ink: var(--lr-color-ink);
   --color-ink-soft: var(--lr-color-ink-soft);
+  --color-muted: var(--lr-color-muted);
+  --color-error: var(--lr-color-error);
   --color-deep: var(--lr-color-deep);
   --color-deep-hover: var(--lr-color-deep-hover);
   --color-brand: var(--lr-color-green);
@@ -46,8 +65,20 @@
   --color-sand: var(--lr-color-sand);
   --color-cream: var(--lr-color-cream);
   --color-white: var(--lr-color-white);
+  --color-black: var(--lr-color-black);
+  --color-transparent: var(--lr-color-transparent);
   --color-surface: var(--lr-color-white);
   --color-line: var(--lr-color-line);
+  --color-footer-bg: var(--lr-color-footer-bg);
+  --color-footer-copy: var(--lr-color-footer-copy);
+  --color-footer-muted: var(--lr-color-footer-muted);
+  --color-services-bg: var(--lr-color-services-bg);
+  --color-process-line: var(--lr-color-process-line);
+  --color-approach-copy: var(--lr-color-approach-copy);
+  --color-audit-start: var(--lr-color-audit-start);
+  --color-audit-end: var(--lr-color-audit-end);
+  --color-audit-copy: var(--lr-color-audit-copy);
+  --color-audit-overlay: var(--lr-color-audit-overlay);
 
   --font-heading: var(--lr-font-heading);
   --font-body: var(--lr-font-body);
@@ -144,6 +175,11 @@ h3 {
 
 p {
   @apply text-ink-soft;
+}
+
+.field-required,
+.field-optional {
+  @apply text-muted font-normal;
 }
 
 .section {

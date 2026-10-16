@@ -54,7 +54,7 @@ const services = [
 @reference "../../../assets/css/main.css";
 
 .section--tint {
-  @apply bg-[#edf5f1];
+  @apply bg-services-bg;
 }
 
 .section-heading {
