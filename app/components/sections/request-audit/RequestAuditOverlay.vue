@@ -32,24 +32,41 @@ defineExpose({ focusEditButton })
 @reference "../../../assets/css/main.css";
 
 .audit-overlay {
-  @apply pointer-events-none absolute inset-0 grid place-items-center p-6;
-  border-radius: inherit;
+  @apply pointer-events-none
+    absolute
+    inset-0
+    grid
+    place-items-center
+    rounded-[inherit]
+    p-6;
 }
 
 .audit-overlay.is-active {
-  @apply pointer-events-auto bg-audit-overlay;
+  @apply pointer-events-auto
+    bg-audit-overlay;
 }
 
 .audit-overlay-content {
-  @apply w-full max-w-[24rem];
+  @apply w-full
+    max-w-[24rem];
 }
 
 .audit-overlay.is-active .audit-overlay-content {
-  @apply grid gap-5 rounded-md border border-line bg-white p-6 shadow-soft;
+  @apply grid
+    gap-5
+    rounded-md
+    border
+    border-line
+    bg-white
+    p-6
+    shadow-soft;
 }
 
 .audit-overlay .form-status {
-  @apply m-0 text-center text-lg font-bold text-ink;
+  @apply m-0
+    text-center
+    text-lg
+    text-ink;
 }
 
 .audit-overlay-content .button {

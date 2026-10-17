@@ -7,10 +7,10 @@ withDefaults(defineProps<{ variant?: 'split' | 'vertical'; headingTag?: 'h2' | '
 
 <template>
   <div class="section-intro">
-    <p class="eyebrow"><slot name="eyebrow" /></p>
+    <BaseEyebrow><slot name="eyebrow" /></BaseEyebrow>
     <div
       class="intro-grid"
-      :class="`intro-grid--${variant}`"
+      :class="`intro-grid-${variant}`"
     >
       <component
         :is="headingTag"
@@ -26,11 +26,6 @@ withDefaults(defineProps<{ variant?: 'split' | 'vertical'; headingTag?: 'h2' | '
 <style scoped>
 @reference "../../assets/css/main.css";
 
-.eyebrow {
-  @apply [color:var(--section-intro-eyebrow-color,var(--color-green))]
-    uppercase;
-}
-
 .intro-grid {
   @apply grid
     grid-cols-1
@@ -41,7 +36,7 @@ withDefaults(defineProps<{ variant?: 'split' | 'vertical'; headingTag?: 'h2' | '
     md:gap-14;
 }
 
-.intro-grid--vertical {
+.intro-grid-vertical {
   @apply gap-4
     md:grid-cols-1
     md:gap-4;
@@ -65,7 +60,7 @@ withDefaults(defineProps<{ variant?: 'split' | 'vertical'; headingTag?: 'h2' | '
     md:pt-2.5;
 }
 
-.intro-grid--vertical .section-lede {
+.intro-grid-vertical .section-lede {
   @apply md:pt-0;
 }
 </style>

@@ -13,7 +13,7 @@ withDefaults(
 
 <template>
   <div class="radio-group">
-    <p class="group-label">{{ label }}<span v-if="required" class="field-required"> (required)</span></p>
+    <p class="group-label">{{ label }}<BaseFieldIndicator v-if="required"> (required)</BaseFieldIndicator></p>
     <div class="radio-options">
       <div
         v-for="option in options"
@@ -40,25 +40,34 @@ withDefaults(
 @reference "../../assets/css/main.css";
 
 .radio-group {
-  position: relative;
-  min-inline-size: 0;
-  margin: 0;
-  border: 0;
-  padding: calc(.88rem * 1.65 + .5rem) 0 0;
+  @apply relative
+    m-0
+    border-0
+    px-0
+    pt-[calc(.88rem*1.65+.5rem)]
+    pb-0
+    [min-inline-size:0];
 }
 
 .radio-group .group-label {
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  inline-size: 100%;
-  margin: 0;
-  padding: 0;
-  @apply block text-[.88rem] font-bold leading-[1.65] text-ink;
+  @apply absolute
+    start-0
+    m-0
+    block
+    p-0
+    text-[.88rem]
+    leading-[1.65]
+    font-bold
+    text-ink
+    [inline-size:100%]
+    [inset-block-start:0];
 }
 
 .radio-options {
-  @apply grid grid-cols-1 gap-3 sm:grid-cols-2;
+  @apply grid
+    grid-cols-1
+    gap-3
+    sm:grid-cols-2;
 }
 
 .radio-option {
@@ -70,13 +79,30 @@ withDefaults(
 }
 
 .radio-card {
-  @apply flex h-12 cursor-pointer items-center gap-2 rounded-sm border border-deep
-    bg-transparent px-4 py-[.85rem] text-[.88rem] font-normal text-ink;
+  @apply flex
+    h-10
+    cursor-pointer
+    items-center
+    gap-2
+    rounded-sm
+    border
+    border-deep
+    bg-transparent
+    px-3
+    py-1.5
+    text-[.88rem]
+    font-normal
+    text-ink;
 }
 
 .radio-card::before {
-  content: '';
-  @apply size-[1rem] shrink-0 rounded-full border-2 border-deep bg-white;
+  @apply size-[1rem]
+    shrink-0
+    rounded-full
+    border-2
+    border-deep
+    bg-white
+    content-[''];
 }
 
 .radio-input:disabled + .radio-card::before {
@@ -87,22 +113,24 @@ withDefaults(
   @apply bg-mint-light;
 }
 
-.radio-input:checked + .radio-card {
-  box-shadow: inset 0 0 0 1px var(--lr-color-deep);
-}
-
 .radio-input:checked + .radio-card::before {
-  background-image: radial-gradient(circle, var(--lr-color-deep) 0 3px, var(--lr-color-transparent) 3.5px);
+  @apply bg-[radial-gradient(circle,var(--lr-color-deep)_0_3px,var(--lr-color-transparent)_3.5px)];
 }
 
 .radio-input:focus-visible + .radio-card {
-  outline: 3px solid var(--lr-color-deep);
-  outline-offset: 3px;
+  @apply outline-2
+    outline-offset-4
+    outline-brand
+    shadow-md
+    shadow-deep/20;
+}
+
+.radio-input:checked + .radio-card {
+  @apply [box-shadow:inset_0_0_0_1px_var(--lr-color-deep),_var(--tw-shadow,_0_0_var(--lr-color-transparent))];
 }
 
 .radio-group.is-invalid .radio-card {
-  @apply border-error;
-  box-shadow: inset 0 0 0 1px var(--lr-color-error);
+  @apply border-error
+    [box-shadow:inset_0_0_0_1px_var(--lr-color-error),_var(--tw-shadow,_0_0_var(--lr-color-transparent))];
 }
-
 </style>

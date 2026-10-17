@@ -1,5 +1,5 @@
 <template>
-  <div class="section packages-section">
+  <BaseSection class="packages-section">
     <BaseSectionContainer>
       <BaseSectionIntro class="packages-intro">
         <template #eyebrow>Packages</template>
@@ -44,7 +44,7 @@
         </div>
       </div>
     </BaseSectionContainer>
-  </div>
+  </BaseSection>
 </template>
 
 <style scoped>
@@ -63,42 +63,39 @@
 
 .table-title {
   @apply m-0
+    caption-top
+    px-0
+    pt-0
     pb-4
     text-center
     text-lg
-    italic
-    text-white;
-
-  caption-side: top;
-  padding-inline: 0;
-  padding-top: 0;
+    text-white
+    italic;
 }
 
 .table-title-text {
   @apply sticky
     left-0
     block
+    w-[min(100%,100cqw)]
     text-center;
-
-  width: min(100%, 100cqw);
 }
 
 .table-scroll {
-  @apply max-w-full
+  @apply @container
+    max-w-full
     overflow-x-auto
     rounded-md
     focus-visible:outline-2
     focus-visible:outline-offset-4
     focus-visible:outline-mint;
-
-  container-type: inline-size;
 }
 
 .table-scroll-inner {
-  @apply w-full
-    min-w-md
+  @apply m-auto
+    w-full
     max-w-5xl
-    m-auto;
+    min-w-md;
 }
 
 .packages-table {
@@ -112,18 +109,19 @@
 }
 
 .packages-table tbody {
-  clip-path: inset(0 round var(--radius-md));
+  @apply [clip-path:inset(0_round_var(--radius-md))];
 }
 
 .packages-table,
 .table-title {
-  word-break: normal;
-  overflow-wrap: normal;
-  hyphens: manual;
+  @apply break-normal
+    wrap-normal
+    hyphens-manual;
 }
 
 .packages-table tr > :first-child {
-  @apply px-2 max-w-44;
+  @apply max-w-44
+    px-2;
 }
 
 .packages-table td,

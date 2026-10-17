@@ -11,7 +11,7 @@ withDefaults(
 
 <template>
   <div
-    :class="['card', `card--${variant}`]"
+    :class="['card', `card-${variant}`]"
   >
     <slot />
   </div>
@@ -26,7 +26,7 @@ withDefaults(
     shadow-sm;
 }
 
-.card--brand {
+.card-brand {
   @apply rounded-[50%_50%_50%_14%]
     bg-brand
     text-cream

@@ -39,7 +39,7 @@ useHead({
       <PackagesSection id="packages" />
       <FaqSection id="faq" />
       <TestimonialsSection id="testimonials" />
-      <RequestAuditSection id="audit" />
+      <RequestAuditSection id="request-audit" />
     </div>
     <SiteFooter />
   </div>

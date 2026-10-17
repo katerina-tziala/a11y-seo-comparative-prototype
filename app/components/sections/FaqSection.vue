@@ -24,7 +24,7 @@ const faqs = [
 </script>
 
 <template>
-  <div class="section">
+  <BaseSection>
     <BaseSectionContainer class="faq-layout"
       ><div>
         <BaseSectionIntro variant="vertical">
@@ -35,7 +35,7 @@ const faqs = [
         </BaseSectionIntro>
         <div class="button-row">
           <BaseButton
-            href="#audit"
+            href="#request-audit"
             variant="primary"
             >Request an Audit</BaseButton
           >
@@ -43,7 +43,7 @@ const faqs = [
       </div>
       <BaseAccordion :items="faqs" />
     </BaseSectionContainer>
-  </div>
+  </BaseSection>
 </template>
 
 <style scoped>

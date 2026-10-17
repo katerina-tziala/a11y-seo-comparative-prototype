@@ -34,7 +34,7 @@ const benefits = [
 </script>
 
 <template>
-  <div class="section section--cream">
+  <BaseSection class="benefits-section">
     <BaseSectionContainer>
       <BaseSectionIntro
         class="section-heading"
@@ -53,13 +53,13 @@ const benefits = [
         />
       </div>
     </BaseSectionContainer>
-  </div>
+  </BaseSection>
 </template>
 
 <style scoped>
 @reference "../../../assets/css/main.css";
 
-.section--cream {
+.benefits-section {
   @apply bg-cream;
 }
 

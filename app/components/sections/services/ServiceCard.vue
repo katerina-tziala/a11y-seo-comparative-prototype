@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Component } from 'vue'
+import CheckIcon from '../../icons/CheckIcon.vue'
 
 defineProps<{
   icon: Component
@@ -25,6 +26,7 @@ defineProps<{
         :key="item"
         class="feature-item"
       >
+        <CheckIcon class="feature-icon" />
         {{ item }}
       </div>
     </div>
@@ -57,12 +59,12 @@ defineProps<{
 
 .card-top .card-title {
   @apply m-0
-    font-heading
-    leading-[1.12]
-    tracking-[-.035em]
-    [font-weight:inherit]
     text-left
+    font-heading
     text-[1.4rem]
+    leading-[1.12]
+    [font-weight:inherit]
+    tracking-[-.035em]
     text-brand;
 }
 
@@ -107,15 +109,18 @@ defineProps<{
     text-ink-soft;
 }
 
-.service-card .feature-item::before {
+.feature-icon {
   @apply mr-2.5
-    text-brand
-    content-['✓'];
+    inline-block
+    size-[1em]
+    align-middle
+    text-brand;
 }
 
 .card-link {
   @apply mt-auto
     self-start
+    rounded-xs
     text-deep
     underline
     decoration-transparent

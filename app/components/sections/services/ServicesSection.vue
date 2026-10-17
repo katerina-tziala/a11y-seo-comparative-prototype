@@ -34,7 +34,7 @@ const services = [
 </script>
 
 <template>
-  <div class="section section--tint">
+  <BaseSection class="services-section">
     <BaseSectionContainer>
       <BaseSectionIntro class="section-heading">
         <template #eyebrow>One connected approach</template>
@@ -50,13 +50,13 @@ const services = [
         />
       </div>
     </BaseSectionContainer>
-  </div>
+  </BaseSection>
 </template>
 
 <style scoped>
 @reference "../../../assets/css/main.css";
 
-.section--tint {
+.services-section {
   @apply bg-services-bg;
 }
 

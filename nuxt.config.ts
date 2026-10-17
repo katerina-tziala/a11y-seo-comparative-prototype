@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs'
 
 const repositoryName = 'a11y-seo-comparative-prototype'
 const baseURL = process.env.NUXT_APP_BASE_URL || '/'
-const themeCss = readFileSync(new URL('./app/assets/css/main.css', import.meta.url), 'utf8')
+const themeCss = readFileSync(new URL('./app/assets/css/tokens.css', import.meta.url), 'utf8')
 const themeColor = themeCss.match(/--lr-color-deep:\s*([^;]+);/)![1]!.trim()
 
 export default defineNuxtConfig({

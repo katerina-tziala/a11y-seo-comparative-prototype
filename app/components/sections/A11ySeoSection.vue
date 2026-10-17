@@ -24,7 +24,7 @@ const features = [
 </script>
 
 <template>
-  <div class="section section--dark">
+  <BaseSection class="a11y-seo-section">
     <BaseSectionContainer class="split-grid">
       <div class="relationship-art">
         <img
@@ -56,18 +56,18 @@ const features = [
         </div>
       </div>
     </BaseSectionContainer>
-  </div>
+  </BaseSection>
 </template>
 
 <style scoped>
 @reference "../../assets/css/main.css";
 
-.section--dark {
+.a11y-seo-section {
   @apply bg-deep
     text-white;
 }
 
-.section--dark p {
+.a11y-seo-section p {
   @apply text-approach-copy;
 }
 

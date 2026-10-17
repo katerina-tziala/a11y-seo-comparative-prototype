@@ -1,0 +1,74 @@
+*,
+*::before,
+*::after {
+  @apply box-border
+    motion-reduce:duration-[.01ms]!;
+}
+
+html {
+  @apply scroll-smooth
+    motion-reduce:scroll-auto;
+}
+
+body {
+  @apply m-0
+    bg-cream
+    font-body
+    leading-[1.65]
+    text-ink;
+}
+
+body,
+button,
+input,
+textarea {
+  @apply [font:inherit];
+}
+
+img {
+  @apply block
+    h-auto
+    max-w-full;
+}
+
+a {
+  @apply text-inherit
+    transition-colors
+    duration-200;
+}
+
+h1,
+h2,
+h3,
+p {
+  @apply mt-0;
+}
+
+h1,
+h2,
+h3 {
+  @apply font-heading
+    leading-[1.12]
+    tracking-[-.035em];
+}
+
+h1 {
+  @apply mb-6
+    max-w-[780px]
+    text-[clamp(2.7rem,14vw,4rem)]
+    sm:text-[clamp(3rem,7vw,5.5rem)];
+}
+
+h2 {
+  @apply mb-6
+    text-[clamp(2.15rem,4vw,3.4rem)];
+}
+
+h3 {
+  @apply mb-3
+    text-[1.28rem];
+}
+
+p {
+  @apply text-ink-soft;
+}

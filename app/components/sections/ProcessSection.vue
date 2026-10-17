@@ -27,7 +27,7 @@ const renderedSteps = [steps[2]!, steps[0]!, steps[3]!, steps[1]!]
 </script>
 
 <template>
-  <div class="section section--sand">
+  <BaseSection class="process-section">
     <BaseSectionContainer>
       <BaseSectionIntro
         class="process-intro"
@@ -42,7 +42,7 @@ const renderedSteps = [steps[2]!, steps[0]!, steps[3]!, steps[1]!]
           v-for="step in renderedSteps"
           :key="step.number"
           class="process-step"
-          :class="{ 'process-step--last': step.number === '04' }"
+          :class="{ 'process-step-last': step.number === '04' }"
           :style="{ order: Number(step.number) }"
         >
           <span>{{ step.number }}</span>
@@ -51,13 +51,13 @@ const renderedSteps = [steps[2]!, steps[0]!, steps[3]!, steps[1]!]
         </div>
       </div>
     </BaseSectionContainer>
-  </div>
+  </BaseSection>
 </template>
 
 <style scoped>
 @reference "../../assets/css/main.css";
 
-.section--sand {
+.process-section {
   @apply bg-sand;
 }
 
@@ -93,7 +93,7 @@ const renderedSteps = [steps[2]!, steps[0]!, steps[3]!, steps[1]!]
     sm:text-center;
 }
 
-.process-step:not(.process-step--last)::after {
+.process-step:not(.process-step-last)::after {
   @apply absolute
     top-14
     left-6

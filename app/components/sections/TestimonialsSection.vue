@@ -1,5 +1,9 @@
+<script setup lang="ts">
+import StarIcon from '../icons/StarIcon.vue'
+</script>
+
 <template>
-  <div class="section testimonials-section">
+  <BaseSection class="testimonials-section">
     <BaseSectionContainer>
       <BaseSectionIntro
         class="testimonials-intro"
@@ -12,7 +16,15 @@
       <div class="testimonial-grid">
         <figure class="testimonial">
           <div class="testimonial-rating">
-            <span aria-hidden="true">★★★★★</span><span class="sr-only">Rated 5 out of 5</span>
+            <span
+              class="testimonial-stars"
+              aria-hidden="true"
+            >
+              <StarIcon
+                v-for="star in 5"
+                :key="star"
+              /> </span
+            ><span class="sr-only">Rated 5 out of 5</span>
           </div>
           <blockquote>
             <p>
@@ -27,7 +39,15 @@
         </figure>
         <figure class="testimonial">
           <div class="testimonial-rating">
-            <span aria-hidden="true">★★★★★</span><span class="sr-only">Rated 5 out of 5</span>
+            <span
+              class="testimonial-stars"
+              aria-hidden="true"
+            >
+              <StarIcon
+                v-for="star in 5"
+                :key="star"
+              /> </span
+            ><span class="sr-only">Rated 5 out of 5</span>
           </div>
           <blockquote>
             <p>
@@ -46,7 +66,16 @@
         </figure>
         <figure class="testimonial">
           <div class="testimonial-rating">
-            <span aria-hidden="true">★★★★☆</span><span class="sr-only">Rated 4 out of 5</span>
+            <span
+              class="testimonial-stars"
+              aria-hidden="true"
+            >
+              <StarIcon
+                v-for="star in 5"
+                :key="star"
+                :filled="star <= 4"
+              /> </span
+            ><span class="sr-only">Rated 4 out of 5</span>
           </div>
           <blockquote>
             <p>
@@ -61,7 +90,7 @@
         </figure>
       </div>
     </BaseSectionContainer>
-  </div>
+  </BaseSection>
 </template>
 
 <style scoped>
@@ -102,8 +131,13 @@
 
 .testimonial-rating {
   @apply text-lg
-    tracking-widest
     text-brand;
+}
+
+.testimonial-stars {
+  @apply inline-flex
+    gap-[.1em]
+    align-middle;
 }
 
 .testimonial blockquote,

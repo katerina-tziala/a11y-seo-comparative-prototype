@@ -66,14 +66,14 @@ onBeforeUnmount(() => {
 @reference "../../assets/css/main.css";
 
 .field-message {
-  display: grid;
-  grid-template-columns: 1rem minmax(0, 1fr);
-  column-gap: .25rem;
-  margin: 0;
-  overflow: hidden;
-  font-size: .8rem;
-  font-weight: 400;
-  line-height: 1.5;
+  @apply m-0
+    grid
+    grid-cols-[1rem_minmax(0,1fr)]
+    gap-x-1
+    overflow-hidden
+    text-[.8rem]
+    leading-normal
+    font-normal;
 }
 
 .field-message:not(.is-error) {
@@ -85,15 +85,15 @@ onBeforeUnmount(() => {
 }
 
 .message-text {
-  grid-row: 1;
-  grid-column: 2;
+  @apply col-start-2
+    row-start-1;
 }
 
 .message-icon {
-  width: 1rem;
-  height: 1rem;
-  grid-row: 1;
-  grid-column: 1;
-  margin-top: .1rem;
+  @apply col-start-1
+    row-start-1
+    mt-[.1rem]
+    h-4
+    w-4;
 }
 </style>

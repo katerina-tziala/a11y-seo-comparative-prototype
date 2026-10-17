@@ -21,10 +21,10 @@ async function editRequest() {
 </script>
 
 <template>
-  <div class="section section--audit">
+  <BaseSection class="request-audit-section">
     <BaseSectionContainer class="audit-grid">
       <div>
-        <p class="eyebrow eyebrow--mint">Start with clarity</p>
+        <BaseEyebrow class="eyebrow-mint">Start with clarity</BaseEyebrow>
         <h2>Request an Audit</h2>
         <p>Tell us a little about your website and the challenge(s) you’re trying to solve.</p>
         <div class="privacy-note">
@@ -37,7 +37,7 @@ async function editRequest() {
       </div>
       <BaseCard
         class="audit-card"
-        :class="{ 'audit-card--submitted': submitted }"
+        :class="{ 'audit-card-submitted': submitted }"
       >
         <RequestAuditForm
           ref="form"
@@ -51,18 +51,18 @@ async function editRequest() {
         />
       </BaseCard>
     </BaseSectionContainer>
-  </div>
+  </BaseSection>
 </template>
 
 <style scoped>
 @reference "../../../assets/css/main.css";
 
-.section--audit {
+.request-audit-section {
   @apply bg-[linear-gradient(135deg,var(--color-audit-start),var(--color-audit-end))]
     text-white;
 }
 
-.section--audit p {
+.request-audit-section p {
   @apply text-audit-copy;
 }
 
@@ -106,12 +106,11 @@ async function editRequest() {
   @apply relative;
 }
 
-.audit-card.audit-card--submitted {
+.audit-card.audit-card-submitted {
   @apply bg-surface/60;
 }
 
-.audit-card--submitted .audit-form {
-  opacity: .6;
+.audit-card-submitted .audit-form {
+  @apply opacity-60;
 }
-
 </style>

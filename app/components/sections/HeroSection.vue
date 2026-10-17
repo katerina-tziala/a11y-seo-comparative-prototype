@@ -7,17 +7,17 @@ function goToServices() {
 </script>
 
 <template>
-  <div class="hero section">
+  <BaseSection class="hero">
     <BaseSectionContainer class="hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Accessibility, design &amp; technical SEO</p>
+        <BaseEyebrow>Accessibility, design &amp; technical SEO</BaseEyebrow>
         <h1>Accessible, <span class="nowrap">Search-Ready</span> Websites</h1>
         <p class="hero-lede">
           We combine inclusive design, clear content structure and technical precision to create
           websites that are easier for people to use and easier for search engines to understand.
         </p>
         <div class="button-row">
-          <BaseButton href="#audit">Request an Audit</BaseButton>
+          <BaseButton href="#request-audit">Request an Audit</BaseButton>
           <span role="link" tabindex="0" class="button button-secondary" @click="goToServices">Explore Our Services</span>
         </div>
       </div>
@@ -37,7 +37,7 @@ function goToServices() {
         </div>
       </div>
     </BaseSectionContainer>
-  </div>
+  </BaseSection>
 </template>
 
 <style scoped>
@@ -69,7 +69,7 @@ function goToServices() {
   @apply mt-8
     flex
     flex-wrap
-    gap-4;
+    gap-8;
 }
 
 .hero-note {

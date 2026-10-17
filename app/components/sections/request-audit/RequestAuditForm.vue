@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ArrowRightIcon from '../../icons/ArrowRightIcon.vue'
 import {
   validateEmail,
   validateName,
@@ -22,8 +23,18 @@ const emailInput = ref<HTMLInputElement | null>(null)
 const websiteInput = ref<HTMLInputElement | null>(null)
 const selectedConcern = ref('')
 type RequiredField = 'name' | 'email' | 'website' | 'concern'
-const errorKeys = reactive<Record<RequiredField, ValidationErrorKey | null>>({ name: null, email: null, website: null, concern: null })
-const hasBeenValidated = reactive<Record<RequiredField, boolean>>({ name: false, email: false, website: false, concern: false })
+const errorKeys = reactive<Record<RequiredField, ValidationErrorKey | null>>({
+  name: null,
+  email: null,
+  website: null,
+  concern: null,
+})
+const hasBeenValidated = reactive<Record<RequiredField, boolean>>({
+  name: false,
+  email: false,
+  website: false,
+  concern: false,
+})
 const hints = {
   name: 'Enter a name',
   email: 'Enter an email address (name@example.com)',
@@ -31,7 +42,7 @@ const hints = {
   concern: 'Select one option',
 }
 const errorMessages: Record<RequiredField, Partial<Record<ValidationErrorKey, string>>> = {
- name: {
+  name: {
     required: 'A name is required',
     contains_numbers: 'A name cannot contain numbers',
     invalid_length: 'Enter at least 2 characters',
@@ -66,7 +77,7 @@ function validateField(field: RequiredField) {
 
 function getErrorMessage(field: RequiredField) {
   const errorKey = errorKeys[field]
-  return errorKey ? errorMessages[field][errorKey] ?? '' : ''
+  return errorKey ? (errorMessages[field][errorKey] ?? '') : ''
 }
 
 function revalidateField(field: RequiredField) {
@@ -85,13 +96,17 @@ function leaveConcern(event: FocusEvent) {
 
 function submitForm(event: Event) {
   const fields: RequiredField[] = ['name', 'email', 'website', 'concern']
-  const invalid = fields.filter(field => validateField(field) !== null)
+  const invalid = fields.filter((field) => validateField(field) !== null)
   if (invalid.length) {
     const first = invalid[0]
-    const input = first === 'name' ? nameInput.value
-      : first === 'email' ? emailInput.value
-        : first === 'website' ? websiteInput.value
-          : (event.target as HTMLFormElement).querySelector<HTMLInputElement>('.radio-input')
+    const input =
+      first === 'name'
+        ? nameInput.value
+        : first === 'email'
+          ? emailInput.value
+          : first === 'website'
+            ? websiteInput.value
+            : (event.target as HTMLFormElement).querySelector<HTMLInputElement>('.radio-input')
     input?.focus()
     return
   }
@@ -106,10 +121,16 @@ defineExpose({ focusName })
 </script>
 
 <template>
-  <form class="audit-form" novalidate @submit.prevent="submitForm">
+  <form
+    class="audit-form"
+    novalidate
+    @submit.prevent="submitForm"
+  >
     <div class="form-row">
       <div class="field">
-        <span class="field-label">Name <span class="field-required" aria-hidden="true">(required)</span></span>
+        <span class="field-label"
+          >Name<BaseFieldIndicator aria-hidden="true">(required)</BaseFieldIndicator></span
+        >
         <input
           id="audit-name"
           ref="nameInput"
@@ -121,10 +142,16 @@ defineExpose({ focusName })
           @blur="validateField('name')"
           @input="revalidateField('name')"
         />
-        <BaseFieldMessage id="audit-name-message" :hint="hints.name" :error="getErrorMessage('name')" />
+        <BaseFieldMessage
+          id="audit-name-message"
+          :hint="hints.name"
+          :error="getErrorMessage('name')"
+        />
       </div>
       <div class="field">
-        <span class="field-label">Email <span class="field-required" aria-hidden="true">(required)</span></span>
+        <span class="field-label"
+          >Email<BaseFieldIndicator aria-hidden="true">(required)</BaseFieldIndicator></span
+        >
         <input
           id="audit-email"
           ref="emailInput"
@@ -136,11 +163,17 @@ defineExpose({ focusName })
           @blur="validateField('email')"
           @input="revalidateField('email')"
         />
-        <BaseFieldMessage id="audit-email-message" :hint="hints.email" :error="getErrorMessage('email')" />
+        <BaseFieldMessage
+          id="audit-email-message"
+          :hint="hints.email"
+          :error="getErrorMessage('email')"
+        />
       </div>
     </div>
     <div class="field">
-      <span class="field-label">Website URL <span class="field-required" aria-hidden="true">(required)</span></span>
+      <span class="field-label"
+        >Website URL<BaseFieldIndicator aria-hidden="true">(required)</BaseFieldIndicator></span
+      >
       <input
         id="audit-website"
         ref="websiteInput"
@@ -152,7 +185,11 @@ defineExpose({ focusName })
         @blur="validateField('website')"
         @input="revalidateField('website')"
       />
-      <BaseFieldMessage id="audit-website-message" :hint="hints.website" :error="getErrorMessage('website')" />
+      <BaseFieldMessage
+        id="audit-website-message"
+        :hint="hints.website"
+        :error="getErrorMessage('website')"
+      />
     </div>
     <BaseRadioGroup
       label="Main concern"
@@ -164,10 +201,18 @@ defineExpose({ focusName })
       @focusout="leaveConcern"
       @change="changeConcern"
     >
-      <BaseFieldMessage id="concern-message" :hint="hints.concern" :error="getErrorMessage('concern')" />
+      <BaseFieldMessage
+        id="concern-message"
+        :hint="hints.concern"
+        :error="getErrorMessage('concern')"
+      />
     </BaseRadioGroup>
     <div class="field">
-      <label class="field-label" for="audit-details">Message <span class="field-optional">(optional)</span></label>
+      <label
+        class="field-label"
+        for="audit-details"
+        >Message<BaseFieldIndicator variant="optional">(optional)</BaseFieldIndicator></label
+      >
       <textarea
         id="audit-details"
         name="details"
@@ -175,9 +220,18 @@ defineExpose({ focusName })
         :disabled="disabled"
         aria-describedby="audit-details-hint"
       />
-      <BaseFieldMessage class="field-hint" id="audit-details-hint" hint="For example, specific pages, goals or deadlines" />
+      <BaseFieldMessage
+        class="field-hint"
+        id="audit-details-hint"
+        hint="For example, specific pages, goals or deadlines"
+      />
     </div>
-    <BaseButton type="submit" aria-label="Send form" :disabled="disabled">Request an Audit <span aria-hidden="true">→</span></BaseButton>
+    <BaseButton
+      type="submit"
+      aria-label="Send form"
+      :disabled="disabled"
+      >Submit request<ArrowRightIcon /></BaseButton
+    >
   </form>
 </template>
 
@@ -187,9 +241,9 @@ defineExpose({ focusName })
 .audit-form {
   @apply grid
     gap-6
+    rounded-[inherit]
     p-6
     sm:p-8;
-  border-radius: inherit;
 }
 
 .form-row {
@@ -206,7 +260,7 @@ defineExpose({ focusName })
 }
 
 .audit-form .field-label {
-  margin-bottom: .25rem;
+  @apply mb-1;
 }
 
 .audit-form .field,
@@ -226,19 +280,22 @@ defineExpose({ focusName })
     px-4
     py-[.85rem]
     font-normal
-    text-ink
-    outline-none;
+    text-ink;
 }
 
 .audit-form input:not(.radio-input) {
-  @apply h-12;
+  @apply h-10
+    px-3
+    py-1.5;
 }
 
-.audit-form input:not(.radio-input):focus,
-.audit-form textarea:focus {
-  @apply border-deep
-    ring-3
-    ring-deep/20;
+.audit-form input:not(.radio-input):focus-visible,
+.audit-form textarea:focus-visible {
+  @apply outline-2
+    outline-offset-4
+    outline-brand
+    shadow-md
+    shadow-deep/20;
 }
 
 .audit-form .button {
@@ -246,8 +303,8 @@ defineExpose({ focusName })
 }
 
 .audit-form input.is-invalid {
-  @apply border-error;
-  box-shadow: inset 0 0 0 1px var(--lr-color-error), var(--tw-ring-shadow, 0 0 var(--lr-color-transparent));
+  @apply border-error
+    [box-shadow:inset_0_0_0_1px_var(--lr-color-error),_var(--tw-shadow,_0_0_var(--lr-color-transparent))];
 }
 
 .audit-form input.is-invalid:focus {
@@ -255,22 +312,21 @@ defineExpose({ focusName })
 }
 
 .audit-form :is(input:not(.radio-input), textarea):is(:autofill, :-webkit-autofill) {
-  -webkit-text-fill-color: var(--lr-color-ink);
-  caret-color: var(--lr-color-ink);
-  background-clip: text;
-  -webkit-background-clip: text;
+  @apply bg-clip-text
+    caret-ink
+    [-webkit-background-clip:text]
+    [-webkit-text-fill-color:var(--lr-color-ink)];
 }
 
 .audit-form .field-hint {
-  margin: 0;
-  @apply text-muted;
-  font-size: .8rem;
-  font-weight: 400;
-  line-height: 1.5;
+  @apply m-0
+    text-[.8rem]
+    leading-normal
+    font-normal
+    text-muted;
 }
 
 .radio-group :deep(.field-message) {
-  margin-top: .25rem;
+  @apply mt-1;
 }
-
 </style>

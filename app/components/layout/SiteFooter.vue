@@ -8,9 +8,9 @@ const baseURL = useRuntimeConfig().app.baseURL
   <footer class="site-footer">
     <BaseSectionContainer>
       <div class="footer-grid">
-        <div class="footer-column--brand">
+        <div class="footer-column-brand">
           <a
-            class="brand brand--light"
+            class="brand brand-light"
             href="#top"
           >
             <LogoIcon class="footer-logo" aria-hidden="true" />
@@ -18,16 +18,16 @@ const baseURL = useRuntimeConfig().app.baseURL
           </a>
           <p>Clearer websites. Wider reach.</p>
         </div>
-        <div class="footer-column--contact">
+        <div class="footer-column-contact">
           <p class="footer-label">Contact</p>
-          <a href="#audit">Request an Audit</a>
+          <a href="#request-audit">Request an Audit</a>
           <div class="social-links">
             <a href="https://www.example.com/lucidreach/linkedin" class="social-link"><img :src="`${baseURL}images/social/linkedin.png`" alt="" width="32" height="32"></a>
             <a href="https://www.example.com/lucidreach/instagram" class="social-link"><img :src="`${baseURL}images/social/instagram.png`" alt="" width="32" height="32"></a>
             <a href="https://www.example.com/lucidreach/youtube" class="social-link"><img :src="`${baseURL}images/social/youtube.png`" alt="" width="32" height="32" class="social-image-youtube"></a>
           </div>
         </div>
-        <div class="footer-column--explore">
+        <div class="footer-column-explore">
           <p class="footer-label">Explore</p>
           <a
             v-for="link in primaryNavigationLinks"
@@ -61,13 +61,16 @@ const baseURL = useRuntimeConfig().app.baseURL
 }
 
 .site-footer a {
-  @apply transition-colors
+  @apply rounded-xs
+    transition-colors
     duration-200
     focus-visible:outline-2
     focus-visible:outline-offset-4
     focus-visible:outline-mint;
 }
 
+/* Preserve the specificity of the existing footer link rules. */
+/* stylelint-disable-next-line selector-not-notation */
 .footer-grid a:not(.brand):not(.social-link) {
   @apply underline
     decoration-transparent
@@ -77,16 +80,32 @@ const baseURL = useRuntimeConfig().app.baseURL
 }
 
 .social-links {
-  @apply flex items-center gap-0;
-  margin-inline-start: calc((2rem * 840 / 779 - 4rem) / 2);
+  @apply ms-[calc((2rem*840/779-4rem)/2)]
+    flex
+    items-center
+    gap-0;
 }
 
 .social-links .social-link {
-  @apply inline-flex size-16 shrink-0 items-center justify-center rounded-full no-underline transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 motion-reduce:hover:translate-y-0;
+  @apply inline-flex
+    size-16
+    shrink-0
+    items-center
+    justify-center
+    rounded-[8px]
+    no-underline
+    transition
+    duration-200
+    focus-visible:-outline-offset-2
+    hover:-translate-y-0.5
+    hover:bg-white/10
+    motion-reduce:hover:translate-y-0;
 }
 
 .social-link img {
-  @apply h-8 w-auto shrink-0;
+  @apply h-8
+    w-auto
+    shrink-0;
 }
 
 .social-link:last-child {
@@ -94,24 +113,26 @@ const baseURL = useRuntimeConfig().app.baseURL
 }
 
 .social-link .social-image-youtube {
-  @apply h-[calc(2rem*1075/579)] w-auto max-w-none;
+  @apply h-[calc(2rem*1075/579)]
+    w-auto
+    max-w-none;
 }
 
 @media (forced-colors: active) {
   .social-links .social-link,
   .social-links .social-link:hover {
-    forced-color-adjust: none;
-    background-color: var(--color-footer-bg);
+    @apply bg-footer-bg
+      forced-color-adjust-none;
   }
 }
 
 .footer-bottom a {
-  color: inherit;
-  text-decoration-line: underline;
-  text-decoration-thickness: 1px;
-  text-decoration-color: currentColor;
-  text-underline-offset: 4px;
-  @apply hover:text-white
+  @apply text-inherit
+    underline
+    decoration-current
+    decoration-1
+    underline-offset-4
+    hover:text-white
     hover:decoration-white;
 }
 
@@ -119,37 +140,43 @@ const baseURL = useRuntimeConfig().app.baseURL
   @apply inline-flex
     items-center
     gap-2.5
+    rounded-xs
     font-heading
     font-bold
     no-underline;
 }
 
-.brand--light {
-  @apply text-mint!;
-  --brand-mark-bg: var(--color-mint);
-  --brand-mark-l: var(--color-deep);
-  --brand-mark-r: var(--color-deep);
+.brand-light {
+  @apply text-mint!
+    [--brand-mark-bg:var(--color-mint)]
+    [--brand-mark-l:var(--color-deep)]
+    [--brand-mark-r:var(--color-deep)];
 }
 
 .footer-logo {
-  @apply size-9 shrink-0;
+  @apply size-9
+    shrink-0;
 }
 
-.brand--light .brand-accent {
+.brand-light .brand-accent {
   @apply text-white;
 }
 
-.brand--light > span {
-  @apply underline decoration-transparent underline-offset-4 transition-colors duration-200;
+.brand-light > span {
+  @apply underline
+    decoration-transparent
+    underline-offset-4
+    transition-colors
+    duration-200;
 }
 
-.brand--light:hover > span {
+.brand-light:hover > span {
   @apply decoration-current;
 }
 
-.brand--light:hover {
-  @apply text-white!;
-  --brand-mark-bg: var(--color-white);
+.brand-light:hover {
+  @apply text-white!
+    [--brand-mark-bg:var(--color-white)];
 }
 
 .footer-grid {
@@ -167,16 +194,16 @@ const baseURL = useRuntimeConfig().app.baseURL
     gap-2;
 }
 
-.footer-column--brand {
-  order: 1;
+.footer-column-brand {
+  @apply order-1;
 }
 
-.footer-column--explore {
-  order: 2;
+.footer-column-explore {
+  @apply order-2;
 }
 
-.footer-column--contact {
-  order: 3;
+.footer-column-contact {
+  @apply order-3;
 }
 
 .footer-grid p {
