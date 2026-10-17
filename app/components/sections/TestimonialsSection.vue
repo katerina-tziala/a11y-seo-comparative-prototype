@@ -1,7 +1,10 @@
 <template>
   <div class="section testimonials-section">
     <BaseSectionContainer>
-      <BaseSectionIntro class="testimonials-intro">
+      <BaseSectionIntro
+        class="testimonials-intro"
+        variant="vertical"
+      >
         <template #eyebrow>Testimonials</template>
         <template #heading>What our clients say</template>
         Teams use our audits to make their websites clearer, more usable and easier to find.
@@ -69,7 +72,14 @@
 }
 
 .testimonials-intro {
-  @apply mb-12;
+  @apply mx-auto
+    mb-12
+    max-w-[720px]
+    text-center;
+}
+
+.testimonials-intro :deep(.intro-grid) {
+  @apply text-center;
 }
 
 .testimonial-grid {

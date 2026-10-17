@@ -51,20 +51,23 @@
 @reference "../../assets/css/main.css";
 
 .packages-section {
-  @apply bg-services-bg;
+  @apply bg-green;
 }
 
 .packages-intro {
-  @apply mb-12;
+  @apply mb-12
+    [--section-intro-eyebrow-color:var(--color-white)]
+    [--section-intro-heading-color:var(--color-white)]
+    [--section-intro-lede-color:var(--color-cream)];
 }
 
 .table-title {
   @apply m-0
     pb-4
-    text-left
+    text-center
     text-lg
-    font-semibold
-    text-ink;
+    italic
+    text-white;
 
   caption-side: top;
   padding-inline: 0;
@@ -74,7 +77,10 @@
 .table-title-text {
   @apply sticky
     left-0
-    inline-block;
+    block
+    text-center;
+
+  width: min(100%, 100cqw);
 }
 
 .table-scroll {
@@ -83,22 +89,30 @@
     rounded-md
     focus-visible:outline-2
     focus-visible:outline-offset-4
-    focus-visible:outline-brand;
+    focus-visible:outline-mint;
+
+  container-type: inline-size;
 }
 
 .table-scroll-inner {
   @apply w-full
-    min-w-[480px];
+    min-w-md
+    max-w-5xl
+    m-auto;
 }
 
 .packages-table {
   @apply w-full
     table-fixed
     border-collapse
-    bg-surface
+    border-hidden
     text-sm
     text-ink-soft
     sm:text-base;
+}
+
+.packages-table tbody {
+  clip-path: inset(0 round var(--radius-md));
 }
 
 .packages-table,
@@ -109,16 +123,16 @@
 }
 
 .packages-table tr > :first-child {
-  width: 28%;
+  @apply px-2 max-w-44;
 }
 
 .packages-table td,
 .packages-table th {
-  @apply border
-    border-line
+  @apply border-0
+    bg-surface
     p-2
-    text-left
-    align-top
+    text-center
+    align-middle
     font-normal
     sm:p-6;
 }
@@ -126,9 +140,18 @@
 .packages-table .table-head {
   @apply bg-mint-light
     p-2
-    text-left
+    text-center
     font-semibold
     text-deep
     sm:p-6;
+}
+
+.packages-table tr:first-child > :first-child {
+  @apply bg-green;
+}
+
+.packages-table tr:first-child > :nth-child(2),
+.packages-table tr:nth-child(2) > :first-child {
+  @apply rounded-tl-md;
 }
 </style>
