@@ -38,7 +38,7 @@ const services = [
     <BaseSectionContainer>
       <BaseSectionIntro class="section-heading">
         <template #eyebrow>One connected approach</template>
-        <template #heading>Services that strengthen the whole experience</template>
+        <template #heading><h2 class="section-title">Services that strengthen the whole experience</h2></template>
         Design, accessibility, content and technical SEO work best when they work together. We help
         you identify friction, set priorities and build a focused path forward.
       </BaseSectionIntro>

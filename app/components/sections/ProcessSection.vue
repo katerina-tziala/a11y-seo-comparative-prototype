@@ -34,7 +34,7 @@ const renderedSteps = [steps[2]!, steps[0]!, steps[3]!, steps[1]!]
         variant="vertical"
       >
         <template #eyebrow>How we work</template>
-        <template #heading>A straightforward path from insight to action</template>
+        <template #heading><h2 class="section-title">A straightforward path from insight to action</h2></template>
         Collaborative, focused and shaped around the reality of your team.
       </BaseSectionIntro>
       <div class="process-grid">

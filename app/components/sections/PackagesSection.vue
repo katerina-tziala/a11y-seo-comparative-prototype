@@ -3,7 +3,7 @@
     <BaseSectionContainer>
       <BaseSectionIntro class="packages-intro">
         <template #eyebrow>Packages</template>
-        <template #heading>Choose the audit that fits your needs</template>
+        <template #heading><h2 class="section-title">Choose the audit that fits your needs</h2></template>
         Each package combines accessibility and technical SEO checks, from a focused review of key
         pages to a full audit with implementation support.
       </BaseSectionIntro>

@@ -29,7 +29,7 @@ const faqs = [
       ><div>
         <BaseSectionIntro variant="vertical">
           <template #eyebrow>Frequently asked questions</template>
-          <template #heading>Useful answers before we begin</template>
+          <template #heading><h2 class="section-title">Useful answers before we begin</h2></template>
           Still have a question? Include it in your audit request and we’ll use it to shape the
           conversation.
         </BaseSectionIntro>

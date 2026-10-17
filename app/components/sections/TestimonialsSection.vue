@@ -10,7 +10,7 @@ import StarIcon from '../icons/StarIcon.vue'
         variant="vertical"
       >
         <template #eyebrow>Testimonials</template>
-        <template #heading>What our clients say</template>
+        <template #heading><h2 class="section-title">What our clients say</h2></template>
         Teams use our audits to make their websites clearer, more usable and easier to find.
       </BaseSectionIntro>
       <div class="testimonial-grid">
