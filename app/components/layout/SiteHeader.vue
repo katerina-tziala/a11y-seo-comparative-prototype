@@ -30,8 +30,8 @@ onBeforeUnmount(() => {
       >
         <img
           :src="`${baseURL}images/logo.svg`"
-          width="208"
-          height="40"
+          width="207"
+          height="36"
         />
       </a>
       <BaseToggleMenu>
@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
 }
 
 .brand img {
-  @apply h-10
+  @apply h-9
     w-auto;
 }
 
@@ -140,7 +140,7 @@ onBeforeUnmount(() => {
     decoration-transparent
     underline-offset-4
     hover:bg-mint-light
-    hover:text-brand
+    hover:[color:var(--lr-color-logo-bg)]
     focus-visible:outline-2
     focus-visible:outline-offset-0
     focus-visible:outline-brand

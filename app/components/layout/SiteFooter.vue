@@ -142,8 +142,10 @@ const baseURL = useRuntimeConfig().app.baseURL
     gap-2.5
     rounded-xs
     font-heading
-    font-bold
-    no-underline;
+    text-[18px]
+    font-semibold
+    no-underline
+    tracking-wide;
 }
 
 .brand-light {
@@ -224,7 +226,7 @@ const baseURL = useRuntimeConfig().app.baseURL
     border-t
     border-white/10
     pt-6
-    text-[.8rem]
+    text-xs
     text-footer-muted
     sm:flex-row
     sm:justify-between;

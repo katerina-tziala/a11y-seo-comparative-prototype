@@ -69,16 +69,15 @@
 }
 
 .button-icon {
-  @apply size-11
-    min-h-11
+  @apply size-10.5
     border-transparent
     bg-transparent
     p-2
     text-2xl
-    text-ink;
+    [color:var(--lr-color-logo-bg)];
 }
 
 .button-icon:hover {
   @apply translate-y-0
-    bg-mint-light;
+    bg-mint;
 }
