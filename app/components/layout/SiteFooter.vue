@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { primaryNavigationLinks } from '../../data/navigation'
-
 const baseURL = useRuntimeConfig().app.baseURL
 </script>
 
@@ -30,7 +28,7 @@ const baseURL = useRuntimeConfig().app.baseURL
         <div class="footer-column-explore">
           <p class="footer-label">Explore</p>
           <a
-            v-for="link in primaryNavigationLinks"
+            v-for="link in navigationLinks"
             :key="link.href"
             :href="link.href"
             >{{ link.label }}</a

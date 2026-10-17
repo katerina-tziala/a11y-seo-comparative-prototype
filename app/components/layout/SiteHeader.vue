@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import MenuIcon from '../icons/MenuIcon.vue'
-import { primaryNavigationLinks } from '../../data/navigation'
 
 const baseURL = useRuntimeConfig().app.baseURL
 const showMenuToggle = ref(false)
@@ -53,7 +52,7 @@ onBeforeUnmount(() => {
             :class="{ 'nav-open': open }"
           >
             <a
-              v-for="link in primaryNavigationLinks"
+              v-for="link in navigationLinks"
               :key="link.href"
               :href="link.href"
               @click="close()"

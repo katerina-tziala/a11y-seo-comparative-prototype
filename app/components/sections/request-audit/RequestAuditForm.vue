@@ -1,12 +1,5 @@
 <script setup lang="ts">
 import ArrowRightIcon from '../../icons/ArrowRightIcon.vue'
-import {
-  validateEmail,
-  validateName,
-  validateRequiredSelection,
-  validateWebsiteUrl,
-  type ValidationErrorKey,
-} from '../../../utils/form-validators'
 
 withDefaults(defineProps<{ disabled?: boolean }>(), { disabled: false })
 const emit = defineEmits<{ 'valid-submit': [] }>()

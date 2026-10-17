@@ -1,4 +1,4 @@
-export const primaryNavigationLinks = [
+export const navigationLinks = [
   { label: 'Services', href: '#services' },
   { label: 'Why it works', href: '#approach' },
   { label: 'Business Value', href: '#benefits' },
