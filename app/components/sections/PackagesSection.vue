@@ -1,3 +1,24 @@
+<script setup lang="ts">
+const scroller = ref<HTMLElement | null>(null)
+const scrollerInner = ref<HTMLElement | null>(null)
+const canScroll = ref(false)
+let resizeObserver: ResizeObserver | undefined
+
+function updateCanScroll() {
+  const element = scroller.value
+  if (element) canScroll.value = element.scrollWidth > element.clientWidth
+}
+
+onMounted(() => {
+  updateCanScroll()
+  resizeObserver = new ResizeObserver(updateCanScroll)
+  if (scroller.value) resizeObserver.observe(scroller.value)
+  if (scrollerInner.value) resizeObserver.observe(scrollerInner.value)
+})
+
+onBeforeUnmount(() => resizeObserver?.disconnect())
+</script>
+
 <template>
   <BaseSection class="packages-section">
     <BaseSectionContainer>
@@ -8,10 +29,14 @@
         pages to a full audit with implementation support.
       </BaseSectionIntro>
       <div
+        ref="scroller"
         class="table-scroll"
-        tabindex="0"
+        :tabindex="canScroll ? 0 : undefined"
       >
-        <div class="table-scroll-inner">
+        <div
+          ref="scrollerInner"
+          class="table-scroll-inner"
+        >
           <p class="table-title"><span class="table-title-text">Packages at a glance</span></p>
           <table class="packages-table">
             <tbody>

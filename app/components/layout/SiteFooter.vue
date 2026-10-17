@@ -22,9 +22,9 @@ const baseURL = useRuntimeConfig().app.baseURL
           <p class="footer-label">Contact</p>
           <a href="#request-audit">Request an Audit</a>
           <div class="social-links">
-            <a href="https://www.example.com/lucidreach/linkedin" class="social-link"><img :src="`${baseURL}images/social/linkedin.png`" alt="" width="32" height="32"></a>
+            <a href="https://www.example.com/lucidreach/linkedin" class="social-link"><img :src="`${baseURL}images/social/linkedin.png`" alt="" width="35" height="32"></a>
             <a href="https://www.example.com/lucidreach/instagram" class="social-link"><img :src="`${baseURL}images/social/instagram.png`" alt="" width="32" height="32"></a>
-            <a href="https://www.example.com/lucidreach/youtube" class="social-link"><img :src="`${baseURL}images/social/youtube.png`" alt="" width="32" height="32" class="social-image-youtube"></a>
+            <a href="https://www.example.com/lucidreach/youtube" class="social-link"><img :src="`${baseURL}images/social/youtube.png`" alt="" width="69" height="59" class="social-image-youtube"></a>
           </div>
         </div>
         <div class="footer-column-explore">
