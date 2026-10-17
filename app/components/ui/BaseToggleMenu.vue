@@ -94,13 +94,11 @@ function removeListeners() {
   window.removeEventListener('resize', handleResize)
 }
 
-watch(isOpen, async (open) => {
+watch(isOpen, (open) => {
   if (!import.meta.client) return
 
   if (open) {
     addListeners()
-    await nextTick()
-    getFocusableElements(menuPanel.value)[0]?.focus()
   } else {
     removeListeners()
   }
