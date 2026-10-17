@@ -30,8 +30,8 @@ onBeforeUnmount(() => {
       >
         <img
           :src="`${baseURL}images/logo.svg`"
-          width="248"
-          height="55"
+          width="208"
+          height="40"
         />
       </a>
       <BaseToggleMenu>
@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
 }
 
 .brand img {
-  @apply h-12
+  @apply h-10
     w-auto;
 }
 
