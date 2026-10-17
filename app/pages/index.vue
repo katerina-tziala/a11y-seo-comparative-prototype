@@ -29,8 +29,16 @@ useHead({
 
 <template>
   <div id="top">
+    <a
+      href="#main"
+      class="skip-link"
+      >Skip to main content</a
+    >
     <SiteHeader />
-    <div>
+    <main
+      id="main"
+      tabindex="-1"
+    >
       <HeroSection />
       <ServicesSection id="services" />
       <A11ySeoSection id="approach" />
@@ -40,7 +48,45 @@ useHead({
       <FaqSection id="faq" />
       <TestimonialsSection id="testimonials" />
       <RequestAuditSection id="request-audit" />
-    </div>
+    </main>
     <SiteFooter />
   </div>
 </template>
+
+<style scoped>
+@reference "../assets/css/main.css";
+
+#main {
+  @apply scroll-mt-[var(--lr-header-height)];
+}
+
+#main:focus {
+  @apply outline-none;
+}
+
+.skip-link {
+  @apply sr-only
+    transition-none;
+}
+
+.skip-link:focus {
+  @apply not-sr-only
+    fixed
+    top-[var(--lr-header-height)]
+    right-0
+    left-0
+    z-50
+    rounded-none
+    bg-deep
+    px-6
+    py-3
+    font-bold
+    text-white
+    no-underline
+    outline-2
+    -outline-offset-4
+    outline-mint
+    outline-solid
+    sm:px-[max(2rem,calc((100%-var(--lr-content-width))/2))];
+}
+</style>

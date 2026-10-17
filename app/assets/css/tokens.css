@@ -45,5 +45,6 @@
   --lr-radius-md: 1rem;
   --lr-radius-lg: 1.6rem;
   --lr-content-width: 1180px;
+  --lr-header-height: 83px;
   --lr-shadow: 0 24px 60px var(--lr-color-shadow);
 }

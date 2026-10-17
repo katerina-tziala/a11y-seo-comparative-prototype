@@ -86,7 +86,7 @@ onBeforeUnmount(() => {
 
 .header-inner {
   @apply flex
-    min-h-[82px]
+    min-h-[calc(var(--lr-header-height)-1px)]
     items-center
     justify-between;
 }
@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
 
 .nav {
   @apply absolute
-    top-[82px]
+    top-[calc(var(--lr-header-height)-1px)]
     right-5
     left-5
     hidden
