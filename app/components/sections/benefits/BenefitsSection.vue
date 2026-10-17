@@ -56,7 +56,7 @@ const benefits = [
 </template>
 
 <style scoped>
-@reference "../../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .benefits-section {
   @apply bg-cream;

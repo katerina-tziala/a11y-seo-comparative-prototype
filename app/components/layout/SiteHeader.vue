@@ -72,7 +72,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .site-header {
   @apply sticky

@@ -39,7 +39,7 @@ defineProps<{
 </template>
 
 <style scoped>
-@reference "../../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .service-card {
   @apply relative

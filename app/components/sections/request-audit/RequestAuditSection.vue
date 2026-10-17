@@ -55,7 +55,7 @@ async function editRequest() {
 </template>
 
 <style scoped>
-@reference "../../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .request-audit-section {
   @apply bg-[linear-gradient(135deg,var(--color-audit-start),var(--color-audit-end))]

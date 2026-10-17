@@ -3,7 +3,7 @@
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .section {
   @apply py-16

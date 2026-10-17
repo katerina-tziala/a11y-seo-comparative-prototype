@@ -55,7 +55,7 @@ const renderedSteps = [steps[2]!, steps[0]!, steps[3]!, steps[1]!]
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .process-section {
   @apply bg-sand;

@@ -236,7 +236,7 @@ defineExpose({ focusName })
 </template>
 
 <style scoped>
-@reference "../../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .audit-form {
   @apply grid

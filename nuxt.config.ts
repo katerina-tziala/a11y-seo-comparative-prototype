@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite'
 import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 
 const repositoryName = 'a11y-seo-comparative-prototype'
 const baseURL = process.env.NUXT_APP_BASE_URL || '/'
@@ -12,6 +13,9 @@ export default defineNuxtConfig({
   modules: ['@nuxt/eslint'],
   components: [{ path: '~/components', pathPrefix: false }],
   css: ['~/assets/css/main.css'],
+  alias: {
+    '@styles': fileURLToPath(new URL('./app/assets/css', import.meta.url)),
+  },
   vite: {
     plugins: [tailwindcss()],
   },

@@ -94,7 +94,7 @@ import StarIcon from '../icons/StarIcon.vue'
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .testimonials-section {
   @apply bg-services-bg;

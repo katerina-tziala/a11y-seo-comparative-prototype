@@ -18,7 +18,7 @@ withDefaults(defineProps<{ variant?: 'split' | 'vertical' }>(), {
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .intro-grid {
   @apply grid

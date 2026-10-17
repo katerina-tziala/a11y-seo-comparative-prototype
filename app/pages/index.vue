@@ -21,9 +21,6 @@ useSeoMeta({
 
 useHead({
   link: [{ rel: 'canonical', href: canonicalUrl }],
-  meta: [
-    { name: 'google-site-verification', content: 'r9ATHs78Q8T3fapv4hc8TaGFlNERBIBZKbohzZ4vTTc' },
-  ],
 })
 </script>
 
@@ -54,7 +51,7 @@ useHead({
 </template>
 
 <style scoped>
-@reference "../assets/css/main.css";
+@reference "@styles/main.css";
 
 #main {
   @apply scroll-mt-[var(--lr-header-height)];

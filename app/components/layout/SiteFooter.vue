@@ -46,7 +46,7 @@ const baseURL = useRuntimeConfig().app.baseURL
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .site-footer {
   @apply bg-footer-bg

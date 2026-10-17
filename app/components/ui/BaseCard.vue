@@ -18,7 +18,7 @@ withDefaults(
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .card {
   @apply rounded-lg

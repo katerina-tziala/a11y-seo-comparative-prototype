@@ -138,7 +138,7 @@ function afterLeave(element: Element) {
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .accordion-item {
   @apply border-t

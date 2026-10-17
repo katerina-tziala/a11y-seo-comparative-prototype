@@ -130,7 +130,7 @@ onBeforeUnmount(removeListeners)
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .toggle-menu,
 .toggle-menu-panel {

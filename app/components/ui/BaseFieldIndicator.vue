@@ -9,7 +9,7 @@ withDefaults(defineProps<{ variant?: 'required' | 'optional' }>(), {
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .field-required,
 .field-optional {

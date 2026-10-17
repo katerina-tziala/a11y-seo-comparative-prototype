@@ -41,7 +41,7 @@ function goToServices() {
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .hero {
   @apply overflow-hidden

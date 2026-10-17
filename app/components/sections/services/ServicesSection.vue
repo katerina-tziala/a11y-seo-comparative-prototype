@@ -54,7 +54,7 @@ const services = [
 </template>
 
 <style scoped>
-@reference "../../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .services-section {
   @apply bg-services-bg;

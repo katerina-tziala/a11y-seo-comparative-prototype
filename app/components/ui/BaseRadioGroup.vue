@@ -37,7 +37,7 @@ withDefaults(
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .radio-group {
   @apply relative

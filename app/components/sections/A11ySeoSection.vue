@@ -59,7 +59,7 @@ const features = [
 </template>
 
 <style scoped>
-@reference "../../assets/css/main.css";
+@reference "@styles/main.css";
 
 .a11y-seo-section {
   @apply bg-deep
