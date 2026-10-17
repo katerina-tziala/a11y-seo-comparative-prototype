@@ -14,7 +14,6 @@ withDefaults(defineProps<{ variant?: 'required' | 'optional' }>(), {
 .field-required,
 .field-optional {
   @apply text-muted
-    font-normal
-    pl-0.5;
+    font-normal;
 }
 </style>

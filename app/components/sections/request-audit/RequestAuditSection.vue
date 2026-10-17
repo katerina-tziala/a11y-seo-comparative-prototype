@@ -26,11 +26,11 @@ async function editRequest() {
       <div>
         <BaseEyebrow class="eyebrow-mint">Start with clarity</BaseEyebrow>
         <h2>Request an Audit</h2>
-        <p>Tell us a little about your website and the challenge(s) you’re trying to solve.</p>
+        <p>Tell us about your website and what you would like to improve.</p>
         <div class="privacy-note">
           <span><InfoIcon /></span>
           <p>
-            <strong>Your details stay here.</strong>This research prototype does not send or store
+            <strong>Your details stay here.</strong> This research prototype does not send or store
             any form data.
           </p>
         </div>

@@ -129,7 +129,7 @@ defineExpose({ focusName })
     <div class="form-row">
       <div class="field">
         <span class="field-label"
-          >Name<BaseFieldIndicator aria-hidden="true">(required)</BaseFieldIndicator></span
+          >Name<BaseFieldIndicator aria-hidden="true"> (required)</BaseFieldIndicator></span
         >
         <input
           id="audit-name"
@@ -150,7 +150,7 @@ defineExpose({ focusName })
       </div>
       <div class="field">
         <span class="field-label"
-          >Email<BaseFieldIndicator aria-hidden="true">(required)</BaseFieldIndicator></span
+          >Email<BaseFieldIndicator aria-hidden="true"> (required)</BaseFieldIndicator></span
         >
         <input
           id="audit-email"
@@ -172,7 +172,7 @@ defineExpose({ focusName })
     </div>
     <div class="field">
       <span class="field-label"
-        >Website URL<BaseFieldIndicator aria-hidden="true">(required)</BaseFieldIndicator></span
+        >Website URL<BaseFieldIndicator aria-hidden="true"> (required)</BaseFieldIndicator></span
       >
       <input
         id="audit-website"
@@ -211,7 +211,7 @@ defineExpose({ focusName })
       <label
         class="field-label"
         for="audit-details"
-        >Message<BaseFieldIndicator variant="optional">(optional)</BaseFieldIndicator></label
+        >Message<BaseFieldIndicator variant="optional"> (optional)</BaseFieldIndicator></label
       >
       <textarea
         id="audit-details"
