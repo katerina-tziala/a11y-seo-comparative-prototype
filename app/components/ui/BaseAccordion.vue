@@ -169,6 +169,12 @@ function afterLeave(element: Element) {
     text-inherit;
 }
 
+.accordion-trigger:focus-visible {
+  @apply outline-2
+    outline-offset-0
+    outline-brand;
+}
+
 .accordion-trigger span {
   @apply grid
     shrink-0
