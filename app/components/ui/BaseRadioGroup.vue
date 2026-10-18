@@ -26,7 +26,6 @@ withDefaults(
           :id="option.id"
           :name="name"
           :value="option.value"
-          :required="required"
           :disabled="disabled"
         />
         <label class="radio-card" :for="option.id">{{ option.label }}</label>
