@@ -24,7 +24,7 @@ env:
   # Add future research branch/path mappings here.
   DEPLOYMENTS: |
     main baseline
-    accessibility-governed a11y-governed
+    accessibility-governed accessibility-governed
 
 jobs:
   build:
