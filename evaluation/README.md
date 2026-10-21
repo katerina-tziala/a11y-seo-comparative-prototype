@@ -1,4 +1,4 @@
-# Evaluation scripts
+# Evaluation
 
 This folder contains the scripts that run the evaluation of the two implementations of the prototype: the baseline and the accessibility-governed implementation. The scripts record values. They do not judge them.
 
