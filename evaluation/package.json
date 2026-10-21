@@ -1,0 +1,17 @@
+{
+  "name": "a11y-seo-evaluation",
+  "private": true,
+  "description": "Evaluation scripts of the comparative prototype: Lighthouse, visual parity, checks and report (evaluation protocol).",
+  "scripts": {
+    "evaluate": "node evaluate.cjs",
+    "compare": "node tools/compare-runs.cjs",
+    "index": "node tools/index-runs.cjs"
+  },
+  "dependencies": {
+    "lighthouse": "13.5.0",
+    "playwright": "1.62.1"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
