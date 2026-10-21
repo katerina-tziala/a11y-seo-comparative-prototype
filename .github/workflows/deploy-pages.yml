@@ -4,9 +4,12 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - prototype-scaffold
       - main
       - accessibility-governed
+    paths-ignore:
+      - 'evaluation/**'
+      - 'evidence/**'
+      - '**/*.md'
 
 permissions:
   contents: read
@@ -20,7 +23,6 @@ concurrency:
 env:
   # Add future research branch/path mappings here.
   DEPLOYMENTS: |
-    prototype-scaffold scaffold
     main baseline
     accessibility-governed a11y-governed
 
