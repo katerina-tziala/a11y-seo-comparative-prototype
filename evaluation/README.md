@@ -9,6 +9,8 @@ One run does four parts, in this order:
 3. **Checks**: 36 checks, read from the DOM and from Chrome’s Accessibility Tree, with key presses and pointer actions where a check needs them.
 4. **Report**: two CSV files with the results of the run.
 
+The checks are written for this prototype. Each one examines an accessibility requirement (`CF` IDs) or an SEO indicator (`SI` IDs), as described in [Requirements and Indicators](../REQUIREMENTS_AND_INDICATORS.md).
+
 ## Requirements
 
 - **Google Chrome.** The scripts use the Chrome that is installed on the computer that runs them. Its version is not fixed by this folder, so it can differ from one computer to another. Each run records the Chrome version at the start and at the end in the run information file (`<run>_run-info.json`).
@@ -82,7 +84,7 @@ Examples: `final-01_baseline_CF11_desktop.png`, `final-01_governed_CF35_mobile-k
 
 The videos of the keyboard checks are WebM files, which open in Chrome.
 
-The folders of the official runs are committed to this repository. A new run needs a name that is not used by them. At the end of each run, the table of runs in `evidence/README.md` is written again (`npm run index` does the same).
+The folders of the official runs are committed to this repository. A new run needs a name that is not used by them. At the end of each run, the table of runs in the [evidence documentation](../evidence/README.md) is written again (`npm run index` does the same).
 
 ## Comparing two runs
 

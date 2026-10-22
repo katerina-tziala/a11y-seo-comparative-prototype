@@ -1,84 +1,95 @@
-# A11y–SEO Comparative Prototype
+# Accessibility and SEO Comparative Prototype
 
-Prototype-based comparative study examining how accessibility requirements
-affect shared accessibility and Technical SEO characteristics in a digital
-marketing website.
+This repository contains a one-page website of LucidReach Digital, a fictional digital marketing company that offers accessible web design, Technical SEO and conversion optimization. The website was created for academic research and exists in two implementations. The baseline contains a set of common accessibility failures, while the accessibility-governed implementation is the same page built to meet the accessibility requirements that address them. Apart from these changes, the two implementations share the same content, design and technology. This allows a direct comparison of accessibility and Technical SEO on the same page.
 
-## Prototype
+## Implementations
 
-The eventual research artifact will compare two controlled versions of the same fictional digital agency landing page for **LucidReach Digital**. The current work establishes their shared visual and technical foundation only.
+| Implementation | Branch | Address |
+| --- | --- | --- |
+| Baseline | `main` | https://katerina-tziala.github.io/a11y-seo-comparative-prototype/baseline/ |
+| Accessibility-governed | `accessibility-governed` | https://katerina-tziala.github.io/a11y-seo-comparative-prototype/accessibility-governed/ |
 
-> **Current status: visual scaffold only.**
-> **This branch must not be used as the final baseline dataset.**
-
-The scaffold includes a complete responsive landing page, reusable Nuxt components, original local SVG artwork, a local-only audit form demonstration and static GitHub Pages deployment configuration.
-
-## Versions
-
-- `prototype-scaffold`: current project setup and shared visual scaffold
-- `main`: future frozen baseline prototype
-- `accessibility-governed`: future governed prototype derived from the baseline
-
-Neither final research version is created by this scaffold work. Semantic implementation choices remain provisional until the literature-derived baseline specification is complete.
+The accessibility requirements that distinguish the two implementations, and the SEO indicators that the evaluation examines, are described in [Requirements and Indicators](REQUIREMENTS_AND_INDICATORS.md).
 
 ## Technology
 
-- Nuxt 4 and Vue 3
-- TypeScript, Tailwind CSS 4 and CSS custom properties
-- Node.js 24 LTS and npm
-- Static prerendering
-- GitHub Actions and GitHub Pages
+The site is generated as static HTML, so both implementations are built in exactly the same way.
 
-## Local development
+| Tool | Version |
+| --- | --- |
+| Nuxt | 4.5.1 |
+| Vue | 3.5.40 |
+| Tailwind CSS | 4.3.3 |
+| TypeScript | 5.9.3 |
+| Node.js | 24 |
 
-Use Node.js 24 (the version is recorded in `.nvmrc`), then install the exact dependency tree from `package-lock.json`:
+The code follows consistent quality and formatting standards, which are checked automatically with ESLint, Stylelint and Prettier. All package versions are locked, so every installation uses exactly the same ones.
 
-```bash
-nvm use
-npm ci
+### Assets
+
+The LinkedIn, Instagram and YouTube icons are the official icons from the brand resources of each company. All other images are original to this prototype.
+
+## Development
+
+The project requires Node.js 24.
+
+To install the project dependencies, run:
+
+```
+npm install
+```
+
+To start the development server, run:
+
+```
 npm run dev
 ```
 
-Useful checks and production commands:
+By default, the site is served at `http://localhost:3000/`.
 
-```bash
-npm run check
+To generate the static site, as it is published, run:
+
+```
 npm run generate
+```
+
+To preview the generated site locally, run:
+
+```
 npm run preview
 ```
 
-`npm run check` runs the type check, ESLint, Stylelint, Prettier and the Tailwind
-`@apply` formatting check. Run `npm run format` to format Vue, TypeScript, CSS and
-Tailwind classes before checking.
+To check the code, run:
 
-`npm run generate` produces the static site in `.output/public`.
+```
+npm run check
+```
 
 ## Deployment
 
-The repository uses one GitHub Pages site with one path for each research branch:
+Both implementations are hosted on GitHub Pages, at the addresses listed above. A GitHub Actions workflow builds and publishes them whenever one of the two branches changes, and it can also be started manually. Each publication builds both implementations with the same steps and tool versions, so the site always shows the latest version of each. A change that affects only the evaluation, the evidence or the documentation does not publish the site again.
 
-- `prototype-scaffold` → `/scaffold/`
-- `main` → `/baseline/`
-- `accessibility-governed` → `/accessibility-governed/`
+## Evaluation
 
-Whenever one of these branches changes, the workflow rebuilds every existing, initialised research branch independently. CI never merges or synchronises their source code. It combines only their generated static outputs into one Pages artifact and performs one deployment. Branches that do not exist yet, or have not yet been initialised as a Nuxt project, are skipped.
+The two implementations are compared with a set of evaluation scripts. These scripts examine the structure of each page, its Accessibility Tree and the information that search engines read. The [evaluation documentation](evaluation/README.md) explains how to install and run the scripts, and how the results are organized. The results of every run, together with an overview of all runs, are kept in the [evidence documentation](evidence/README.md).
 
-The workflow file must exist in every branch whose push should trigger deployment. It will be inherited when the frozen scaffold is transferred to `main` and when `accessibility-governed` is later created from the baseline.
+## Contributing
 
-In the repository settings, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. A successful local generation does not confirm that remote Pages deployment has succeeded.
+Each commit message starts with one of these types:
 
-See [scaffold notes](docs/scaffold-notes.md) for provisional decisions and controlled variables, and [asset register](docs/assets.md) for asset provenance.
+| Type | Name | Use |
+| --- | --- | --- |
+| `a11y(CFxx)` | Accessibility | Adds one accessibility requirement to the accessibility-governed implementation |
+| `feat` | Feature | New content or a new feature, the same in both implementations |
+| `fix` | Fix | A correction |
+| `chore` | Chore | Workflow, settings and dependencies |
+| `eval` | Evaluation | Evaluation scripts, and the evidence of a run as `eval(<run>)` |
+| `docs` | Documentation | Documentation |
 
-## Research principle
+A hook in `.githooks/` checks the message of each commit. To turn it on, run this command once in the repository:
 
-Both versions must retain the same:
+```
+git config core.hooksPath .githooks
+```
 
-- content
-- visual design
-- page structure and functionality
-- assets
-- framework and dependencies
-- rendering and hosting environment
-
-The controlled difference is the systematic application of accessibility
-requirements in the `accessibility-governed` branch.
+The same check also runs on GitHub for every push and pull request.
