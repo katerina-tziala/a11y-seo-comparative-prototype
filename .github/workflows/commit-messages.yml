@@ -50,6 +50,7 @@ jobs:
           failed=0
           while IFS= read -r commit; do
             git show -s --format=%B "${commit}" > "${message_file}"
+            # Shared hook rule: a11y scopes must be AR01 through AR48.
             if ! sh .githooks/commit-msg "${message_file}"; then
               printf 'Invalid commit: %s\n' "${commit}"
               git show -s --format=%s "${commit}"

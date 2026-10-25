@@ -1,6 +1,6 @@
 # Accessibility and SEO Comparative Prototype
 
-This repository contains a one-page website of LucidReach Digital, a fictional digital marketing company that offers accessible web design, Technical SEO and conversion optimization. The website was created for academic research and exists in two implementations. The baseline contains a set of common accessibility failures, while the accessibility-governed implementation is the same page built to meet the accessibility requirements that address them. Apart from these changes, the two implementations share the same content, design and technology. This allows a direct comparison of accessibility and Technical SEO on the same page.
+This repository contains a one-page website of LucidReach Digital, a fictional digital marketing company that offers accessible web design, Technical SEO and conversion optimization. The website was created for academic research and exists in two implementations. The baseline leaves a set of common accessibility requirements unmet, while the accessibility-governed implementation is the same page built to meet them. Apart from these changes, the two implementations share the same content, design and technology. This allows a direct comparison of accessibility and Technical SEO on the same page.
 
 ## Implementations
 
@@ -79,7 +79,7 @@ Each commit message starts with one of these types:
 
 | Type | Name | Use |
 | --- | --- | --- |
-| `a11y(CFxx)` | Accessibility | Adds one accessibility requirement to the accessibility-governed implementation |
+| `a11y(ARxx)` | Accessibility | Adds one accessibility requirement to the accessibility-governed implementation |
 | `feat` | Feature | New content or a new feature, the same in both implementations |
 | `fix` | Fix | A correction |
 | `chore` | Chore | Workflow, settings and dependencies |
