@@ -9,7 +9,7 @@ One run does four parts, in this order:
 3. **Checks**: 36 checks, read from the DOM and from Chrome’s Accessibility Tree, with key presses and pointer actions where a check needs them.
 4. **Report**: two CSV files with the results of the run.
 
-The checks are written for this prototype. Each one examines an accessibility requirement (`CF` IDs) or an SEO indicator (`SI` IDs), as described in [Requirements and Indicators](../REQUIREMENTS_AND_INDICATORS.md).
+The checks are written for this prototype. Each one examines an accessibility requirement (`AR` IDs) or an SEO indicator (`SI` IDs), as described in [Requirements and Indicators](../REQUIREMENTS_AND_INDICATORS.md).
 
 ## Requirements
 
@@ -75,12 +75,12 @@ File names follow one rule:
 ```
 
 - `implementation`: `baseline` or `governed` (accessibility-governed).
-- `item`: a check ID (`CF11`, `SI03`) or a tool (`lighthouse`, `parity`, `checks`, `report`, `tab-walk`).
+- `item`: a check ID (`AR11`, `SI03`) or a tool (`lighthouse`, `parity`, `checks`, `report`, `tab-walk`).
 - `viewport`: `desktop`, `mobile` or `zoom200`.
 - `input`: `keyboard` or `pointer`, only for checks that run with both.
 - `NN`: only where a file can repeat in the run, for example one screenshot per key.
 
-Examples: `final-01_baseline_CF11_desktop.png`, `final-01_governed_CF35_mobile-keyboard.webm`, `final-01_baseline_lighthouse_mobile_01.json`.
+Examples: `final-01_baseline_AR11_desktop.png`, `final-01_governed_AR35_mobile-keyboard.webm`, `final-01_baseline_lighthouse_mobile_01.json`.
 
 The videos of the keyboard checks are WebM files, which open in Chrome.
 
