@@ -78,7 +78,7 @@ async function domChecks(ver, vp) {
       files: [await shot(page, 'footer .social-links', v, 'AR21', vp)].filter(Boolean),
     }))
     await run('AR22', async () => ({
-      values: { links: await dom(page, '#services .card-link', `const ctx = el.parentElement.closest('p, li, td, th'); return { href: el.getAttribute('href'), visible: el.innerText.trim(), all: el.textContent.trim(), context: ctx ? ctx.tagName.toLowerCase() : null }`), ax: await axAll(cdp, '#services .card-link') },
+      values: { links: await dom(page, '#services .card-link', `const ctx = el.parentElement.closest('p, li, td, th'); return { href: el.getAttribute('href'), innerText: el.innerText.trim(), all: el.textContent.trim(), context: ctx ? ctx.tagName.toLowerCase() : null }`), ax: await axAll(cdp, '#services .card-link') },
       files: [await shot(page, '#services .card-link', v, 'AR22', vp)].filter(Boolean),
     }))
     await run('AR23', async () => {
@@ -99,7 +99,7 @@ async function domChecks(ver, vp) {
       files: [await shot(page, '.menu-toggle', v, 'AR31', vp)].filter(Boolean),
     }))
     await run('AR32', async () => ({
-      values: { button: await dom(page, '#request-audit button[type="submit"]', `return { ariaLabel: el.getAttribute('aria-label'), visible: el.innerText.trim() }`), ax: await axAll(cdp, '#request-audit button[type="submit"]') },
+      values: { button: await dom(page, '#request-audit button[type="submit"]', `return { ariaLabel: el.getAttribute('aria-label'), innerText: el.innerText.trim() }`), ax: await axAll(cdp, '#request-audit button[type="submit"]') },
       files: [await shot(page, '#request-audit button[type="submit"]', v, 'AR32', vp)].filter(Boolean),
     }))
     await run('AR33', async () => ({ values: { fields: await dom(page, '#audit-name, #audit-email, #audit-website', `return { id: el.id, autocomplete: el.getAttribute('autocomplete') }`) } }))
