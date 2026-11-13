@@ -23,6 +23,7 @@ The other tools are fixed in `package-lock.json`:
 | --- | --- | --- |
 | Playwright | 1.62.1 | Controls the installed Google Chrome (`channel: 'chrome'`): loads each page, sets the page states, sends the key presses and pointer actions, reads the values from the DOM and from Chrome’s Accessibility Tree, and takes the screenshots and videos |
 | Lighthouse | 13.5.0 | Runs the audits of the Accessibility and SEO categories on each implementation, in mobile and desktop mode, and saves each report as HTML and JSON |
+| axe-core | 4.14.0 | Accessibility engine used by Lighthouse; pinned through an npm override, with its installed version recorded in the run information file |
 
 ## Installation
 
