@@ -43,7 +43,7 @@ function part(name, script, args, extraEnv) {
     run: RUN, dryRun: /^dryrun/.test(RUN), protocol: 'evaluation protocol (Master Thesis 3 Evaluation)',
     startedAt: new Date().toISOString(),
     computer: { platform: os.platform(), release: os.release(), macOS: sh('sw_vers -productVersion') },
-    versions: { node: process.version, playwright: require('playwright/package.json').version, lighthouse: require('lighthouse/package.json').version, chromeAtStart: await chromeVersion() },
+    versions: { node: process.version, playwright: require('playwright/package.json').version, lighthouse: require('lighthouse/package.json').version, axeCore: require('axe-core/package.json').version, chromeAtStart: await chromeVersion() },
     urls: { baseline: config.baselineUrl, governed: config.governedUrl },
     repository: { commit: sh('git rev-parse HEAD'), latestTags: { baseline: latestTag('baseline-v'), governed: latestTag('governed-v') } },
     parts: [],
