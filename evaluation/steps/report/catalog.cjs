@@ -1,15 +1,15 @@
 'use strict'
 // catalog.cjs: the name of each check, and the Lighthouse audits that correspond to it (Evaluation Check Plan).
 const ITEMS = {
-  AR09: 'Diagram image without a text alternative', AR10: 'Hero image alt is the file name', AR11: 'Logo link without a name',
-  AR14: 'Business value title not a heading', AR15: 'Card titles skip a heading level', AR16: 'Empty headings around icons',
-  AR17: 'Table header cells not exposed', AR18: 'Feature lists not marked up as lists', AR19: 'Process steps: DOM order differs from visual order',
-  AR21: 'Social links without names', AR22: '"Learn more" links without a described purpose', AR23: 'Missing page title',
-  AR27: 'Link opens a new tab without warning', AR29: 'Visible labels not associated with their fields', AR31: 'Menu toggle without a name',
-  AR32: 'Submit name does not contain the visible label', AR33: 'Input purpose not identified', AR34: 'Radio buttons not grouped',
-  AR35: 'Error messages not associated with their fields', AR36: 'Menu toggle state not exposed', AR38: 'FAQ questions not focusable',
-  AR39: '"Explore Our Services" not operable with the keyboard', AR40: 'Keyboard trap in the open menu', AR41: 'Footer focus order does not follow the visual order',
-  AR46: 'Page language not declared', AR48: 'German quotation without lang',
+  AR09: 'Text alternative for informative images', AR10: 'Appropriate alt value for the image’s purpose', AR11: 'Text alternative for functional images',
+  AR14: 'Headings marked up as headings', AR15: 'Heading levels matching the content hierarchy', AR16: 'Descriptive headings and labels',
+  AR17: 'Table headers associated with data cells', AR18: 'Lists marked up with valid list markup', AR19: 'Meaningful DOM reading order',
+  AR21: 'Accessible name for every link', AR22: 'Identifiable link purpose', AR23: 'Non-empty page title',
+  AR27: 'Changes of context only on request or with advance information', AR29: 'Visible labels associated with their controls', AR31: 'Accessible name for every button',
+  AR32: 'Accessible name containing the visible label', AR33: 'Input purpose identified', AR34: 'Instructions and grouping in forms',
+  AR35: 'Identification, description and correction suggestions for input errors', AR36: 'Correct and complete roles, states and properties', AR38: 'Keyboard focus for every interactive element',
+  AR39: 'Every function available through the keyboard', AR40: 'No keyboard trap', AR41: 'Focus order preserving meaning',
+  AR46: 'Page language declared', AR48: 'Language of parts identified',
   SI01: 'Page title', SI02: 'Image alternative text', SI03: 'Link text', SI04: 'Crawlable links', SI05: 'Indexability directives',
   SI06: 'HTTP status', SI07: 'Meta description', SI08: 'Canonical URL', SI11: 'Heading elements', SI12: 'Viewport meta element',
 }
