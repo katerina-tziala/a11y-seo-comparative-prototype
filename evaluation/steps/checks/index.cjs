@@ -10,12 +10,12 @@ const ctx = require('./context.cjs')
 const { domChecks } = require('./dom-checks.cjs')
 const {
   tabWalk,
-  cf38Supplementary,
-  cf39,
-  cf40,
-  cf36,
-  cf35,
-  cf27,
+  faqKeyboardFocusAndActivation,
+  exploreServicesKeyboardActivation,
+  menuKeyboardTrap,
+  menuToggleStateAndRelationships,
+  formValidationFeedback,
+  newTabLinkActivation,
 } = require('./keyboard-checks.cjs')
 
 ;(async () => {
@@ -72,14 +72,14 @@ const {
       }
       await step('DOM', () => domChecks(ver, vp))
       await step('TABWALK', () => tabWalk(ver, vp))
-      await step('AR38', () => cf38Supplementary(ver, vp))
-      await step('AR39', () => cf39(ver, vp))
+      await step('AR38', () => faqKeyboardFocusAndActivation(ver, vp))
+      await step('AR39', () => exploreServicesKeyboardActivation(ver, vp))
       for (const input of ['keyboard', 'pointer']) {
-        await step('AR35', () => cf35(ver, vp, input))
-        await step('AR27', () => cf27(ver, vp, input))
-        if (vp === 'mobile') await step('AR36', () => cf36(ver, input))
+        await step('AR35', () => formValidationFeedback(ver, vp, input))
+        await step('AR27', () => newTabLinkActivation(ver, vp, input))
+        if (vp === 'mobile') await step('AR36', () => menuToggleStateAndRelationships(ver, input))
       }
-      if (vp === 'mobile') await step('AR40', () => cf40(ver))
+      if (vp === 'mobile') await step('AR40', () => menuKeyboardTrap(ver))
     }
   }
   await ctx.browser.close()
