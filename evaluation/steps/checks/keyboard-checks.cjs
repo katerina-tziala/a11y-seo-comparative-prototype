@@ -183,7 +183,7 @@ async function tabWalk(ver, vp) {
   return steps
 }
 
-async function cf38Supplementary(ver, vp) {
+async function faqKeyboardFocusAndActivation(ver, vp) {
   const { key: v, url } = ver
   const s = await open(vp, { video: true })
   const files = []
@@ -235,7 +235,7 @@ async function tabUntil(s, predicateSource, max = 120) {
   return null
 }
 
-async function cf39(ver, vp) {
+async function exploreServicesKeyboardActivation(ver, vp) {
   const { key: v, url } = ver
   const s = await open(vp, { video: true })
   const files = []
@@ -271,7 +271,7 @@ async function cf39(ver, vp) {
   ctx.record('AR39', v, vp, 'keyboard', values, files)
 }
 
-async function cf40(ver) {
+async function menuKeyboardTrap(ver) {
   const vp = 'mobile'
   const { key: v, url } = ver
   const s = await open(vp, { video: true })
@@ -300,7 +300,7 @@ async function cf40(ver) {
   ctx.record('AR40', v, vp, 'keyboard', { sequence: seq }, files)
 }
 
-async function cf36(ver, input) {
+async function menuToggleStateAndRelationships(ver, input) {
   const vp = 'mobile'
   const { key: v, url } = ver
   const s = await open(vp, { video: true })
@@ -345,7 +345,7 @@ async function cf36(ver, input) {
   ctx.record('AR36', v, vp, input, { states }, files)
 }
 
-async function cf35(ver, vp, input) {
+async function formValidationFeedback(ver, vp, input) {
   const { key: v, url } = ver
   const s = await open(vp, { video: true })
   const files = []
@@ -387,7 +387,7 @@ async function cf35(ver, vp, input) {
   ctx.record('AR35', v, vp, input, values, files.filter(Boolean))
 }
 
-async function cf27(ver, vp, input) {
+async function newTabLinkActivation(ver, vp, input) {
   const { key: v, url } = ver
   const s = await open(vp, { video: true })
   const files = []
@@ -415,4 +415,13 @@ async function cf27(ver, vp, input) {
 
 // ---------- summary ----------
 
-module.exports = { tabWalk, cf38Supplementary, tabUntil, cf39, cf40, cf36, cf35, cf27 }
+module.exports = {
+  tabWalk,
+  faqKeyboardFocusAndActivation,
+  tabUntil,
+  exploreServicesKeyboardActivation,
+  menuKeyboardTrap,
+  menuToggleStateAndRelationships,
+  formValidationFeedback,
+  newTabLinkActivation,
+}
