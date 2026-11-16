@@ -23,4 +23,13 @@ export default withNuxt(
       'no-console': 'off',
     },
   },
+  {
+    files: ['evaluation/**/*.cjs'],
+    languageOptions: {
+      sourceType: 'commonjs',
+    },
+    rules: {
+      'no-console': 'off',
+    },
+  },
 )

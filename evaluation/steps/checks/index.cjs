@@ -8,20 +8,67 @@ const path = require('path')
 const { chromium } = require('playwright')
 const ctx = require('./context.cjs')
 const { domChecks } = require('./dom-checks.cjs')
-const { tabWalk, cf38Supplementary, cf39, cf40, cf36, cf35, cf27 } = require('./keyboard-checks.cjs')
+const {
+  tabWalk,
+  cf38Supplementary,
+  cf39,
+  cf40,
+  cf36,
+  cf35,
+  cf27,
+} = require('./keyboard-checks.cjs')
 
 ;(async () => {
   ctx.browser = await chromium.launch({ channel: 'chrome', headless: true })
-  ctx.log.environment = { chrome: ctx.browser.version(), node: process.version, playwright: require('playwright/package.json').version }
+  ctx.log.environment = {
+    chrome: ctx.browser.version(),
+    node: process.version,
+    playwright: require('playwright/package.json').version,
+  }
   console.log(JSON.stringify(ctx.log.environment))
   for (const ver of ctx.VERSIONS) {
     for (const vp of Object.keys(ctx.VIEWPORTS)) {
       const tag = `${ver.key} ${vp}`
       const step = async (name, fn) => {
-        const DOM_IDS = ['AR09', 'AR10', 'AR11', 'AR14', 'AR15', 'AR16', 'AR17', 'AR18', 'AR19', 'AR21', 'AR22', 'AR23', 'AR27', 'AR29', 'AR31', 'AR32', 'AR33', 'AR34', 'AR46', 'AR48', 'SI01', 'SI02', 'SI03', 'SI04', 'SI05', 'SI06', 'SI07', 'SI08', 'SI11', 'SI12']
+        const DOM_IDS = [
+          'AR09',
+          'AR10',
+          'AR11',
+          'AR14',
+          'AR15',
+          'AR16',
+          'AR17',
+          'AR18',
+          'AR19',
+          'AR21',
+          'AR22',
+          'AR23',
+          'AR27',
+          'AR29',
+          'AR31',
+          'AR32',
+          'AR33',
+          'AR34',
+          'AR46',
+          'AR48',
+          'SI01',
+          'SI02',
+          'SI03',
+          'SI04',
+          'SI05',
+          'SI06',
+          'SI07',
+          'SI08',
+          'SI11',
+          'SI12',
+        ]
         const ids = { DOM: DOM_IDS, TABWALK: ['AR38', 'AR41', 'TABWALK'] }[name] || [name]
         if (!ids.some(ctx.wanted)) return
-        try { await fn() } catch (e) { ctx.record(name, ver.key, vp, 'run', null, [], `${tag}: ${e && e.message || e}`) }
+        try {
+          await fn()
+        } catch (e) {
+          ctx.record(name, ver.key, vp, 'run', null, [], `${tag}: ${(e && e.message) || e}`)
+        }
       }
       await step('DOM', () => domChecks(ver, vp))
       await step('TABWALK', () => tabWalk(ver, vp))
@@ -38,6 +85,16 @@ const { tabWalk, cf38Supplementary, cf39, cf40, cf36, cf35, cf27 } = require('./
   await ctx.browser.close()
   ctx.log.finished = new Date().toISOString()
   fs.writeFileSync(path.join(ctx.OUT, ctx.LOGFILE), JSON.stringify(ctx.log, null, 1))
-  const errors = ctx.log.results.filter(r => r.error)
-  console.log(JSON.stringify({ complete: true, results: ctx.log.results.length, errors: errors.length, out: ctx.OUT }))
-})().catch(e => { console.error(e); process.exit(1) })
+  const errors = ctx.log.results.filter((r) => r.error)
+  console.log(
+    JSON.stringify({
+      complete: true,
+      results: ctx.log.results.length,
+      errors: errors.length,
+      out: ctx.OUT,
+    }),
+  )
+})().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})

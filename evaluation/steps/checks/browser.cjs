@@ -9,13 +9,15 @@ async function open(vp, { video = false } = {}) {
   const context = await ctx.browser.newContext(opts)
   const page = await context.newPage()
   const cdp = await context.newCDPSession(page)
-  await cdp.send('DOM.enable'); await cdp.send('Accessibility.enable')
+  await cdp.send('DOM.enable')
+  await cdp.send('Accessibility.enable')
   return { context, page, cdp }
 }
 async function load(page, url, vp) {
   const response = await page.goto(url, { waitUntil: 'networkidle' })
   await page.evaluate(() => document.fonts.ready)
-  if (vp === 'mobile') await page.waitForSelector('.menu-toggle', { timeout: 10000 }).catch(() => {})
+  if (vp === 'mobile')
+    await page.waitForSelector('.menu-toggle', { timeout: 10000 }).catch(() => {})
   await page.waitForTimeout(300)
   return response
 }
