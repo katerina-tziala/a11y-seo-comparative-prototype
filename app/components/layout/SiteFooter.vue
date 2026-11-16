@@ -1,5 +1,27 @@
 <script setup lang="ts">
 const baseURL = useRuntimeConfig().app.baseURL
+
+const footerDomHrefs = [
+  '#process',
+  '#services',
+  '#packages',
+  '#approach',
+  '#faq',
+  '#benefits',
+] as const
+
+const footerExploreLinks = footerDomHrefs.map((href) => {
+  const visualIndex = navigationLinks.findIndex((link) => link.href === href)
+
+  if (visualIndex === -1) {
+    throw new Error(`Footer Explore link not found in navigationLinks: ${href}`)
+  }
+
+  return {
+    ...navigationLinks[visualIndex]!,
+    visualOrder: visualIndex + 1,
+  }
+})
 </script>
 
 <template>
@@ -28,9 +50,10 @@ const baseURL = useRuntimeConfig().app.baseURL
         <div class="footer-column-explore">
           <p class="footer-label">Explore</p>
           <a
-            v-for="link in navigationLinks"
+            v-for="link in footerExploreLinks"
             :key="link.href"
             :href="link.href"
+            :style="{ order: link.visualOrder }"
             >{{ link.label }}</a
           >
         </div>
