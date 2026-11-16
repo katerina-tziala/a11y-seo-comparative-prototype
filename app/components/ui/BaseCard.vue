@@ -10,9 +10,7 @@ withDefaults(
 </script>
 
 <template>
-  <div
-    :class="['card', `card-${variant}`]"
-  >
+  <div :class="['card', `card-${variant}`]">
     <slot />
   </div>
 </template>

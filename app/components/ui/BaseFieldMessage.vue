@@ -2,10 +2,13 @@
 import InfoIcon from '../icons/InfoIcon.vue'
 import WarningIcon from '../icons/WarningIcon.vue'
 
-withDefaults(defineProps<{
-  hint: string
-  error?: string
-}>(), { error: '' })
+withDefaults(
+  defineProps<{
+    hint: string
+    error?: string
+  }>(),
+  { error: '' },
+)
 
 const messageElement = ref<HTMLParagraphElement | null>(null)
 let previousHeight = 0
@@ -34,7 +37,7 @@ onBeforeUpdate(() => {
 onUpdated(() => {
   const element = messageElement.value!
   const height = element.getBoundingClientRect().height
-  if (reducedMotion?.matches || Math.abs(height - previousHeight) < .5) return
+  if (reducedMotion?.matches || Math.abs(height - previousHeight) < 0.5) return
 
   const animation = element.animate(
     [{ height: `${previousHeight}px` }, { height: `${height}px` }],
@@ -53,7 +56,11 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <p ref="messageElement" class="field-message" :class="{ 'is-error': error }">
+  <p
+    ref="messageElement"
+    class="field-message"
+    :class="{ 'is-error': error }"
+  >
     <component
       :is="error ? WarningIcon : InfoIcon"
       class="message-icon"

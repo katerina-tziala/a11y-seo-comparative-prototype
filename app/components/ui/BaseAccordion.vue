@@ -110,7 +110,10 @@ function afterLeave(element: Element) {
       :key="item.title"
       class="accordion-item"
     >
-      <div class="accordion-trigger" @click="toggleItem(index)">
+      <div
+        class="accordion-trigger"
+        @click="toggleItem(index)"
+      >
         {{ item.title }}
         <span :class="{ 'is-expanded': isExpanded(index) }">
           <ChevronDownIcon />
@@ -127,8 +130,8 @@ function afterLeave(element: Element) {
       >
         <div
           v-show="isExpanded(index)"
-          class="accordion-panel"
           :id="`faq-panel-${index}`"
+          class="accordion-panel"
         >
           <p>{{ item.content }}</p>
         </div>
@@ -161,11 +164,11 @@ function afterLeave(element: Element) {
     px-0
     py-6
     text-start
+    font-heading
     [font-size:inherit]
     [line-height:inherit]
-    [letter-spacing:inherit]
-    font-heading
     font-bold
+    [letter-spacing:inherit]
     text-inherit;
 }
 

@@ -214,8 +214,8 @@ defineExpose({ focusName })
         aria-describedby="audit-details-hint"
       />
       <BaseFieldMessage
-        class="field-hint"
         id="audit-details-hint"
+        class="field-hint"
         hint="For example, specific pages, goals or deadlines"
       />
     </div>
@@ -223,8 +223,8 @@ defineExpose({ focusName })
       type="submit"
       aria-label="Send form"
       :disabled="disabled"
-      >Submit request<ArrowRightIcon /></BaseButton
-    >
+      >Submit request<ArrowRightIcon
+    /></BaseButton>
   </form>
 </template>
 
@@ -284,11 +284,11 @@ defineExpose({ focusName })
 
 .audit-form input:not(.radio-input):focus-visible,
 .audit-form textarea:focus-visible {
-  @apply outline-2
+  @apply shadow-md
+    shadow-deep/20
+    outline-2
     outline-offset-4
-    outline-brand
-    shadow-md
-    shadow-deep/20;
+    outline-brand;
 }
 
 .audit-form .button {

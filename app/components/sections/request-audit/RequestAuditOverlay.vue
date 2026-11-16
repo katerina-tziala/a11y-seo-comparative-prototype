@@ -14,16 +14,26 @@ defineExpose({ focusEditButton })
 </script>
 
 <template>
-  <div class="audit-overlay" :class="{ 'is-active': active }">
+  <div
+    class="audit-overlay"
+    :class="{ 'is-active': active }"
+  >
     <div class="audit-overlay-content">
-      <p class="form-status" id="audit-status" role="status">{{ active ? 'Thank you! This prototype does not send or store form data' : '' }}</p>
+      <p
+        id="audit-status"
+        class="form-status"
+        role="status"
+      >
+        {{ active ? 'Thank you! This prototype does not send or store form data' : '' }}
+      </p>
       <BaseButton
         v-if="active"
         id="audit-edit"
         ref="editButton"
         type="button"
         @click="emit('edit')"
-      >Edit request</BaseButton>
+        >Edit request</BaseButton
+      >
     </div>
   </div>
 </template>

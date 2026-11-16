@@ -41,8 +41,8 @@ withDefaults(defineProps<{ variant?: 'split' | 'vertical' }>(), {
     font-heading
     text-[clamp(2.15rem,4vw,3.4rem)]
     leading-[1.12]
-    tracking-[-.035em]
     [font-weight:inherit]
+    tracking-[-.035em]
     [color:var(--section-intro-heading-color,var(--color-ink))];
 }
 

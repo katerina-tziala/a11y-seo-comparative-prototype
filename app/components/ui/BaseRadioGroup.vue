@@ -13,7 +13,9 @@ withDefaults(
 
 <template>
   <div class="radio-group">
-    <p class="group-label">{{ label }}<BaseFieldIndicator v-if="required"> (required)</BaseFieldIndicator></p>
+    <p class="group-label">
+      {{ label }}<BaseFieldIndicator v-if="required"> (required)</BaseFieldIndicator>
+    </p>
     <div class="radio-options">
       <div
         v-for="option in options"
@@ -21,14 +23,18 @@ withDefaults(
         class="radio-option"
       >
         <input
+          :id="option.id"
           type="radio"
           class="radio-input"
-          :id="option.id"
           :name="name"
           :value="option.value"
           :disabled="disabled"
         />
-        <label class="radio-card" :for="option.id">{{ option.label }}</label>
+        <label
+          class="radio-card"
+          :for="option.id"
+          >{{ option.label }}</label
+        >
       </div>
     </div>
     <slot />
@@ -51,6 +57,7 @@ withDefaults(
 .radio-group .group-label {
   @apply absolute
     start-0
+    [inset-block-start:0]
     m-0
     block
     p-0
@@ -58,8 +65,7 @@ withDefaults(
     leading-[1.65]
     font-bold
     text-ink
-    [inline-size:100%]
-    [inset-block-start:0];
+    [inline-size:100%];
 }
 
 .radio-options {
@@ -117,11 +123,11 @@ withDefaults(
 }
 
 .radio-input:focus-visible + .radio-card {
-  @apply outline-2
+  @apply shadow-md
+    shadow-deep/20
+    outline-2
     outline-offset-4
-    outline-brand
-    shadow-md
-    shadow-deep/20;
+    outline-brand;
 }
 
 .radio-input:checked + .radio-card {

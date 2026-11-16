@@ -33,7 +33,10 @@ const footerExploreLinks = footerDomHrefs.map((href) => {
             class="brand brand-light"
             href="#top"
           >
-            <LogoIcon class="footer-logo" aria-hidden="true" />
+            <LogoIcon
+              class="footer-logo"
+              aria-hidden="true"
+            />
             <span>LucidReach <span class="brand-accent">Digital</span></span>
           </a>
           <p>Clearer websites. Wider reach.</p>
@@ -42,9 +45,34 @@ const footerExploreLinks = footerDomHrefs.map((href) => {
           <p class="footer-label">Contact</p>
           <a href="#request-audit">Request an Audit</a>
           <div class="social-links">
-            <a href="https://www.example.com/lucidreach/linkedin" class="social-link"><img :src="`${baseURL}images/social/linkedin.png`" alt="" width="35" height="32"></a>
-            <a href="https://www.example.com/lucidreach/instagram" class="social-link"><img :src="`${baseURL}images/social/instagram.png`" alt="" width="32" height="32"></a>
-            <a href="https://www.example.com/lucidreach/youtube" class="social-link"><img :src="`${baseURL}images/social/youtube.png`" alt="" width="69" height="59" class="social-image-youtube"></a>
+            <a
+              href="https://www.example.com/lucidreach/linkedin"
+              class="social-link"
+              ><img
+                :src="`${baseURL}images/social/linkedin.png`"
+                alt=""
+                width="35"
+                height="32"
+            /></a>
+            <a
+              href="https://www.example.com/lucidreach/instagram"
+              class="social-link"
+              ><img
+                :src="`${baseURL}images/social/instagram.png`"
+                alt=""
+                width="32"
+                height="32"
+            /></a>
+            <a
+              href="https://www.example.com/lucidreach/youtube"
+              class="social-link"
+              ><img
+                :src="`${baseURL}images/social/youtube.png`"
+                alt=""
+                width="69"
+                height="59"
+                class="social-image-youtube"
+            /></a>
           </div>
         </div>
         <div class="footer-column-explore">
@@ -60,7 +88,15 @@ const footerExploreLinks = footerDomHrefs.map((href) => {
       </div>
       <div class="footer-bottom">
         <span>© {{ new Date().getFullYear() }} LucidReach Digital</span
-        ><span>Fictional company created for academic research. <a href="https://github.com/katerina-tziala/a11y-seo-comparative-prototype" target="_blank" rel="noopener noreferrer">Source code on GitHub</a></span>
+        ><span
+          >Fictional company created for academic research.
+          <a
+            href="https://github.com/katerina-tziala/a11y-seo-comparative-prototype"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Source code on GitHub</a
+          ></span
+        >
       </div>
     </BaseSectionContainer>
   </footer>
@@ -117,9 +153,9 @@ const footerExploreLinks = footerDomHrefs.map((href) => {
     no-underline
     transition
     duration-200
-    focus-visible:-outline-offset-2
     hover:-translate-y-0.5
     hover:bg-white/10
+    focus-visible:-outline-offset-2
     motion-reduce:hover:translate-y-0;
 }
 
@@ -165,8 +201,8 @@ const footerExploreLinks = footerDomHrefs.map((href) => {
     font-heading
     text-[18px]
     font-semibold
-    no-underline
-    tracking-wide;
+    tracking-wide
+    no-underline;
 }
 
 .brand-light {

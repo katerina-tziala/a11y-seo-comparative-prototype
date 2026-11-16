@@ -7,6 +7,8 @@ The table shows each run with its type and date, the tag and commit of each impl
 A run is valid when all four parts completed and the Chrome version did not change during the run.
 
 <!-- runs:start -->
+
 | Run | Type | Date | Baseline | Accessibility-governed | Chrome | Valid |
-| --- | --- | --- | --- | --- | --- | --- |
+| --- | ---- | ---- | -------- | ---------------------- | ------ | ----- |
+
 <!-- runs:end -->
