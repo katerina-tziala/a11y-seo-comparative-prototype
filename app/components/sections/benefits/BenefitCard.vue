@@ -51,10 +51,10 @@ defineProps<{
     border
     border-cream
     [font-family:inherit]
-    [font-weight:inherit]
-    [line-height:inherit]
-    [letter-spacing:inherit]
     text-[2rem]
+    [line-height:inherit]
+    [font-weight:inherit]
+    [letter-spacing:inherit]
     text-cream;
 }
 

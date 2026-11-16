@@ -38,7 +38,11 @@ const features = [
           class="a11y-intro"
           variant="vertical"
           ><template #eyebrow>CONNECTED FOUNDATIONS</template
-          ><template #heading><h2 class="section-title">Accessibility and SEO work from many of the same foundations</h2></template>Clear structure, descriptive content and reliable markup make a website easier for people
+          ><template #heading
+            ><h2 class="section-title"
+              >Accessibility and SEO work from many of the same foundations</h2
+            ></template
+          >Clear structure, descriptive content and reliable markup make a website easier for people
           to navigate and easier for search systems to interpret.</BaseSectionIntro
         >
         <div class="feature-list">

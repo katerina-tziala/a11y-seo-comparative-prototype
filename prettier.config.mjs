@@ -11,4 +11,12 @@ export default {
   vueIndentScriptAndStyle: false,
   endOfLine: 'lf',
   singleAttributePerLine: true,
+  overrides: [
+    {
+      files: 'app/components/sections/A11ySeoSection.vue',
+      options: {
+        htmlWhitespaceSensitivity: 'strict',
+      },
+    },
+  ],
 }

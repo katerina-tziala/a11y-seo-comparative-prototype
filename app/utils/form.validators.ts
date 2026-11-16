@@ -1,9 +1,5 @@
 export type ValidationErrorKey =
-  | 'required'
-  | 'contains_numbers'
-  | 'invalid_length'
-  | 'invalid_format'
-  | 'invalid_protocol'
+  'required' | 'contains_numbers' | 'invalid_length' | 'invalid_format' | 'invalid_protocol'
 
 export function validateName(value: string): ValidationErrorKey | null {
   const trimmed = value.trim()

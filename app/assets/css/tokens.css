@@ -24,7 +24,11 @@
   --lr-color-audit-start: #10433d;
   --lr-color-audit-end: #17665b;
   --lr-color-audit-copy: #d5e5e1;
-  --lr-color-audit-overlay: color-mix(in srgb, var(--lr-color-black) 40%, var(--lr-color-transparent));
+  --lr-color-audit-overlay: color-mix(
+    in srgb,
+    var(--lr-color-black) 40%,
+    var(--lr-color-transparent)
+  );
   --lr-color-logo-bg: #153e3a;
   --lr-color-logo-letter: #c9f4e7;
   --lr-color-shadow: rgba(20, 60, 56, 10%);

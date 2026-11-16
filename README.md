@@ -4,9 +4,9 @@ This repository contains a one-page website of LucidReach Digital, a fictional d
 
 ## Implementations
 
-| Implementation | Branch | Address |
-| --- | --- | --- |
-| Baseline | `main` | https://katerina-tziala.github.io/a11y-seo-comparative-prototype/baseline/ |
+| Implementation         | Branch                   | Address                                                                                  |
+| ---------------------- | ------------------------ | ---------------------------------------------------------------------------------------- |
+| Baseline               | `main`                   | https://katerina-tziala.github.io/a11y-seo-comparative-prototype/baseline/               |
 | Accessibility-governed | `accessibility-governed` | https://katerina-tziala.github.io/a11y-seo-comparative-prototype/accessibility-governed/ |
 
 The accessibility requirements that distinguish the two implementations, and the SEO indicators that the evaluation examines, are described in [Requirements and Indicators](REQUIREMENTS_AND_INDICATORS.md).
@@ -15,13 +15,13 @@ The accessibility requirements that distinguish the two implementations, and the
 
 The site is generated as static HTML, so both implementations are built in exactly the same way.
 
-| Tool | Version |
-| --- | --- |
-| Nuxt | 4.5.1 |
-| Vue | 3.5.40 |
-| Tailwind CSS | 4.3.3 |
-| TypeScript | 5.9.3 |
-| Node.js | 24 |
+| Tool         | Version |
+| ------------ | ------- |
+| Nuxt         | 4.5.1   |
+| Vue          | 3.5.40  |
+| Tailwind CSS | 4.3.3   |
+| TypeScript   | 5.9.3   |
+| Node.js      | 24      |
 
 The code follows consistent quality and formatting standards, which are checked automatically with ESLint, Stylelint and Prettier. All package versions are locked, so every installation uses exactly the same ones.
 
@@ -77,14 +77,14 @@ The two implementations are compared with a set of evaluation scripts. These scr
 
 Each commit message starts with one of these types:
 
-| Type | Name | Use |
-| --- | --- | --- |
+| Type         | Name          | Use                                                                             |
+| ------------ | ------------- | ------------------------------------------------------------------------------- |
 | `a11y(ARxx)` | Accessibility | Adds one accessibility requirement to the accessibility-governed implementation |
-| `feat` | Feature | New content or a new feature, the same in both implementations |
-| `fix` | Fix | A correction |
-| `chore` | Chore | Workflow, settings and dependencies |
-| `eval` | Evaluation | Evaluation scripts, and the evidence of a run as `eval(<run>)` |
-| `docs` | Documentation | Documentation |
+| `feat`       | Feature       | New content or a new feature, the same in both implementations                  |
+| `fix`        | Fix           | A correction                                                                    |
+| `chore`      | Chore         | Workflow, settings and dependencies                                             |
+| `eval`       | Evaluation    | Evaluation scripts, and the evidence of a run as `eval(<run>)`                  |
+| `docs`       | Documentation | Documentation                                                                   |
 
 A hook in `.githooks/` checks the message of each commit. To turn it on, run this command once in the repository:
 

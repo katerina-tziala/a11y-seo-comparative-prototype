@@ -18,7 +18,13 @@ function goToServices() {
         </p>
         <div class="button-row">
           <BaseButton href="#request-audit">Request an Audit</BaseButton>
-          <span role="link" tabindex="0" class="button button-secondary" @click="goToServices">Explore Our Services</span>
+          <span
+            role="link"
+            tabindex="0"
+            class="button button-secondary"
+            @click="goToServices"
+            >Explore Our Services</span
+          >
         </div>
       </div>
       <div class="hero-art">
