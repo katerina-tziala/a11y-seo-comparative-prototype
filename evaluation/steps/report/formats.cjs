@@ -71,7 +71,16 @@ const F = {
         ' > ',
       )}; after Escape: menu open=${v.sequence[29].menuOpen}, focus=${short(v.sequence[29].focused.text, 20)}`,
   AR41: (v) =>
-    `footer Tab order=${v.footerStopsInWalk.map((s) => short(s.text || s.axName || '(no name)', 20)).join(' > ')}`,
+    [
+      `footer Tab order=${v.footerStopsInWalk.map((s) => short(s.text || s.axName || '(no name)', 20)).join(' > ')}`,
+      `columns Tab order=${v.columns.tabOrder.join(' > ') || '(none observed)'}`,
+      `columns visual order=${v.columns.visualOrder.join(' > ') || '(none visible)'}`,
+      `Explore Tab order=${v.explore.tabOrder.join(' > ') || '(none observed)'}`,
+      `Explore visual order=${v.explore.visualOrder.join(' > ') || '(none visible)'}`,
+      ...(v.missingTargets.length ? [`missing targets=${v.missingTargets.join(', ')}`] : []),
+      ...(v.unreachedTargets.length ? [`unreached targets=${v.unreachedTargets.join(', ')}`] : []),
+      ...(v.hiddenTargets.length ? [`hidden targets=${v.hiddenTargets.join(', ')}`] : []),
+    ].join('; '),
   AR46: (v) => `lang=${v.domLang}; <html> tag=${v.htmlStartTag}`,
   AR48: (v) =>
     v.quotes.map((q) => `${short(q.text, 20)}: lang=${q.lang}, German=${q.isGerman}`).join('; '),

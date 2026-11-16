@@ -7,11 +7,125 @@ const { open, load, close } = require('./browser.cjs')
 const { axAll, axActive } = require('./ax.cjs')
 const { dom, shot, viewportShot, describeActive } = require('./capture.cjs')
 
+async function collectFooterGeometry(page, includeLayout) {
+  return page.evaluate((includeLayout) => {
+    const footer = document.querySelector('footer')
+    const column = (el) =>
+      el.closest('.footer-column-contact')
+        ? 'Contact'
+        : el.closest('.footer-column-explore')
+          ? 'Explore'
+          : el.closest('.footer-column-brand')
+            ? 'Brand'
+            : el.closest('.footer-bottom')
+              ? 'Footer bottom'
+              : 'Other'
+    const position = (el) => {
+      const r = el.getBoundingClientRect()
+      return {
+        x: r.x,
+        y: r.y,
+        scrollX,
+        scrollY,
+        documentX: r.x + scrollX,
+        documentY: r.y + scrollY,
+        width: r.width,
+        height: r.height,
+        visible: r.width > 0 && r.height > 0 && getComputedStyle(el).visibility === 'visible',
+      }
+    }
+    const link = (el) => ({
+      href: el.getAttribute('href'),
+      text: (el.textContent || '').trim().replace(/\s+/g, ' '),
+      ...position(el),
+    })
+    const active = document.activeElement
+    return {
+      stop:
+        footer && active && footer.contains(active)
+          ? {
+              ...position(active),
+              column: column(active),
+              href: active.getAttribute('href'),
+              exploreLink: active.matches('.footer-column-explore > a[href]'),
+            }
+          : null,
+      layout: includeLayout
+        ? {
+            footerPresent: !!footer,
+            columns: [
+              ...(footer?.querySelectorAll(
+                '.footer-grid > .footer-column-contact, .footer-grid > .footer-column-explore',
+              ) || []),
+            ].map((el) => ({ column: column(el), ...position(el) })),
+            exploreLinks: [
+              ...(footer?.querySelectorAll('.footer-column-explore > a[href]') || []),
+            ].map(link),
+          }
+        : null,
+    }
+  }, includeLayout)
+}
+
+function footerOrderValues(stops, layout, vp) {
+  const columns = ['Contact', 'Explore']
+  const hrefs = ['#services', '#approach', '#benefits', '#process', '#packages', '#faq']
+  // Visual order: desktop columns left to right; mobile columns top to bottom;
+  // inside a column, top to bottom. Document coordinates account for Tab scrolling.
+  const columnAxis = vp === 'desktop' ? 'documentX' : 'documentY'
+  const columnTabOrder = stops
+    .filter(
+      (s, i) =>
+        columns.includes(s.column) &&
+        (s.column !== stops[i - 1]?.column || s.i !== stops[i - 1]?.i + 1),
+    )
+    .map((s) => s.column)
+  return {
+    footerStopsInWalk: stops,
+    layout,
+    columns: {
+      tabOrder: columnTabOrder,
+      visualOrder: layout.columns
+        .filter((c) => c.visible)
+        .sort((a, b) => a[columnAxis] - b[columnAxis])
+        .map((c) => c.column),
+    },
+    explore: {
+      tabOrder: stops.filter((s) => s.exploreLink).map((s) => s.text || s.href),
+      visualOrder: layout.exploreLinks
+        .filter((l) => l.visible)
+        .sort((a, b) => a.documentY - b.documentY)
+        .map((l) => l.text || l.href),
+    },
+    missingTargets: [
+      ...(!layout.footerPresent ? ['footer'] : []),
+      ...columns.filter((c) => !layout.columns.some((l) => l.column === c)),
+      ...hrefs
+        .filter((h) => !layout.exploreLinks.some((l) => l.href === h))
+        .map((h) => `Explore link ${h}`),
+    ],
+    unreachedTargets: [
+      ...layout.columns
+        .filter((c) => !stops.some((s) => s.column === c.column))
+        .map((c) => c.column),
+      ...layout.exploreLinks
+        .filter((l) => !stops.some((s) => s.exploreLink && s.href === l.href))
+        .map((l) => `Explore link ${l.href}`),
+    ],
+    hiddenTargets: [
+      ...layout.columns.filter((c) => !c.visible).map((c) => c.column),
+      ...layout.exploreLinks.filter((l) => !l.visible).map((l) => `Explore link ${l.href}`),
+    ],
+  }
+}
+
 async function tabWalk(ver, vp) {
   const { key: v, url } = ver
   const s = await open(vp, { video: true })
   const files = []
   const steps = []
+  const footerStops = []
+  let footerLayout
   try {
     await load(s.page, url, vp)
     await s.page.evaluate(() => {
@@ -25,9 +139,15 @@ async function tabWalk(ver, vp) {
       const el = await describeActive(s.page)
       const ax = await axActive(s.cdp)
       steps.push({ i, ...el, axRole: ax && ax.role, axName: ax && ax.name })
+      if (el.inFooter) {
+        const geometry = await collectFooterGeometry(s.page, !footerLayout)
+        if (geometry.layout) footerLayout = geometry.layout
+        if (geometry.stop) footerStops.push({ ...steps[steps.length - 1], ...geometry.stop })
+      }
       files.push(await viewportShot(s.page, v, 'tab-walk', vp))
       if (el.tag === 'body' && ++bodyCount >= 1 && i > 2) break
     }
+    if (!footerLayout) footerLayout = (await collectFooterGeometry(s.page, true)).layout
   } finally {
     const video = await close(s, v, 'tab-walk', vp)
     if (video) files.push(video)
@@ -51,14 +171,7 @@ async function tabWalk(ver, vp) {
     },
     files,
   )
-  ctx.record(
-    'AR41',
-    v,
-    vp,
-    'keyboard',
-    { footerStopsInWalk: steps.filter((x) => x.inFooter) },
-    files,
-  )
+  ctx.record('AR41', v, vp, 'keyboard', footerOrderValues(footerStops, footerLayout, vp), files)
   ctx.log.results.push({
     id: 'TABWALK',
     version: v,
