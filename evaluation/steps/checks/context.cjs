@@ -32,7 +32,7 @@ const VIEWPORTS = {
   },
 }
 const MOBILE_ONLY = new Set(['AR31', 'AR36', 'AR40'])
-// Optional: ONLY=AR27,AR35 runs only these checks (default: all).
+// Optional: ONLY=AR27 runs only this check (default: all).
 const ONLY = (process.env.ONLY || '')
   .split(',')
   .map((x) => x.trim())

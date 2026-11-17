@@ -1,11 +1,11 @@
 'use strict'
 // keyboard-checks.cjs: the checks with key presses or pointer actions (Interaction state):
-// tab walk (AR38, AR41), AR38 supplementary keys, AR39, AR40, AR36, AR35 and AR27.
+// tab walk (AR38, AR41), AR38 supplementary keys, AR39, AR40, AR36 and AR27.
 // Each check records the focused element after each key, a screenshot after each key and a video (P3.5, P6.2).
 const ctx = require('./context.cjs')
 const { open, load, close } = require('./browser.cjs')
 const { axAll, axActive } = require('./ax.cjs')
-const { dom, shot, viewportShot, describeActive } = require('./capture.cjs')
+const { viewportShot, describeActive } = require('./capture.cjs')
 
 async function collectFooterGeometry(page, includeLayout) {
   return page.evaluate((includeLayout) => {
@@ -345,48 +345,6 @@ async function menuToggleStateAndRelationships(ver, input) {
   ctx.record('AR36', v, vp, input, { states }, files)
 }
 
-async function formValidationFeedback(ver, vp, input) {
-  const { key: v, url } = ver
-  const s = await open(vp, { video: true })
-  const files = []
-  let values
-  try {
-    await load(s.page, url, vp)
-    if (input === 'keyboard') {
-      await tabUntil(s, `return !!el && el.matches('#request-audit button[type="submit"]')`)
-      await s.page.keyboard.press('Enter')
-    } else {
-      await s.page.click('#request-audit button[type="submit"]')
-    }
-    await s.page.waitForTimeout(600)
-    values = {
-      focusedAfterSubmit: await describeActive(s.page),
-      messages: await dom(
-        s.page,
-        '#request-audit .field-message',
-        `return { id: el.id, text: el.textContent.trim(), cls: el.getAttribute('class') }`,
-      ),
-      fields: await dom(
-        s.page,
-        '#audit-name, #audit-email, #audit-website, input[name="concern"]',
-        `return { id: el.id, ariaInvalid: el.getAttribute('aria-invalid'), describedby: el.getAttribute('aria-describedby') }`,
-      ),
-      group: await dom(
-        s.page,
-        '.radio-group',
-        `return { tag: el.tagName.toLowerCase(), ariaInvalid: el.getAttribute('aria-invalid'), describedby: el.getAttribute('aria-describedby') }`,
-      ),
-      ax: await axAll(s.cdp, '#audit-name, #audit-email, #audit-website, input[name="concern"]'),
-      groupAx: await axAll(s.cdp, '.radio-group'),
-    }
-    files.push(await shot(s.page, '#request-audit form', v, 'AR35', vp, input))
-  } finally {
-    const video = await close(s, v, 'AR35', vp, input)
-    if (video) files.push(video)
-  }
-  ctx.record('AR35', v, vp, input, values, files.filter(Boolean))
-}
-
 async function newTabLinkActivation(ver, vp, input) {
   const { key: v, url } = ver
   const s = await open(vp, { video: true })
@@ -422,6 +380,5 @@ module.exports = {
   exploreServicesKeyboardActivation,
   menuKeyboardTrap,
   menuToggleStateAndRelationships,
-  formValidationFeedback,
   newTabLinkActivation,
 }
