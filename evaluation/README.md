@@ -6,10 +6,12 @@ One run does four parts, in this order:
 
 1. **Visual parity**: the position, size and computed styles of every visible element in both implementations, in each page state and viewport. It runs first, because the comparison is valid only when the two implementations look the same.
 2. **Lighthouse**: four reports, Accessibility and SEO categories (baseline mobile, governed mobile, baseline desktop, governed desktop).
-3. **Checks**: 35 checks, read from the DOM and from Chrome’s Accessibility Tree, with key presses and pointer actions where a check needs them.
+3. **Checks**: 35 checks plus the supplementary page-wide focus-order screen, read from the DOM and from Chrome’s Accessibility Tree, with key presses and pointer actions where a check needs them.
 4. **Report**: two CSV files with the results of the run.
 
 The checks are written for this prototype. Each one examines an accessibility requirement (`AR` IDs) or an SEO indicator (`SI` IDs), as described in [Requirements and Indicators](../REQUIREMENTS_AND_INDICATORS.md).
+
+`FOCUS_SCREEN` is supplementary and is not a requirement check or a verdict. It uses a separate geometry array from the shared Tab walk, with all coordinates retained in the checks log and the existing walk evidence reused. The reference box is the focused element, or its associated visible `.radio-card` for the visually hidden radio inputs; `geometrySource` records that choice. An upward centre movement greater than 8 CSS px is flagged. Centres within 8 CSS px vertically are on the same line, where a leftward movement greater than 8 CSS px is flagged. The initial skip-link entry is retained as a known transition, separately from review moves. The terminal body is a walk boundary, unmeasurable targets are listed, and reaching the 120-key limit is reported as a cutoff. The shared walk does not open the mobile menu; open-menu scenarios belong to AR40. Geometric flags, including desktop transitions into another footer column, require review.
 
 ## Requirements
 

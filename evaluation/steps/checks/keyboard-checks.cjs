@@ -119,12 +119,135 @@ function footerOrderValues(stops, layout, vp) {
   }
 }
 
+async function collectFocusScreenGeometry(page, vp) {
+  return page.evaluate((vp) => {
+    const el = document.activeElement
+    if (!el || el === document.body) return { kind: 'body boundary' }
+    const box = (target) => {
+      const r = target.getBoundingClientRect()
+      return {
+        x: r.x,
+        y: r.y,
+        width: r.width,
+        height: r.height,
+        scrollX,
+        scrollY,
+        documentX: r.x + scrollX,
+        documentY: r.y + scrollY,
+        centerX: r.x + scrollX + r.width / 2,
+        centerY: r.y + scrollY + r.height / 2,
+      }
+    }
+    const radioCard = el.matches('.radio-input')
+      ? [...(el.labels || [])].find((label) => label.matches('.radio-card'))
+      : null
+    const reference = radioCard || el
+    const elementBox = box(el)
+    const referenceBox = radioCard ? box(reference) : elementBox
+    const style = getComputedStyle(reference)
+    const measurable =
+      Object.values(referenceBox).every(Number.isFinite) &&
+      referenceBox.width > 0 &&
+      referenceBox.height > 0 &&
+      style.display !== 'none' &&
+      style.visibility === 'visible'
+    const nav = document.querySelector('#site-nav')
+    const mobileMenuOpen =
+      vp === 'mobile' &&
+      !!nav &&
+      getComputedStyle(nav).display !== 'none' &&
+      nav.getClientRects().length > 0
+    return {
+      kind: 'target',
+      href: el.getAttribute('href'),
+      skipLink: el.matches('.skip-link[href="#main"]'),
+      geometrySource: radioCard ? 'radio-card' : 'element',
+      elementBox,
+      referenceBox,
+      measurable,
+      reason: measurable ? null : 'non-finite, empty or hidden reference box',
+      footerColumn: el.closest('.footer-column-explore')
+        ? 'Explore'
+        : el.closest('.footer-column-contact')
+          ? 'Contact'
+          : el.closest('.footer-column-brand')
+            ? 'Brand'
+            : null,
+      mobileMenuOpen,
+    }
+  }, vp)
+}
+
+function focusScreenValues(stops, vp) {
+  const threshold = 8
+  const targets = stops.filter((s) => s.kind === 'target')
+  const backwardMoves = []
+  for (let i = 1; i < stops.length; i++) {
+    const before = stops[i - 1],
+      after = stops[i]
+    if (!before.measurable || !after.measurable) continue
+    const deltaX = after.referenceBox.centerX - before.referenceBox.centerX
+    const deltaY = after.referenceBox.centerY - before.referenceBox.centerY
+    // A line is pairwise centre alignment within 8 CSS px, in document coordinates.
+    const kind =
+      deltaY < -threshold
+        ? 'up'
+        : Math.abs(deltaY) <= threshold && deltaX < -threshold
+          ? 'left on same line'
+          : null
+    if (!kind) continue
+    backwardMoves.push({
+      from: before.i,
+      to: after.i,
+      kind,
+      deltaX,
+      deltaY,
+      knownEntry: before.i === 1 && before.skipLink ? 'initial skip-link entry' : null,
+      context:
+        before.footerColumn && after.footerColumn && before.footerColumn !== after.footerColumn
+          ? `footer column transition ${before.footerColumn} -> ${after.footerColumn}`
+          : null,
+    })
+  }
+  const termination =
+    stops.at(-1)?.kind === 'body boundary'
+      ? 'body boundary'
+      : stops.length === 120
+        ? '120-key cutoff'
+        : 'unavailable'
+  return {
+    supplementary: true,
+    usedForVerdict: false,
+    thresholds: { sameLine: threshold, backward: threshold, units: 'CSS px' },
+    stops,
+    observedStops: targets.length,
+    measuredStops: targets.filter((s) => s.measurable).length,
+    backwardMoves,
+    reviewCount: backwardMoves.filter((m) => !m.knownEntry).length,
+    knownCount: backwardMoves.filter((m) => m.knownEntry).length,
+    unmeasurableTargets: targets
+      .filter((s) => !s.measurable)
+      .map((s) => ({ i: s.i, reason: s.reason })),
+    termination,
+    truncated: termination === '120-key cutoff',
+    scope:
+      vp === 'mobile'
+        ? 'mobile menu closed; not opened by shared walk'
+        : 'desktop navigation visible; not opened by shared walk',
+    scopeIssues: targets.some((s) => s.mobileMenuOpen)
+      ? ['mobile menu unexpectedly open during shared walk']
+      : [],
+  }
+}
+
 async function tabWalk(ver, vp) {
   const { key: v, url } = ver
   const s = await open(vp, { video: true })
   const files = []
   const steps = []
   const footerStops = []
+  const focusStops = []
+  const collectScreen = ctx.wanted('FOCUS_SCREEN')
   let footerLayout
   try {
     await load(s.page, url, vp)
@@ -145,6 +268,14 @@ async function tabWalk(ver, vp) {
         if (geometry.stop) footerStops.push({ ...steps[steps.length - 1], ...geometry.stop })
       }
       files.push(await viewportShot(s.page, v, 'tab-walk', vp))
+      if (collectScreen) {
+        const geometry = await collectFocusScreenGeometry(s.page, vp).catch((error) => ({
+          kind: el.tag === 'body' ? 'body boundary' : 'target',
+          measurable: false,
+          reason: String(error?.message || error),
+        }))
+        focusStops.push({ i, ...el, axRole: ax && ax.role, axName: ax && ax.name, ...geometry })
+      }
       if (el.tag === 'body' && ++bodyCount >= 1 && i > 2) break
     }
     if (!footerLayout) footerLayout = (await collectFooterGeometry(s.page, true)).layout
@@ -180,6 +311,8 @@ async function tabWalk(ver, vp) {
     values: { steps },
     files,
   })
+  if (collectScreen)
+    ctx.record('FOCUS_SCREEN', v, vp, 'keyboard', focusScreenValues(focusStops, vp), [...files])
   return steps
 }
 

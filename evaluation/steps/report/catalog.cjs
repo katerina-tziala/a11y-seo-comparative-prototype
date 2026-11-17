@@ -36,6 +36,7 @@ const ITEMS = {
   SI08: 'Canonical URL',
   SI11: 'Heading elements',
   SI12: 'Viewport meta element',
+  FOCUS_SCREEN: 'Page-wide focus-order screen (supplementary)',
 }
 const AUDITS = {
   AR09: ['image-alt'],
@@ -73,5 +74,6 @@ const AUDITS = {
   SI08: ['canonical'],
   SI11: [],
   SI12: [],
+  FOCUS_SCREEN: [],
 }
 module.exports = { ITEMS, AUDITS }
