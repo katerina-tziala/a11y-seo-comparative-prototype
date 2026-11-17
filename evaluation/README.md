@@ -81,6 +81,8 @@ File names follow one rule:
 - `input`: `keyboard` or `pointer`, only for checks that run with both.
 - `NN`: only where a file can repeat in the run, for example one screenshot per key.
 
+AR40's additional scenario evidence uses case-qualified input names: `keyboard-escape-first`, `keyboard-escape-process`, `keyboard-escape-last` and `keyboard-enter-process`. Its observations report still uses `keyboard`.
+
 Examples: `final-01_baseline_AR11_desktop.png`, `final-01_governed_AR36_mobile-keyboard.webm`, `final-01_baseline_lighthouse_mobile_01.json`.
 
 The videos of the keyboard checks are WebM files, which open in Chrome.
