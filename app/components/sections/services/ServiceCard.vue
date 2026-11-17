@@ -14,7 +14,7 @@ defineProps<{
 <template>
   <BaseCard class="service-card">
     <div class="card-top">
-      <h4 class="card-title">{{ title }}</h4>
+      <h2 class="card-title">{{ title }}</h2>
       <span class="icon-box">
         <component :is="icon" />
       </span>
