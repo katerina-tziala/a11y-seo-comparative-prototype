@@ -1,6 +1,6 @@
 # Accessibility and SEO Comparative Prototype
 
-This repository contains a one-page website of LucidReach Digital, a fictional digital marketing company that offers accessible web design, Technical SEO and conversion optimization. The website was created for academic research and exists in two implementations. The baseline leaves a set of common accessibility requirements unmet, while the accessibility-governed implementation is the same page built to meet them. Apart from these changes, the two implementations share the same content, design and technology. This allows a direct comparison of accessibility and Technical SEO on the same page.
+This repository contains a one-page website for LucidReach Digital, a fictional digital marketing company that offers accessible web design, Technical SEO and conversion optimization. The website was created for academic research and exists in two implementations. The baseline leaves a set of common accessibility requirements unmet, while the accessibility-governed implementation is the same page built to meet them. Apart from the changes that meet these requirements, the two implementations share the same content, design and technology. This allows a direct comparison of accessibility and Technical SEO on the same page.
 
 ## Implementations
 
@@ -13,7 +13,7 @@ The accessibility requirements that distinguish the two implementations, and the
 
 ## Technology
 
-The site is generated as static HTML, so both implementations are built in exactly the same way.
+The site is generated as static HTML. Both implementations are built with the same tools and versions.
 
 | Tool         | Version |
 | ------------ | ------- |
@@ -23,11 +23,11 @@ The site is generated as static HTML, so both implementations are built in exact
 | TypeScript   | 5.9.3   |
 | Node.js      | 24      |
 
-The code follows consistent quality and formatting standards, which are checked automatically with ESLint, Stylelint and Prettier. All package versions are locked, so every installation uses exactly the same ones.
+The code follows consistent quality and formatting standards, which are checked with ESLint, Stylelint and Prettier through `npm run check`. All package versions are locked, so every installation uses exactly the same ones.
 
 ### Assets
 
-The LinkedIn, Instagram and YouTube icons are the official icons from the brand resources of each company. All other images are original to this prototype.
+The LinkedIn, Instagram and YouTube icons are the official icons from each company's brand resources. All other images are original to this prototype.
 
 ## Development
 
@@ -47,7 +47,7 @@ npm run dev
 
 By default, the site is served at `http://localhost:3000/`.
 
-To generate the static site, as it is published, run:
+To generate the static site as it is published, run:
 
 ```
 npm run generate
@@ -71,20 +71,22 @@ Both implementations are hosted on GitHub Pages, at the addresses listed above. 
 
 ## Evaluation
 
-The two implementations are compared with a set of evaluation scripts. These scripts examine the structure of each page, its Accessibility Tree and the information that search engines read. The [evaluation documentation](evaluation/README.md) explains how to install and run the scripts, and how the results are organized. The results of every run, together with an overview of all runs, are kept in the [evidence documentation](evidence/README.md).
+The two implementations are compared with a set of evaluation scripts. These scripts examine the structure of each page, its Accessibility Tree and the information that search engines read. The [evaluation documentation](evaluation/README.md) explains how to install and run the scripts, and how the results are organized. The results of every run are kept in the `evidence/` folder. The [evidence documentation](evidence/README.md) describes the folder and gives an overview of all runs.
 
 ## Contributing
 
 Each commit message starts with one of these types:
 
-| Type         | Name          | Use                                                                             |
-| ------------ | ------------- | ------------------------------------------------------------------------------- |
-| `a11y(ARxx)` | Accessibility | Adds one accessibility requirement to the accessibility-governed implementation |
-| `feat`       | Feature       | New content or a new feature, the same in both implementations                  |
-| `fix`        | Fix           | A correction                                                                    |
-| `chore`      | Chore         | Workflow, settings and dependencies                                             |
-| `eval`       | Evaluation    | Evaluation scripts, and the evidence of a run as `eval(<run>)`                  |
-| `docs`       | Documentation | Documentation                                                                   |
+| Type         | Name          | Use                                                                              |
+| ------------ | ------------- | -------------------------------------------------------------------------------- |
+| `a11y(ARxx)` | Accessibility | Meets one accessibility requirement in the accessibility-governed implementation |
+| `feat`       | Feature       | New content or a new feature, the same in both implementations                   |
+| `fix`        | Fix           | A correction                                                                     |
+| `chore`      | Chore         | Workflow, settings and dependencies                                              |
+| `eval`       | Evaluation    | Evaluation scripts, and the evidence of a run as `eval(<run>)`                   |
+| `docs`       | Documentation | Documentation                                                                    |
+
+The other types can also include a requirement ID in parentheses, for example `feat(AR41)` for a baseline change that concerns AR41.
 
 A hook in `.githooks/` checks the message of each commit. To turn it on, run this command once in the repository:
 
@@ -93,3 +95,5 @@ git config core.hooksPath .githooks
 ```
 
 The same check also runs on GitHub for every push and pull request.
+
+Changes reach `main` only through pull requests, which are merged with "Rebase and merge", so each commit keeps its own message in the history.

@@ -6,6 +6,10 @@ The table shows each run with its type and date, the tag and commit of each impl
 
 A run is valid when all four parts completed and the Chrome version did not change during the run.
 
+Dry runs, whose names start with `dryrun`, test the scripts. They are not listed in the table and are not committed.
+
+A comparison of two runs (`npm run compare`) writes `compare_<runA>_<runB>.json` in this folder. It is a working file and is not part of the evidence of a run.
+
 <!-- runs:start -->
 
 | Run | Type | Date | Baseline | Accessibility-governed | Chrome | Valid |
