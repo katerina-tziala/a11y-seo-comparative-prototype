@@ -19,8 +19,14 @@ const F = {
   AR11: (v) => `img alt=${JSON.stringify(v.img[0] && v.img[0].alt)}; link name=${names(v.link)}`,
   AR14: (v) =>
     `element=${v.element.map((e) => e.tag)}; role=${roles(v.ax)}; heading levels=${v.headings.map((h) => h.level).join('')}`,
-  AR15: (v) =>
-    `elements=${v.elements.map((e) => e.tag)}; levels=${v.ax.map((a) => a && a.properties.level)}`,
+  AR15: (v) => {
+    const describe = (group, label) => {
+      const tags = group.targets.map((t) => (t.element ? t.element.tag : 'missing')).join(',')
+      const levels = group.targets.map((t) => t.issue || t.level).join(',')
+      return `${label}=${tags}, ${label === 'section' ? 'level' : 'levels'}=${levels}`
+    }
+    return `Services: ${describe(v.services.section, 'section')}; ${describe(v.services.cards, 'cards')}; Process: ${describe(v.process.section, 'section')}; ${describe(v.process.steps, 'steps')}`
+  },
   AR16: (v) =>
     `elements=${v.elements.map((e) => e.tag)}; roles=${roles(v.ax)}; names=${names(v.ax)}`,
   AR17: (v) =>
