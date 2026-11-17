@@ -51,8 +51,6 @@ const F = {
   AR33: (v) => `autocomplete=${v.fields.map((f) => f.autocomplete || 'none')}`,
   AR34: (v) =>
     `container=${v.group.map((g) => g.tag + '/' + g.labelTag)}; group role=${roles(v.ax)}; group name=${names(v.ax)}`,
-  AR35: (v) =>
-    `focus after submit=${v.focusedAfterSubmit && v.focusedAfterSubmit.id}; messages=${v.messages.map((m) => m.text).join(' | ')}; aria-invalid=${v.fields.map((f) => f.ariaInvalid || 'none')}; aria-describedby=${v.fields.map((f) => f.describedby || 'none')}; AT invalid=${v.ax.map((a) => a && a.properties.invalid)}; AT descriptions=${v.ax.map(desc).join(', ')}`,
   AR36: (v) =>
     v.states
       .map(

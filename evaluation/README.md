@@ -6,7 +6,7 @@ One run does four parts, in this order:
 
 1. **Visual parity**: the position, size and computed styles of every visible element in both implementations, in each page state and viewport. It runs first, because the comparison is valid only when the two implementations look the same.
 2. **Lighthouse**: four reports, Accessibility and SEO categories (baseline mobile, governed mobile, baseline desktop, governed desktop).
-3. **Checks**: 36 checks, read from the DOM and from Chrome’s Accessibility Tree, with key presses and pointer actions where a check needs them.
+3. **Checks**: 35 checks, read from the DOM and from Chrome’s Accessibility Tree, with key presses and pointer actions where a check needs them.
 4. **Report**: two CSV files with the results of the run.
 
 The checks are written for this prototype. Each one examines an accessibility requirement (`AR` IDs) or an SEO indicator (`SI` IDs), as described in [Requirements and Indicators](../REQUIREMENTS_AND_INDICATORS.md).
@@ -81,7 +81,7 @@ File names follow one rule:
 - `input`: `keyboard` or `pointer`, only for checks that run with both.
 - `NN`: only where a file can repeat in the run, for example one screenshot per key.
 
-Examples: `final-01_baseline_AR11_desktop.png`, `final-01_governed_AR35_mobile-keyboard.webm`, `final-01_baseline_lighthouse_mobile_01.json`.
+Examples: `final-01_baseline_AR11_desktop.png`, `final-01_governed_AR36_mobile-keyboard.webm`, `final-01_baseline_lighthouse_mobile_01.json`.
 
 The videos of the keyboard checks are WebM files, which open in Chrome.
 

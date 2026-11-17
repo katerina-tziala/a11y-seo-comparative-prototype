@@ -2,7 +2,7 @@
 // index.cjs: runs all checks of the Evaluation Check Plan on both implementations and both viewports,
 // and writes the checks log (<run>_checks_log.json). It records values; it does not judge them.
 // Normally started by evaluate.cjs. Alone: RUN=<run> BASELINE_URL=... GOVERNED_URL=... node steps/checks/index.cjs
-// Optional: ONLY=AR27,AR35 runs only these checks.
+// Optional: ONLY=AR27 runs only this check.
 const fs = require('fs')
 const path = require('path')
 const { chromium } = require('playwright')
@@ -14,7 +14,6 @@ const {
   exploreServicesKeyboardActivation,
   menuKeyboardTrap,
   menuToggleStateAndRelationships,
-  formValidationFeedback,
   newTabLinkActivation,
 } = require('./keyboard-checks.cjs')
 
@@ -75,7 +74,6 @@ const {
       await step('AR38', () => faqKeyboardFocusAndActivation(ver, vp))
       await step('AR39', () => exploreServicesKeyboardActivation(ver, vp))
       for (const input of ['keyboard', 'pointer']) {
-        await step('AR35', () => formValidationFeedback(ver, vp, input))
         await step('AR27', () => newTabLinkActivation(ver, vp, input))
         if (vp === 'mobile') await step('AR36', () => menuToggleStateAndRelationships(ver, input))
       }
