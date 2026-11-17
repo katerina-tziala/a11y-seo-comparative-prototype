@@ -297,7 +297,126 @@ async function menuKeyboardTrap(ver) {
     const video = await close(s, v, 'AR40', vp)
     if (video) files.push(video)
   }
-  ctx.record('AR40', v, vp, 'keyboard', { sequence: seq }, files)
+  const readMenuState = async (page) => {
+    const focused = await describeActive(page)
+    const { href, ...state } = await page.evaluate(() => {
+      const menu = document.querySelector('#site-nav')
+      const active = document.activeElement
+      const rect = menu?.getBoundingClientRect()
+      const style = menu && getComputedStyle(menu)
+      return {
+        hash: location.hash,
+        menuPresent: !!menu,
+        menuOpen:
+          !!menu &&
+          style.display !== 'none' &&
+          style.visibility !== 'hidden' &&
+          rect.width > 0 &&
+          rect.height > 0,
+        insideMenu: !!menu && menu.contains(active),
+        href: active?.getAttribute('href') ?? null,
+      }
+    })
+    return { ...state, focused: { ...focused, href } }
+  }
+  const observeCase = async (target, key) => {
+    const input = `keyboard-${key.toLowerCase()}-${target}`
+    const c = await open(vp, { video: true })
+    const result = {
+      target,
+      key,
+      status: 'not run',
+      href: null,
+      text: null,
+      before: null,
+      after: null,
+      ...(key === 'Enter' ? { supplementary: true, usedForVerdict: false, nextTabs: [] } : {}),
+    }
+    try {
+      await load(c.page, url, vp)
+      if (!(await c.page.locator('.menu-toggle').count())) {
+        result.status = 'missing toggle'
+        return result
+      }
+      if (!(await tabUntil(c, `return !!el && el.classList.contains('menu-toggle')`))) {
+        result.status = 'unreached toggle'
+        result.lastState = await readMenuState(c.page)
+        return result
+      }
+      await c.page.keyboard.press('Enter')
+      await c.page.waitForTimeout(250)
+      const opened = await readMenuState(c.page)
+      if (!opened.menuPresent || !opened.menuOpen) {
+        result.status = opened.menuPresent ? 'menu did not open' : 'missing menu'
+        result.lastState = opened
+        return result
+      }
+      const links = c.page.locator('#site-nav a[href]')
+      const link =
+        target === 'first'
+          ? links.first()
+          : target === 'last'
+            ? links.last()
+            : c.page.locator('#site-nav a[href="#process"]').first()
+      if (!(await link.count())) {
+        result.status = 'missing target'
+        result.lastState = opened
+        return result
+      }
+      Object.assign(
+        result,
+        await link.evaluate((el) => ({
+          href: el.getAttribute('href'),
+          text: el.textContent.trim().replace(/\s+/g, ' '),
+        })),
+      )
+      const count = await links.count()
+      let reached = false
+      // Continue from the toggle without tabUntil's focus and scroll reset.
+      for (let i = 0; i <= count; i++) {
+        if (await link.evaluate((el) => el === document.activeElement)) {
+          reached = true
+          break
+        }
+        if (i === count) break
+        await c.page.keyboard.press('Tab')
+        await c.page.waitForTimeout(250)
+      }
+      if (!reached) {
+        result.status = 'unreached target'
+        result.lastState = await readMenuState(c.page)
+        return result
+      }
+      result.before = await readMenuState(c.page)
+      files.push(await viewportShot(c.page, v, 'AR40', vp, input))
+      await c.page.keyboard.press(key)
+      await c.page.waitForTimeout(key === 'Enter' ? 800 : 250)
+      result.after = await readMenuState(c.page)
+      files.push(await viewportShot(c.page, v, 'AR40', vp, input))
+      if (key === 'Enter') {
+        for (let i = 0; i < 4; i++) {
+          await c.page.keyboard.press('Tab')
+          await c.page.waitForTimeout(250)
+          result.nextTabs.push(await readMenuState(c.page))
+          files.push(await viewportShot(c.page, v, 'AR40', vp, input))
+        }
+      }
+      result.status = 'observed'
+    } catch (error) {
+      result.status = 'error'
+      result.error = String(error?.message || error)
+    } finally {
+      const video = await close(c, v, 'AR40', vp, input)
+      if (video) files.push(video)
+    }
+    return result
+  }
+  const escapeCases = []
+  for (const target of ['first', 'process', 'last']) {
+    escapeCases.push(await observeCase(target, 'Escape'))
+  }
+  const enterProcess = await observeCase('process', 'Enter')
+  ctx.record('AR40', v, vp, 'keyboard', { sequence: seq, escapeCases, enterProcess }, files)
 }
 
 async function menuToggleStateAndRelationships(ver, input) {

@@ -64,8 +64,8 @@ const F = {
       : `FAQ questions=${v.faqQuestions.length}; Tab stops in FAQ=${v.faqStopsInWalk.map((s) => s.tag + ' ' + short(s.text, 25)).join(' | ')}`,
   AR39: (v) =>
     `Tab presses to reach=${v.tabPresses}; element=${v.focused && v.focused.tag}; role=${v.ax && v.ax.role}; after Enter: hash=${JSON.stringify(v.after.hash)}, services top=${v.after.servicesTop}`,
-  AR40: (v) =>
-    `after Enter: focus=${short(v.sequence[0].focused.text || v.sequence[0].focused.cls, 30)}; Tab: ${v.sequence
+  AR40: (v) => {
+    const legacy = `after Enter: focus=${short(v.sequence[0].focused.text || v.sequence[0].focused.cls, 30)}; Tab: ${v.sequence
       .slice(1, 15)
       .map((s) => short(s.focused.text, 14))
       .join(' > ')}; Shift+Tab: ${v.sequence
@@ -73,7 +73,37 @@ const F = {
       .map((s) => short(s.focused.text, 14))
       .join(
         ' > ',
-      )}; after Escape: menu open=${v.sequence[29].menuOpen}, focus=${short(v.sequence[29].focused.text, 20)}`,
+      )}; after Escape: menu open=${v.sequence[29].menuOpen}, focus=${short(v.sequence[29].focused.text, 20)}`
+    const focus = (el) =>
+      el.tag +
+      (el.id
+        ? `#${el.id}`
+        : el.href
+          ? `[href=${JSON.stringify(el.href)}]`
+          : el.cls
+            ? `.${el.cls.trim().split(/\s+/g).join('.')}`
+            : '') +
+      (el.text ? ` ${JSON.stringify(short(el.text, 40))}` : '')
+    const state = (s, includeHash = false) =>
+      s
+        ? `${includeHash ? `hash=${JSON.stringify(s.hash)}, ` : ''}open=${s.menuOpen}, focus=${focus(s.focused)}, inside=${s.insideMenu}`
+        : 'unavailable'
+    const describeCase = (c) =>
+      c.status === 'observed'
+        ? `before(${state(c.before, c.key === 'Enter')}) -> after(${state(c.after, c.key === 'Enter')})`
+        : `status=${c.status}${c.error ? `, error=${JSON.stringify(short(c.error, 120))}` : ''}${c.lastState ? `, last observed(${state(c.lastState)})` : ''}`
+    return [
+      legacy,
+      ...(v.escapeCases || []).map(
+        (c) => `Escape[${c.target}${c.text ? `: ${c.text}` : ''}]: ${describeCase(c)}`,
+      ),
+      ...(v.enterProcess
+        ? [
+            `supplementary Enter[Process] (not used for verdict): ${describeCase(v.enterProcess)}; next Tab=${v.enterProcess.nextTabs.map((s) => state(s, true)).join(' > ') || '(none observed)'}`,
+          ]
+        : []),
+    ].join('; ')
+  },
   AR41: (v) =>
     [
       `footer Tab order=${v.footerStopsInWalk.map((s) => short(s.text || s.axName || '(no name)', 20)).join(' > ')}`,
