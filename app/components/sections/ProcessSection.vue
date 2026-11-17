@@ -48,7 +48,7 @@ const renderedSteps = [steps[2]!, steps[0]!, steps[3]!, steps[1]!]
           :style="{ order: Number(step.number) }"
         >
           <span>{{ step.number }}</span>
-          <p class="font-semibold tracking-wide">{{ step.title }}</p>
+          <h4 class="step-title">{{ step.title }}</h4>
           <p>{{ step.description }}</p>
         </div>
       </div>
@@ -112,6 +112,16 @@ const renderedSteps = [steps[2]!, steps[0]!, steps[3]!, steps[1]!]
     md:border-t
     md:border-l-0;
   @apply content-[''];
+}
+
+.process-step > .step-title {
+  @apply m-0
+    [font-family:inherit]
+    [font-size:inherit]
+    [line-height:inherit]
+    font-semibold
+    tracking-wide
+    text-ink-soft;
 }
 
 .process-step > span {
