@@ -51,7 +51,7 @@ else
     if (a !== b) note('checks log', key, (a || '').slice(0, 300), (b || '').slice(0, 300))
   }
 
-// 2. CSV reports: every row, without the Run column.
+// 2. CSV reports: match rows by report keys, without the Run column.
 function csvRows(file, run) {
   if (!fs.existsSync(file)) return null
   const text = fs.readFileSync(file, 'utf8').replace(/^\ufeff/, '')
@@ -84,9 +84,9 @@ function csvRows(file, run) {
   }
   return rows.map((r) => r.slice(1).map((v) => v.split(run).join('<run>')))
 }
-for (const [part, name] of [
-  ['observations report', 'report_observations.csv'],
-  ['parity report', 'report_parity.csv'],
+for (const [part, name, keyColumns] of [
+  ['observations report', 'report_observations.csv', ['ID', 'Viewport', 'Input']],
+  ['parity report', 'report_parity.csv', ['State', 'Viewport']],
 ]) {
   const ra = csvRows(path.join(dirOf(A), `${A}_${name}`), A),
     rb = csvRows(path.join(dirOf(B), `${B}_${name}`), B)
@@ -94,11 +94,53 @@ for (const [part, name] of [
     note(part, 'file', !!ra, !!rb)
     continue
   }
-  if (ra.length !== rb.length) note(part, 'number of rows', ra.length, rb.length)
-  for (let i = 0; i < Math.max(ra.length, rb.length); i++) {
-    const a = JSON.stringify(ra[i] || null),
-      b = JSON.stringify(rb[i] || null)
-    if (a !== b) note(part, `row ${i + 1}`, (a || '').slice(0, 300), (b || '').slice(0, 300))
+  const columnsA = ra[0] || [],
+    columnsB = rb[0] || []
+  if (JSON.stringify(columnsA) !== JSON.stringify(columnsB))
+    note(part, 'columns', columnsA, columnsB)
+  const missingA = keyColumns.filter((column) => !columnsA.includes(column)),
+    missingB = keyColumns.filter((column) => !columnsB.includes(column))
+  if (missingA.length || missingB.length) {
+    note(part, 'missing key columns', missingA, missingB)
+    continue
+  }
+  const indexRows = (table, run) => {
+    const [columns, ...rows] = table
+    const indexed = new Map()
+    for (const cells of rows) {
+      const row = Object.fromEntries(columns.map((column, i) => [column, cells[i] ?? null]))
+      const key = Object.fromEntries(keyColumns.map((column) => [column, row[column]]))
+      const id = JSON.stringify(key)
+      if (indexed.has(id)) {
+        differences.push({ part, change: 'duplicate row key', key, run })
+        continue
+      }
+      indexed.set(id, { key, row })
+    }
+    return indexed
+  }
+  const ma = indexRows(ra, A),
+    mb = indexRows(rb, B)
+  for (const id of new Set([...ma.keys(), ...mb.keys()])) {
+    const a = ma.get(id),
+      b = mb.get(id)
+    const key = (a || b).key
+    if (!a || !b) {
+      differences.push({
+        part,
+        change: a ? 'removed row' : 'added row',
+        key,
+        [A]: a ? a.row : null,
+        [B]: b ? b.row : null,
+      })
+      continue
+    }
+    for (const column of new Set([...columnsA, ...columnsB])) {
+      const before = a.row[column] ?? null,
+        after = b.row[column] ?? null
+      if (before !== after)
+        differences.push({ part, change: 'changed cell', key, column, [A]: before, [B]: after })
+    }
   }
 }
 
