@@ -131,5 +131,36 @@ const F = {
   SI08: (v) => `canonical=${v.canonical}`,
   SI11: (v) => `heading levels=${v.headings.map((h) => h.level.slice(1)).join('')}`,
   SI12: (v) => `viewport=${v.viewport}`,
+  FOCUS_SCREEN: (v) => {
+    const stop = (i) => {
+      const s = v.stops.find((s) => s.i === i)
+      const label =
+        s.text ||
+        s.axName ||
+        (s.href === '#top' && !s.inFooter ? 'header brand' : s.id || s.href || s.tag)
+      return `${i} ${short(label, 60)} @(${s.referenceBox.centerX.toFixed(1)},${s.referenceBox.centerY.toFixed(1)})`
+    }
+    const move = (m) =>
+      `${stop(m.from)} -> ${stop(m.to)} (${m.kind}, dx=${m.deltaX.toFixed(1)}px, dy=${m.deltaY.toFixed(1)}px${m.context ? `, ${m.context}` : ''})`
+    return [
+      `supplementary geometric screen (not a requirement); stops=${v.observedStops}; measured=${v.measuredStops}`,
+      `backward moves=${v.backwardMoves.length} (review=${v.reviewCount}, known=${v.knownCount})`,
+      `review: ${
+        v.backwardMoves
+          .filter((m) => !m.knownEntry)
+          .map(move)
+          .join(' | ') || '(none)'
+      }`,
+      `known: ${
+        v.backwardMoves
+          .filter((m) => m.knownEntry)
+          .map((m) => `${m.knownEntry}: ${move(m)}`)
+          .join(' | ') || '(none)'
+      }`,
+      `unmeasurable=${v.unmeasurableTargets.length}${v.unmeasurableTargets.length ? ` (${v.unmeasurableTargets.map((s) => `${s.i}: ${s.reason}`).join(' | ')})` : ''}`,
+      `termination=${v.termination}; ${v.scope}`,
+      ...(v.scopeIssues.length ? [`scope issues=${v.scopeIssues.join(' | ')}`] : []),
+    ].join('; ')
+  },
 }
 module.exports = { F, short }

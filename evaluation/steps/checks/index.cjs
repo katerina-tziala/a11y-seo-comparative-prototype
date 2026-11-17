@@ -61,7 +61,9 @@ const {
           'SI11',
           'SI12',
         ]
-        const ids = { DOM: DOM_IDS, TABWALK: ['AR38', 'AR41', 'TABWALK'] }[name] || [name]
+        const ids = { DOM: DOM_IDS, TABWALK: ['AR38', 'AR41', 'TABWALK', 'FOCUS_SCREEN'] }[
+          name
+        ] || [name]
         if (!ids.some(ctx.wanted)) return
         try {
           await fn()
