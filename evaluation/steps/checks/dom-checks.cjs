@@ -63,13 +63,51 @@ async function domChecks(ver, vp) {
       },
       files: [await shot(page, '#benefits .section-title', v, 'AR14', vp)].filter(Boolean),
     }))
-    await run('AR15', async () => ({
-      values: {
-        elements: await dom(page, '#services .card-title', DESCRIBE),
-        ax: await axAll(cdp, '#services .card-title'),
-      },
-      files: [await shot(page, '#services .card-title', v, 'AR15', vp)].filter(Boolean),
-    }))
+    await run('AR15', async () => {
+      const sectionShot = async (selector) => {
+        const name = ctx.fileName(v, 'AR15', vp, 'png', { numbered: true })
+        try {
+          const loc = page.locator(selector).first()
+          if (!(await loc.isVisible())) return null
+          await loc.screenshot({ path: path.join(ctx.OUT, name) })
+          return name
+        } catch {
+          return null
+        }
+      }
+      const readHeadings = async (selector, expectedCount) => {
+        const elements = await dom(page, selector, DESCRIBE)
+        const nodes = await axAll(cdp, selector)
+        return {
+          selector,
+          // Keep a slot for each expected target so missing titles are reported.
+          targets: Array.from({ length: Math.max(expectedCount, elements.length) }, (_, i) => {
+            const element = elements[i] || null
+            const ax = nodes[i] || null
+            let issue = null
+            if (!element) issue = 'missing target'
+            else if (!ax) issue = 'missing Accessibility Tree node'
+            else if (ax.ignored || ax.role !== 'heading')
+              issue = `non-heading (role=${ax.role || 'none'}${ax.ignored ? ', ignored' : ''})`
+            else if (!Number.isFinite(ax.properties.level)) issue = 'missing heading level'
+            return { element, ax, level: issue ? null : ax.properties.level, issue }
+          }),
+        }
+      }
+      return {
+        values: {
+          services: {
+            section: await readHeadings('#services .section-title', 1),
+            cards: await readHeadings('#services .card-title', 3),
+          },
+          process: {
+            section: await readHeadings('#process .section-title', 1),
+            steps: await readHeadings('#process .process-step > .step-title', 4),
+          },
+        },
+        files: [await sectionShot('#services'), await sectionShot('#process')].filter(Boolean),
+      }
+    })
     await run('AR16', async () => ({
       values: {
         elements: await dom(page, '#benefits .benefit-icon', DESCRIBE),
