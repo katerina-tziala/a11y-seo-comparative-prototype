@@ -363,7 +363,11 @@ async function newTabLinkActivation(ver, vp, input) {
     const p = await popup
     if (p) await p.waitForURL((u) => /^https?:/.test(String(u)), { timeout: 20000 }).catch(() => {})
     values = { newTabOpened: !!p, newTabUrl: p ? p.url() : null, sameTabUrl: s.page.url() }
-    if (p) await p.close()
+    if (p) {
+      const popupVideo = p.video()
+      await p.close()
+      if (popupVideo) await popupVideo.delete()
+    }
   } finally {
     const video = await close(s, v, 'AR27', vp, input)
     if (video) files.push(video)
