@@ -30,7 +30,7 @@ function goToServices() {
       <div class="hero-art">
         <img
           :src="`${baseURL}images/hero-dashboard.svg`"
-          alt="hero-dashboard.svg"
+          alt="Illustration of a completed website audit with passed checks, one warning and an upward trend."
           width="680"
           height="505"
         />
