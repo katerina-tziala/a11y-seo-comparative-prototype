@@ -29,6 +29,7 @@ const features = [
       <div class="relationship-art">
         <img
           :src="`${baseURL}images/connected-foundations.svg`"
+          alt="Diagram: two overlapping circles, one for people and one for search systems. Their overlap is labeled “Shared clarity”."
           width="640"
           height="609"
         />
