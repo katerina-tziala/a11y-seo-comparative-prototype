@@ -29,6 +29,7 @@ onBeforeUnmount(() => {
       >
         <img
           :src="`${baseURL}images/logo.svg`"
+          alt="LucidReach Digital home"
           width="207"
           height="36"
         />
