@@ -39,7 +39,7 @@ const benefits = [
       <BaseSectionIntro class="section-heading">
         <template #eyebrow>The business value</template>
         <template #heading
-          ><p class="section-title">Good experiences create room to grow</p></template
+          ><h2 class="section-title">Good experiences create room to grow</h2></template
         >
         The right improvements support your visitors, your team and the long-term health of your
         digital presence.
