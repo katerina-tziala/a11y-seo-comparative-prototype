@@ -2,7 +2,8 @@
 // Normally started by evaluate.cjs (env RUN, URL_A = baseline, URL_B = accessibility-governed, OUT).
 // For each viewport (desktop, mobile, emulated 200% zoom) and each state of the page, it:
 //   1. measures the position and size of rendered elements with their own visible paint;
-//   2. matches the elements by visible text and document order (not by tag name);
+//   2. matches normalized visible text across DOM positions, using DOM order only to pair repeated
+//      text (including empty text); reordered text fragments can also identify a containing box;
 //   3. compares geometry (difference above 0.5 CSS px) and 37 computed CSS properties, including ::before and ::after,
 //      ignoring a property only when it cannot paint in both implementations, and comparing url(...) values without the deployment path;
 //   4. saves a full-page screenshot of the initial state and a screenshot of the changed region for every other state.
@@ -60,6 +61,8 @@ const STYLE_PROPERTIES = [
   'line-height',
   'letter-spacing',
 ]
+// Keep the internal matching key out of the serialized report.
+const reorderedText = Symbol('reorderedText')
 // Lossless interning avoids repeating identical computed-style maps across every state.
 const styleTable = [],
   styleIds = new Map()
@@ -73,6 +76,8 @@ function internStyles(measurements) {
     return styleIds.get(key)
   }
   for (const el of measurements.elements) {
+    el[reorderedText] = el.reorderedText
+    delete el.reorderedText
     el.styleId = intern(el.styles)
     delete el.styles
     for (const pseudo of Object.values(el.pseudo))
@@ -320,7 +325,7 @@ async function setupState(page, state) {
   }
   throw Error('Unknown state ' + state.id)
 }
-// DOM order and visible text are the match keys. Tags/paths are diagnostic only.
+// Capture visible text fragments for matching and preserve the original text order for reporting.
 async function measure(page) {
   return page.evaluate((properties) => {
     const readStyle = (style) =>
@@ -467,11 +472,11 @@ async function measure(page) {
       })
     }
     const textCache = new Map()
-    function visibleText(el) {
+    function visibleTextParts(el) {
       if (textCache.has(el)) return textCache.get(el)
       const state = info.get(el)
-      if (!state || state.hidden) return ''
-      let parts = []
+      if (!state || state.hidden) return []
+      const parts = []
       if (
         (el.tagName === 'INPUT' && !['radio', 'checkbox', 'hidden'].includes(el.type)) ||
         el.tagName === 'TEXTAREA'
@@ -479,11 +484,10 @@ async function measure(page) {
         parts.push(el.value || '')
       for (const node of el.childNodes) {
         if (renderedTextNode(node)) parts.push(node.textContent)
-        else if (node.nodeType === Node.ELEMENT_NODE) parts.push(visibleText(node))
+        else if (node.nodeType === Node.ELEMENT_NODE) parts.push(...visibleTextParts(node))
       }
-      const text = parts.join(' ').replace(/\s+/g, ' ').trim()
-      textCache.set(el, text)
-      return text
+      textCache.set(el, parts)
+      return parts
     }
     function domPath(el) {
       const parts = []
@@ -503,10 +507,17 @@ async function measure(page) {
       }
       if (!paintsOwnBox(el, state.style)) return
       const r = state.r
+      const textParts = visibleTextParts(el)
+        .map((part) => part.replace(/\s+/g, ' ').trim())
+        .filter(Boolean)
       elements.push({
         order: elements.length,
         domOrder,
-        text: visibleText(el),
+        text: textParts.join(' '),
+        reorderedText:
+          textParts.length > 1 && ![...el.childNodes].some(renderedTextNode)
+            ? JSON.stringify(textParts.toSorted())
+            : null,
         tag: el.tagName.toLowerCase(),
         id: el.id || '',
         className: el.getAttribute('class') || '',
@@ -565,28 +576,38 @@ function matchAndCompare(a, b) {
     }
   const aa = a.elements,
     bb = b.elements
-  const pairs = [],
-    unmatchedA = [],
-    unmatchedB = []
-  if (aa.length === bb.length && aa.every((el, i) => el.text === bb[i].text))
-    for (let i = 0; i < aa.length; i++) pairs.push([i, i])
-  else {
-    const dp = Array.from({ length: aa.length + 1 }, () => new Uint32Array(bb.length + 1))
-    for (let i = aa.length - 1; i >= 0; i--)
-      for (let j = bb.length - 1; j >= 0; j--)
-        dp[i][j] =
-          aa[i].text === bb[j].text ? 1 + dp[i + 1][j + 1] : Math.max(dp[i + 1][j], dp[i][j + 1])
-    let i = 0,
-      j = 0
-    while (i < aa.length && j < bb.length) {
-      if (aa[i].text === bb[j].text) {
-        pairs.push([i++, j++])
-      } else if (dp[i + 1][j] >= dp[i][j + 1]) unmatchedA.push(i++)
-      else unmatchedB.push(j++)
+  const pairs = []
+  function pairByText(indicesA, indicesB, key) {
+    const groupsB = new Map()
+    for (const j of indicesB.toReversed()) {
+      const text = key(bb[j])
+      if (text === null) continue
+      if (!groupsB.has(text)) groupsB.set(text, [])
+      groupsB.get(text).push(j)
     }
-    while (i < aa.length) unmatchedA.push(i++)
-    while (j < bb.length) unmatchedB.push(j++)
+    const unmatchedA = []
+    const unmatchedB = new Set(indicesB)
+    for (const i of indicesA) {
+      const j = groupsB.get(key(aa[i]))?.pop()
+      if (j === undefined) {
+        unmatchedA.push(i)
+        continue
+      }
+      pairs.push([i, j])
+      unmatchedB.delete(j)
+    }
+    return [unmatchedA, [...unmatchedB]]
   }
+  // Match equal visible text anywhere in the DOM. For repeated or empty text, pair the first
+  // occurrence with the first, and so on. If descendants moved, try the same normalized text
+  // fragments in any order so that their containing box can still be compared.
+  const remaining = pairByText(
+    aa.map((_, i) => i),
+    bb.map((_, j) => j),
+    (el) => el.text,
+  )
+  const [unmatchedA, unmatchedB] = pairByText(...remaining, (el) => el[reorderedText])
+  pairs.sort(([i], [j]) => i - j)
   const differences = []
   let stylePropertyComparisons = 0,
     pseudoElementPairsCompared = 0,
@@ -845,7 +866,7 @@ async function captureState(page, state, file) {
     toleranceCssPx: tolerance,
     viewports: views,
     measurementDefinition:
-      'Rendered DOM boxes with their own visible paint, in document coordinates including off-viewport content; hidden/sr-only/zero-box/wholly overflow-clipped nodes excluded. Matching: LCS of normalized visible text in document order, tag names ignored. Repeated empty-text matches follow order and may be ambiguous if markup structure changes.',
+      'Rendered DOM boxes with their own visible paint, in document coordinates including off-viewport content; hidden/sr-only/zero-box/wholly overflow-clipped nodes excluded. Matching: normalized visible text across DOM positions, with a fallback to the same text fragments in any order. Repeated and empty text pairs follow DOM order within their group. Tags are ignored.',
     results: [],
     errors: [],
   }
