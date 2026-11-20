@@ -48,7 +48,7 @@ const renderedSteps = [steps[2]!, steps[0]!, steps[3]!, steps[1]!]
           :style="{ order: Number(step.number) }"
         >
           <span>{{ step.number }}</span>
-          <h4 class="step-title">{{ step.title }}</h4>
+          <h3 class="step-title">{{ step.title }}</h3>
           <p>{{ step.description }}</p>
         </div>
       </div>
