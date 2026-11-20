@@ -53,7 +53,8 @@ const footerExploreLinks = footerDomHrefs.map((href) => {
                 alt=""
                 width="35"
                 height="32"
-            /></a>
+              /><span class="sr-only">LucidReach Digital on LinkedIn</span></a
+            >
             <a
               href="https://www.example.com/lucidreach/instagram"
               class="social-link"
@@ -62,7 +63,8 @@ const footerExploreLinks = footerDomHrefs.map((href) => {
                 alt=""
                 width="32"
                 height="32"
-            /></a>
+              /><span class="sr-only">LucidReach Digital on Instagram</span></a
+            >
             <a
               href="https://www.example.com/lucidreach/youtube"
               class="social-link"
@@ -72,7 +74,8 @@ const footerExploreLinks = footerDomHrefs.map((href) => {
                 width="69"
                 height="59"
                 class="social-image-youtube"
-            /></a>
+              /><span class="sr-only">LucidReach Digital on YouTube</span></a
+            >
           </div>
         </div>
         <div class="footer-column-explore">
