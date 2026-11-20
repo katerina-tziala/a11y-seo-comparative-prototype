@@ -6,7 +6,7 @@ const config = useRuntimeConfig()
 const canonicalUrl = `https://katerina-tziala.github.io${config.app.baseURL}`
 
 useSeoMeta({
-  title: '',
+  title,
   description,
   ogTitle: title,
   ogDescription: description,
