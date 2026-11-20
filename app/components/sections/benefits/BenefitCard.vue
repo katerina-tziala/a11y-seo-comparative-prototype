@@ -13,7 +13,7 @@ defineProps<{
     variant="brand"
     class="benefit"
   >
-    <h3 class="benefit-icon"><component :is="icon" /></h3>
+    <span class="benefit-icon"><component :is="icon" /></span>
     <h3>{{ title }}</h3>
     <p>{{ description }}</p>
   </BaseCard>
