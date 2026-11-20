@@ -4,7 +4,7 @@
 //   1. measures the position and size of rendered elements with their own visible paint;
 //   2. matches normalized visible text across DOM positions, using DOM order only to pair repeated
 //      text (including empty text); reordered text fragments can also identify a containing box;
-//   3. compares geometry (difference above 0.5 CSS px) and 37 computed CSS properties, including ::before and ::after,
+//   3. compares geometry (difference above 0.5 CSS px) and 38 computed CSS properties, including ::before and ::after,
 //      ignoring a property only when it cannot paint in both implementations, and comparing url(...) values without the deployment path;
 //   4. saves a full-page screenshot of the initial state and a screenshot of the changed region for every other state.
 // Output: <run>_parity_measurements.json and <run>_parity_report.html (A = baseline, B = accessibility-governed).
@@ -60,6 +60,7 @@ const STYLE_PROPERTIES = [
   'font-weight',
   'line-height',
   'letter-spacing',
+  'cursor',
 ]
 // Keep the internal matching key out of the serialized report.
 const reorderedText = Symbol('reorderedText')
@@ -865,8 +866,7 @@ async function captureState(page, state, file) {
     startedAt: new Date().toISOString(),
     toleranceCssPx: tolerance,
     viewports: views,
-    measurementDefinition:
-      'Rendered DOM boxes with their own visible paint, in document coordinates including off-viewport content; hidden/sr-only/zero-box/wholly overflow-clipped nodes excluded. Matching: normalized visible text across DOM positions, with a fallback to the same text fragments in any order. Repeated and empty text pairs follow DOM order within their group. Tags are ignored.',
+    measurementDefinition: `Rendered DOM boxes with their own visible paint, in document coordinates including off-viewport content; hidden/sr-only/zero-box/wholly overflow-clipped nodes excluded. Matching: normalized visible text across DOM positions, with a fallback to the same text fragments in any order. Repeated and empty text pairs follow DOM order within their group. Tags are ignored. Compares ${STYLE_PROPERTIES.length} computed CSS properties, including cursor, on matched elements and their generated ::before and ::after pseudo-elements.`,
     results: [],
     errors: [],
   }
