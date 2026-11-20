@@ -4,7 +4,7 @@ This folder contains the scripts that run the evaluation of the two implementati
 
 One run does four parts, in this order:
 
-1. **Visual parity**: the position, size and computed styles of every visible element in both implementations, in each page state and viewport. It runs first, because the comparison is valid only when the two implementations look the same.
+1. **Visual parity**: the position, size and computed styles of every element that paints something visible (its own text, an image, a background, a border, an outline or a shadow) in both implementations, in each page state and viewport. Containers that paint nothing of their own are left out, because the elements inside them are compared. It runs first, because the comparison is valid only when the two implementations look the same.
 2. **Lighthouse**: four reports, Accessibility and SEO categories (baseline mobile, governed mobile, baseline desktop, governed desktop).
 3. **Checks**: 35 checks, one for each of the 25 accessibility requirements and the 10 SEO indicators, and one supplementary page-wide focus-order screen. They read values from the DOM and from Chrome’s Accessibility Tree, with key presses and pointer actions where a check needs them.
 4. **Report**: two CSV files with the results of the run.

@@ -1,7 +1,7 @@
 // parity.cjs: the visual-parity comparison of the two implementations (evaluation protocol, P8.3).
 // Normally started by evaluate.cjs (env RUN, URL_A = baseline, URL_B = accessibility-governed, OUT).
 // For each viewport (desktop, mobile, emulated 200% zoom) and each state of the page, it:
-//   1. measures the position and size of every visible element in both implementations;
+//   1. measures the position and size of rendered elements with their own visible paint;
 //   2. matches the elements by visible text and document order (not by tag name);
 //   3. compares geometry (difference above 0.5 CSS px) and 37 computed CSS properties, including ::before and ::after,
 //      ignoring a property only when it cannot paint in both implementations, and comparing url(...) values without the deployment path;
@@ -395,6 +395,77 @@ async function measure(page) {
       return value
     }
     for (const el of all) basics(el)
+    function renderedTextNode(node) {
+      if (node.nodeType !== Node.TEXT_NODE || !node.textContent.trim()) return false
+      const range = document.createRange()
+      range.selectNodeContents(node)
+      return [...range.getClientRects()].some((rect) => rect.width > 0 && rect.height > 0)
+    }
+    function visibleColor(color) {
+      const alpha = color.match(/\/\s*([\d.]+)%?\s*\)$/) || color.match(/^rgba\(.*?,\s*([\d.]+)\)$/)
+      return !!color && color !== 'transparent' && (!alpha || Number(alpha[1]) > 0)
+    }
+    function visibleShadow(shadow) {
+      if (!shadow || shadow === 'none') return false
+      const colors = shadow.match(/\b(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch|color)\([^)]*\)/g)
+      return !colors || colors.some(visibleColor)
+    }
+    function paintsDecoration(style) {
+      const sides = ['Top', 'Right', 'Bottom', 'Left']
+      return (
+        visibleColor(style.backgroundColor) ||
+        style.backgroundImage !== 'none' ||
+        sides.some(
+          (side) =>
+            parseFloat(style[`border${side}Width`]) > 0 &&
+            !['none', 'hidden'].includes(style[`border${side}Style`]) &&
+            (visibleColor(style[`border${side}Color`]) || style.borderImageSource !== 'none'),
+        ) ||
+        (parseFloat(style.outlineWidth) > 0 &&
+          !['none', 'hidden'].includes(style.outlineStyle) &&
+          visibleColor(style.outlineColor)) ||
+        visibleShadow(style.boxShadow)
+      )
+    }
+    function paintsText(style) {
+      return (
+        visibleColor(style.webkitTextFillColor || style.color) ||
+        visibleShadow(style.textShadow) ||
+        (parseFloat(style.webkitTextStrokeWidth) > 0 && visibleColor(style.webkitTextStrokeColor))
+      )
+    }
+    const replaced = new Set([
+      'img',
+      'svg',
+      'canvas',
+      'video',
+      'audio',
+      'iframe',
+      'embed',
+      'object',
+      'input',
+      'select',
+      'textarea',
+    ])
+    function paintsOwnBox(el, style) {
+      // Compare a rendered element only if it paints its own text, replaced content,
+      // a background, border, outline, shadow or generated content. Descendant paint
+      // alone does not make a container's box a comparison target.
+      if (replaced.has(el.localName) || paintsDecoration(style)) return true
+      if (paintsText(style) && [...el.childNodes].some(renderedTextNode)) return true
+      return ['::before', '::after'].some((pseudo) => {
+        const generated = getComputedStyle(el, pseudo)
+        return (
+          !['none', 'normal'].includes(generated.content) &&
+          generated.display !== 'none' &&
+          generated.visibility === 'visible' &&
+          Number(generated.opacity) > 0 &&
+          (paintsDecoration(generated) ||
+            (!['""', "''"].includes(generated.content) &&
+              (paintsText(generated) || generated.content.startsWith('url('))))
+        )
+      })
+    }
     const textCache = new Map()
     function visibleText(el) {
       if (textCache.has(el)) return textCache.get(el)
@@ -407,13 +478,8 @@ async function measure(page) {
       )
         parts.push(el.value || '')
       for (const node of el.childNodes) {
-        if (node.nodeType === Node.TEXT_NODE) {
-          if (!node.textContent.trim()) continue
-          const range = document.createRange()
-          range.selectNodeContents(node)
-          if ([...range.getClientRects()].some((r) => r.width > 0 && r.height > 0))
-            parts.push(node.textContent)
-        } else if (node.nodeType === Node.ELEMENT_NODE) parts.push(visibleText(node))
+        if (renderedTextNode(node)) parts.push(node.textContent)
+        else if (node.nodeType === Node.ELEMENT_NODE) parts.push(visibleText(node))
       }
       const text = parts.join(' ').replace(/\s+/g, ' ').trim()
       textCache.set(el, text)
@@ -435,6 +501,7 @@ async function measure(page) {
         excluded[state.hidden ? 'hidden' : 'noVisibleBoxOrClipped']++
         return
       }
+      if (!paintsOwnBox(el, state.style)) return
       const r = state.r
       elements.push({
         order: elements.length,
@@ -675,7 +742,7 @@ function htmlReport(report) {
     ${diffrows ? `<div class="diff-table"><table><thead><tr><th>Order A/B</th><th>Visible text</th><th>Geometry A/B (CSS px)</th><th>Geometry B − A</th><th colspan="2">Computed style differences</th></tr></thead><tbody>${diffrows}</tbody></table></div>` : '<p>No differing elements.</p>'}</section>`
     })
     .join('')
-  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(RUN)} visual parity (P8.3)${esc(SUFFIX)}</title><style>body{font:15px system-ui;margin:24px;color:#172e2a}h1{font-size:26px}section{border-top:3px solid #aaa;margin-top:28px;padding-top:12px}.same{border-color:#08745b}.differs{border-color:#bd2525}.screens{display:grid;grid-template-columns:1fr 1fr;gap:16px}figure{margin:0;min-width:0}.image-scroll{max-height:650px;overflow:auto;border:1px solid #aaa;background:#eee}img{display:block;max-width:100%;height:auto}table{border-collapse:collapse;width:100%}td,th{border:1px solid #bbb;padding:8px;text-align:left;vertical-align:top}td{overflow-wrap:anywhere}.diff-table{overflow:auto}pre{white-space:pre-wrap}nav a{display:inline-block;margin:4px}small{color:#555}</style><h1>${esc(RUN)} / visual parity (P8.3) / ${esc(mode)}</h1>${DRY ? '<p><strong>Dry run or probe: not research evidence.</strong></p>' : ''}<p>A = baseline; B = governed (accessibility-governed implementation).</p><p>Playwright ${report.playwrightVersion}; Chrome ${esc(report.chromeVersion)}; geometry tolerance &gt; ${tolerance} CSS px; styles compare exact computed values; elapsed ${report.durationMs / 1000}s.</p><p>${esc(JSON.stringify(report.summary))}</p><p>Only initial screenshots are full-page. Other screenshots show the affected region with a 16 CSS px margin, clamped to document bounds. Measurements and style comparisons cover all rendered elements throughout the document. Match by normalized visible text and document order; ignore tags. All ${STYLE_PROPERTIES.length} properties are compared on each matched element and its generated ::before/::after pseudo-elements (including empty-string content). Computed-style maps are losslessly interned in the JSON styleTable.</p><nav>${report.results.map((r) => `<a href="#${r.viewport}-${r.state}">${esc(r.viewport + '/' + r.state)} (${r.comparison.status})</a>`).join('')}</nav>${cards}</html>`
+  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(RUN)} visual parity (P8.3)${esc(SUFFIX)}</title><style>body{font:15px system-ui;margin:24px;color:#172e2a}h1{font-size:26px}section{border-top:3px solid #aaa;margin-top:28px;padding-top:12px}.same{border-color:#08745b}.differs{border-color:#bd2525}.screens{display:grid;grid-template-columns:1fr 1fr;gap:16px}figure{margin:0;min-width:0}.image-scroll{max-height:650px;overflow:auto;border:1px solid #aaa;background:#eee}img{display:block;max-width:100%;height:auto}table{border-collapse:collapse;width:100%}td,th{border:1px solid #bbb;padding:8px;text-align:left;vertical-align:top}td{overflow-wrap:anywhere}.diff-table{overflow:auto}pre{white-space:pre-wrap}nav a{display:inline-block;margin:4px}small{color:#555}</style><h1>${esc(RUN)} / visual parity (P8.3) / ${esc(mode)}</h1>${DRY ? '<p><strong>Dry run or probe: not research evidence.</strong></p>' : ''}<p>A = baseline; B = governed (accessibility-governed implementation).</p><p>Playwright ${report.playwrightVersion}; Chrome ${esc(report.chromeVersion)}; geometry tolerance &gt; ${tolerance} CSS px; styles compare exact computed values; elapsed ${report.durationMs / 1000}s.</p><p>${esc(JSON.stringify(report.summary))}</p><p>Only initial screenshots are full-page. Other screenshots show the affected region with a 16 CSS px margin, clamped to document bounds. Measurements and style comparisons cover rendered elements with their own visible paint throughout the document. Match by normalized visible text and document order; ignore tags. All ${STYLE_PROPERTIES.length} properties are compared on each matched element and its generated ::before/::after pseudo-elements (including empty-string content). Computed-style maps are losslessly interned in the JSON styleTable.</p><nav>${report.results.map((r) => `<a href="#${r.viewport}-${r.state}">${esc(r.viewport + '/' + r.state)} (${r.comparison.status})</a>`).join('')}</nav>${cards}</html>`
 }
 async function captureState(page, state, file) {
   if (state.kind === 'initial') {
@@ -778,7 +845,7 @@ async function captureState(page, state, file) {
     toleranceCssPx: tolerance,
     viewports: views,
     measurementDefinition:
-      'Rendered DOM boxes in document coordinates including off-viewport content; hidden/sr-only/zero-box/wholly overflow-clipped nodes excluded. Matching: LCS of normalized visible text in document order, tag names ignored. Repeated empty-text matches follow order and may be ambiguous if markup structure changes.',
+      'Rendered DOM boxes with their own visible paint, in document coordinates including off-viewport content; hidden/sr-only/zero-box/wholly overflow-clipped nodes excluded. Matching: LCS of normalized visible text in document order, tag names ignored. Repeated empty-text matches follow order and may be ambiguous if markup structure changes.',
     results: [],
     errors: [],
   }
