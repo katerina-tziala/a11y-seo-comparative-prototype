@@ -6,6 +6,7 @@ defineProps<{
   icon: Component
   title: string
   href: string
+  linkSuffix: string
   text: string
   items: string[]
 }>()
@@ -33,7 +34,7 @@ defineProps<{
     <a
       class="card-link"
       :href="href"
-      >Learn more</a
+      >Learn more<span class="sr-only">{{ linkSuffix }}</span></a
     >
   </BaseCard>
 </template>
