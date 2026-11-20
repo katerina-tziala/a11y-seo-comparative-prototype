@@ -97,7 +97,13 @@ const footerExploreLinks = footerDomHrefs.map((href) => {
             href="https://github.com/katerina-tziala/a11y-seo-comparative-prototype"
             target="_blank"
             rel="noopener noreferrer"
+            aria-describedby="github-link-new-tab"
             >Source code on GitHub</a
+          ><span
+            id="github-link-new-tab"
+            class="sr-only"
+            aria-hidden="true"
+            >Opens in a new tab</span
           ></span
         >
       </div>
