@@ -121,8 +121,10 @@ defineExpose({ focusName })
   >
     <div class="form-row">
       <div class="field">
-        <span class="field-label"
-          >Name<BaseFieldIndicator aria-hidden="true"> (required)</BaseFieldIndicator></span
+        <label
+          class="field-label"
+          for="audit-name"
+          >Name<BaseFieldIndicator aria-hidden="true"> (required)</BaseFieldIndicator></label
         >
         <input
           id="audit-name"
@@ -142,8 +144,10 @@ defineExpose({ focusName })
         />
       </div>
       <div class="field">
-        <span class="field-label"
-          >Email<BaseFieldIndicator aria-hidden="true"> (required)</BaseFieldIndicator></span
+        <label
+          class="field-label"
+          for="audit-email"
+          >Email<BaseFieldIndicator aria-hidden="true"> (required)</BaseFieldIndicator></label
         >
         <input
           id="audit-email"
@@ -164,8 +168,10 @@ defineExpose({ focusName })
       </div>
     </div>
     <div class="field">
-      <span class="field-label"
-        >Website URL<BaseFieldIndicator aria-hidden="true"> (required)</BaseFieldIndicator></span
+      <label
+        class="field-label"
+        for="audit-website"
+        >Website URL<BaseFieldIndicator aria-hidden="true"> (required)</BaseFieldIndicator></label
       >
       <input
         id="audit-website"
@@ -254,6 +260,13 @@ defineExpose({ focusName })
 
 .audit-form .field-label {
   @apply mb-1;
+}
+
+/* AR29: Preserve the baseline cursor of the former span labels. */
+label[for='audit-name'],
+label[for='audit-email'],
+label[for='audit-website'] {
+  cursor: auto;
 }
 
 .audit-form .field,
