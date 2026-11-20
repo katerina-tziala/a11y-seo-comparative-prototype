@@ -20,16 +20,16 @@ defineProps<{
       </span>
     </div>
     <p>{{ text }}</p>
-    <div class="feature-list">
-      <div
+    <ul class="feature-list">
+      <li
         v-for="item in items"
         :key="item"
         class="feature-item"
       >
         <CheckIcon class="feature-icon" />
         {{ item }}
-      </div>
-    </div>
+      </li>
+    </ul>
     <a
       class="card-link"
       :href="href"
