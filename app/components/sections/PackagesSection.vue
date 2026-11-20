@@ -39,29 +39,61 @@ onBeforeUnmount(() => resizeObserver?.disconnect())
           ref="scrollerInner"
           class="table-scroll-inner"
         >
-          <p class="table-title"><span class="table-title-text">Packages at a glance</span></p>
           <table class="packages-table">
+            <caption class="table-title">
+              <span class="table-title-text">Packages at a glance</span>
+            </caption>
             <tbody>
               <tr>
                 <td class="table-head" />
-                <td class="table-head">Quick Scan</td>
-                <td class="table-head">Full Audit</td>
-                <td class="table-head">Audit &amp; Support</td>
+                <th
+                  class="table-head"
+                  scope="col"
+                >
+                  Quick Scan
+                </th>
+                <th
+                  class="table-head"
+                  scope="col"
+                >
+                  Full Audit
+                </th>
+                <th
+                  class="table-head"
+                  scope="col"
+                >
+                  Audit &amp; Support
+                </th>
               </tr>
               <tr>
-                <td class="table-head">Scope</td>
+                <th
+                  class="table-head"
+                  scope="row"
+                >
+                  Scope
+                </th>
                 <td>Up to 5 key pages</td>
                 <td>Up to 25 pages and key journeys</td>
                 <td>Full site and design system</td>
               </tr>
               <tr>
-                <td class="table-head">Deliverables</td>
+                <th
+                  class="table-head"
+                  scope="row"
+                >
+                  Deliverables
+                </th>
                 <td>Prioritised issue list</td>
                 <td>Detailed report with fixes and examples</td>
                 <td>Report, fix review and team workshop</td>
               </tr>
               <tr>
-                <td class="table-head">Duration</td>
+                <th
+                  class="table-head"
+                  scope="row"
+                >
+                  Duration
+                </th>
                 <td>1 week</td>
                 <td>3 weeks</td>
                 <td>6 weeks</td>
