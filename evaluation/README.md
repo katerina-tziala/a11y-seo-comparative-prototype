@@ -71,6 +71,8 @@ evidence/<run>/
   checks/                         the checks log, the screenshots, the videos and the generated HTML
 ```
 
+The observations report's **Same in both** column ignores the deployment paths configured in `config.json` and Vue scope identifiers such as `data-v-<hash>` when comparing the recorded values.
+
 The files of each check follow one rule:
 
 ```
