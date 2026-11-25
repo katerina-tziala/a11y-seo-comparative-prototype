@@ -12,10 +12,10 @@ withDefaults(
 </script>
 
 <template>
-  <div class="radio-group">
-    <p class="group-label">
+  <fieldset class="radio-group">
+    <legend class="group-label">
       {{ label }}<BaseFieldIndicator v-if="required"> (required)</BaseFieldIndicator>
-    </p>
+    </legend>
     <div class="radio-options">
       <div
         v-for="option in options"
@@ -38,7 +38,7 @@ withDefaults(
       </div>
     </div>
     <slot />
-  </div>
+  </fieldset>
 </template>
 
 <style scoped>
