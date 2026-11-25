@@ -49,7 +49,7 @@ import StarIcon from '../icons/StarIcon.vue'
               /> </span
             ><span class="sr-only">Rated 5 out of 5</span>
           </div>
-          <blockquote>
+          <blockquote lang="de">
             <p>
               „Die Empfehlungen waren klar und sofort umsetzbar. Unsere Website ist jetzt für mehr
               Menschen zugänglich.“
