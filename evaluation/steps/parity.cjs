@@ -842,7 +842,12 @@ async function captureState(page, state, file) {
   } catch (e) {
     if (e.code !== 'ENOENT') throw e
   }
-  const browser = await chromium.launch({ channel: 'chrome', headless: true })
+  // Use software rendering to avoid run-to-run changes in GPU rasterized screenshots.
+  const browser = await chromium.launch({
+    channel: 'chrome',
+    headless: true,
+    args: ['--disable-gpu'],
+  })
   const report = {
     schemaVersion: 2,
     smoke: process.argv.includes('--smoke'),
