@@ -44,6 +44,7 @@ onBeforeUnmount(() => {
             @click="toggle"
           >
             <MenuIcon />
+            <span class="sr-only">Toggle navigation</span>
           </BaseButton>
         </template>
         <template #default="{ open, close }">
