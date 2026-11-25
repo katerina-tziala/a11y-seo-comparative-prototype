@@ -131,6 +131,7 @@ defineExpose({ focusName })
           ref="nameInput"
           name="name"
           type="text"
+          autocomplete="name"
           required
           :disabled="disabled"
           :class="{ 'is-invalid': errorKeys.name }"
@@ -154,6 +155,7 @@ defineExpose({ focusName })
           ref="emailInput"
           name="email"
           type="email"
+          autocomplete="email"
           required
           :disabled="disabled"
           :class="{ 'is-invalid': errorKeys.email }"
@@ -178,6 +180,7 @@ defineExpose({ focusName })
         ref="websiteInput"
         name="website"
         type="url"
+        autocomplete="url"
         required
         :disabled="disabled"
         :class="{ 'is-invalid': errorKeys.website }"
