@@ -110,15 +110,18 @@ function afterLeave(element: Element) {
       :key="item.title"
       class="accordion-item"
     >
-      <div
+      <button
         class="accordion-trigger"
+        type="button"
+        :aria-expanded="isExpanded(index) ? 'true' : 'false'"
+        :aria-controls="`faq-panel-${index}`"
         @click="toggleItem(index)"
       >
         {{ item.title }}
         <span :class="{ 'is-expanded': isExpanded(index) }">
           <ChevronDownIcon />
         </span>
-      </div>
+      </button>
       <Transition
         :css="false"
         @before-enter="beforeEnter"
@@ -157,6 +160,7 @@ function afterLeave(element: Element) {
     flex
     w-full
     cursor-pointer
+    appearance-none
     items-center
     justify-between
     border-0
