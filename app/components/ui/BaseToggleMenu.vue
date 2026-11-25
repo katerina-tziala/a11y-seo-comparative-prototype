@@ -1,27 +1,9 @@
 <script setup lang="ts">
 const menuRoot = ref<HTMLElement>()
-const menuPanel = ref<HTMLElement>()
 const isOpen = ref(false)
-
-const focusableSelector = [
-  'a[href]',
-  'button:not([disabled])',
-  'input:not([disabled])',
-  'select:not([disabled])',
-  'textarea:not([disabled])',
-  '[tabindex]:not([tabindex="-1"])',
-].join(',')
 
 function getTrigger() {
   return menuRoot.value?.querySelector<HTMLElement>('button')
-}
-
-function getFocusableElements(container = menuRoot.value) {
-  if (!container) return []
-
-  return Array.from(container.querySelectorAll<HTMLElement>(focusableSelector)).filter(
-    (element) => element.offsetParent !== null,
-  )
 }
 
 function openMenu() {
@@ -46,26 +28,16 @@ function toggleMenu() {
 }
 
 function handleKeydown(event: KeyboardEvent) {
-  if (!isOpen.value) return
+  if (!isOpen.value || event.key !== 'Escape') return
 
-  if (event.key !== 'Tab') return
+  event.preventDefault()
+  closeMenu(true)
+}
 
-  const focusableElements = getFocusableElements(menuPanel.value)
-  if (!focusableElements.length) return
-
-  const firstElement = focusableElements[0]
-  const lastElement = focusableElements[focusableElements.length - 1]
-  const activeElement = document.activeElement
-
-  if (event.shiftKey && activeElement === firstElement) {
-    event.preventDefault()
-    lastElement?.focus()
-  } else if (!event.shiftKey && activeElement === lastElement) {
-    event.preventDefault()
-    firstElement?.focus()
-  } else if (!focusableElements.includes(activeElement as HTMLElement)) {
-    event.preventDefault()
-    ;(event.shiftKey ? lastElement : firstElement)?.focus()
+function handleFocusout(event: FocusEvent) {
+  const next = event.relatedTarget
+  if (next instanceof Node && !menuRoot.value?.contains(next)) {
+    closeMenu()
   }
 }
 
@@ -83,13 +55,11 @@ function handleResize() {
 }
 
 function addListeners() {
-  document.addEventListener('keydown', handleKeydown)
   document.addEventListener('pointerdown', handleOutsidePointer)
   window.addEventListener('resize', handleResize)
 }
 
 function removeListeners() {
-  document.removeEventListener('keydown', handleKeydown)
   document.removeEventListener('pointerdown', handleOutsidePointer)
   window.removeEventListener('resize', handleResize)
 }
@@ -111,16 +81,15 @@ onBeforeUnmount(removeListeners)
   <div
     ref="menuRoot"
     class="toggle-menu"
+    @keydown="handleKeydown"
+    @focusout="handleFocusout"
   >
     <slot
       name="trigger"
       :open="isOpen"
       :toggle="toggleMenu"
     />
-    <div
-      ref="menuPanel"
-      class="toggle-menu-panel"
-    >
+    <div class="toggle-menu-panel">
       <slot
         :open="isOpen"
         :close="closeMenu"
