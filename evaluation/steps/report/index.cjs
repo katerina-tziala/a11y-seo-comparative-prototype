@@ -57,6 +57,29 @@ const parity = readJson(PARITY)
 const { ITEMS, AUDITS } = require('./catalog.cjs')
 const { F } = require('./formats.cjs')
 const { csv } = require('./csv.cjs')
+const { baselineUrl, governedUrl } = require('../../config.json')
+
+// Compare raw values with the configured deployment paths and Vue scope attributes normalized.
+const deploymentPaths = [baselineUrl, governedUrl].flatMap((url) => {
+  const { origin, pathname } = new URL(url)
+  const deploymentPath = pathname.replace(/\/+$/, '')
+  return deploymentPath
+    ? [
+        [origin, deploymentPath],
+        ['', deploymentPath],
+      ]
+    : []
+})
+function normalizeComparisonValue(_key, value) {
+  if (typeof value !== 'string') return value
+  for (const [origin, deploymentPath] of deploymentPaths) {
+    const prefix = origin + deploymentPath
+    if (value.startsWith(prefix) && /^(?:[/?#]|$)/.test(value.slice(prefix.length)))
+      return origin + '/<deployment>' + value.slice(prefix.length)
+  }
+  return value.replace(/(^|[\s<])data-v-[\da-f]+(?=[\s=/>]|$)/gi, '$1data-v')
+}
+const comparableValues = (r) => (r ? JSON.stringify(r.values, normalizeComparisonValue) : null)
 
 function auditResult(version, viewport, ids) {
   const r = LH[`${version}_${viewport}`]
@@ -132,7 +155,6 @@ for (const g of sorted) {
   for (let i = 0; i < n; i++) {
     const b = g.baseline[i],
       gv = g.governed[i]
-    const strip = (r) => (r ? JSON.stringify(r.values) : null)
     const audits = AUDITS[g.id] || []
     rows.push([
       RUN,
@@ -142,7 +164,7 @@ for (const g of sorted) {
       g.input,
       fmt(b),
       fmt(gv),
-      strip(b) === strip(gv) ? 'yes' : 'no',
+      comparableValues(b) === comparableValues(gv) ? 'yes' : 'no',
       audits.join('; ') || 'none',
       auditResult('baseline', g.viewport, audits),
       auditResult('governed', g.viewport, audits),
