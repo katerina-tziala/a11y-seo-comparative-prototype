@@ -35,12 +35,14 @@ onBeforeUnmount(() => {
         />
       </a>
       <BaseToggleMenu>
-        <template #trigger="{ toggle }">
+        <template #trigger="{ open, toggle }">
           <BaseButton
             v-if="showMenuToggle"
             class="menu-toggle"
             type="button"
             variant="icon"
+            aria-controls="site-nav"
+            :aria-expanded="open ? 'true' : 'false'"
             @click="toggle"
           >
             <MenuIcon />
