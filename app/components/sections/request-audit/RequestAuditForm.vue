@@ -227,7 +227,6 @@ defineExpose({ focusName })
     </div>
     <BaseButton
       type="submit"
-      aria-label="Send form"
       :disabled="disabled"
       >Submit request<ArrowRightIcon
     /></BaseButton>
