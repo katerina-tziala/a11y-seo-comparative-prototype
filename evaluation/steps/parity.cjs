@@ -116,16 +116,30 @@ const views = [
     hasTouch: false,
   },
 ]
+// Select each state target by a unique identity shared by both implementations, regardless of source order.
+const headerHrefs = [
+  '#services',
+  '#approach',
+  '#benefits',
+  '#process',
+  '#packages',
+  '#faq',
+  '#request-audit',
+]
 const selectors = {
-  hero_primary: '.hero .button-row > :nth-child(1)',
-  hero_secondary: '.hero .button-row > :nth-child(2)',
-  learn_more: '.card-link',
-  faq_audit: '.faq-layout .button-row > *',
+  hero_primary: '.hero .button-row > [href="#request-audit"]',
+  hero_secondary: '.hero .button-row > :text-is("Explore Our Services")',
+  learn_more: '.card-link[href="#approach"]',
+  faq_audit: '.faq-layout .button-row > [href="#request-audit"]',
   submit: '.audit-form [type="submit"]',
-  radio_card: '.radio-card',
-  footer_link: '.footer-column-explore a',
-  social_icon: '.social-link',
+  radio_card: '.radio-card[for="concern-accessibility"]',
+  footer_link: '.footer-column-explore a[href="#services"]',
+  social_icon: '.social-link[href="https://www.example.com/lucidreach/linkedin"]',
 }
+const faqFirstItem =
+  '.accordion-item:has(.accordion-trigger:text-is("What does a website audit cover?"))'
+const faqSecondItem =
+  '.accordion-item:has(.accordion-trigger:text-is("Do you guarantee search rankings or compliance?"))'
 const compact = (s) => s.replace(/\s+/g, ' ').trim()
 async function neutral(page) {
   await page.mouse.move(-20, -20)
@@ -193,18 +207,17 @@ async function pointerClick(page, locator) {
 function stateList(view) {
   const states = [{ id: 'initial', kind: 'initial' }]
   if (view.id === 'desktop')
-    for (let i = 0; i < 7; i++)
+    for (let i = 0; i < headerHrefs.length; i++)
       states.push({
         id: `hover_header_${i + 1}`,
         kind: 'hover',
-        selector: '#site-nav > a',
-        nth: i,
+        selector: `#site-nav > a[href="${headerHrefs[i]}"]`,
       })
   for (const [id, selector] of Object.entries(selectors))
-    states.push({ id: `hover_${id}`, kind: 'hover', selector, nth: 0 })
+    states.push({ id: `hover_${id}`, kind: 'hover', selector })
   states.push(
     { id: 'pointer_focus_text', kind: 'pointer', selector: '#audit-name' },
-    { id: 'pointer_focus_radio', kind: 'pointer', selector: '.radio-card' },
+    { id: 'pointer_focus_radio', kind: 'pointer', selector: selectors.radio_card },
     { id: 'pressed_submit', kind: 'pressed', selector: selectors.submit },
   )
   if (view.id === 'mobile') states.push({ id: 'menu_open', kind: 'menu' })
@@ -221,7 +234,7 @@ function stateList(view) {
 async function setupState(page, state) {
   if (state.kind === 'initial') return { produced: true }
   if (['hover', 'pointer', 'pressed'].includes(state.kind)) {
-    const target = page.locator(state.selector).nth(state.nth || 0)
+    const target = page.locator(state.selector)
     await center(page, target)
     if (state.kind === 'hover') {
       await target.hover()
@@ -260,11 +273,11 @@ async function setupState(page, state) {
     return { produced: await page.locator('#site-nav').isVisible() }
   }
   if (state.kind === 'faq') {
-    await pointerClick(page, page.locator('.accordion-trigger').nth(1))
+    await pointerClick(page, page.locator(`${faqSecondItem} .accordion-trigger`))
     await neutral(page)
     return {
-      produced: await page.locator('#faq-panel-1').isVisible(),
-      firstAnswerAlsoOpen: await page.locator('#faq-panel-0').isVisible(),
+      produced: await page.locator(`${faqSecondItem} .accordion-panel`).isVisible(),
+      firstAnswerAlsoOpen: await page.locator(`${faqFirstItem} .accordion-panel`).isVisible(),
     }
   }
   if (state.kind === 'errors') {
@@ -277,7 +290,7 @@ async function setupState(page, state) {
     }
   }
   if (state.kind === 'checked') {
-    await pointerClick(page, page.locator('.radio-card').first())
+    await pointerClick(page, page.locator(selectors.radio_card))
     await neutral(page)
     return {
       produced: await page.locator('#concern-accessibility').isChecked(),
@@ -288,7 +301,7 @@ async function setupState(page, state) {
     await page.locator('#audit-email').fill('dryrun@example.com')
     await page.locator('#audit-website').fill('https://example.com')
     await page.locator('#audit-details').fill('Dry run only. No research evidence.')
-    await pointerClick(page, page.locator('.radio-card').first())
+    await pointerClick(page, page.locator(selectors.radio_card))
     await pointerClick(page, page.locator(selectors.submit))
     await neutral(page)
     await page.locator('.audit-overlay.is-active').waitFor({ state: 'visible' })
@@ -772,10 +785,9 @@ async function captureState(page, state, file) {
     return { kind: 'full-page', marginCssPx: 0 }
   }
   let locator
-  if (['hover', 'pointer', 'pressed'].includes(state.kind))
-    locator = page.locator(state.selector).nth(state.nth || 0)
+  if (['hover', 'pointer', 'pressed'].includes(state.kind)) locator = page.locator(state.selector)
   else if (state.kind === 'menu') locator = page.locator('.site-header')
-  else if (state.kind === 'faq') locator = page.locator('.accordion-item').nth(1)
+  else if (state.kind === 'faq') locator = page.locator(faqSecondItem)
   else if (['errors', 'checked', 'confirmation'].includes(state.kind))
     locator = page.locator('.audit-card')
   else if (state.kind === 'table') locator = page.locator('.table-scroll')
@@ -853,7 +865,7 @@ async function captureState(page, state, file) {
               version: 'B',
               viewport: 'desktop',
               state: 'hover_header_1',
-              css: '#site-nav > a:first-child { color: rgb(180, 0, 180) !important; }',
+              css: '#site-nav > a[href="#services"] { color: rgb(180, 0, 180) !important; }',
             }
           : null,
     styleProperties: STYLE_PROPERTIES,
@@ -925,8 +937,8 @@ async function captureState(page, state, file) {
               (mode) =>
                 mode === 'geometry'
                   ? getComputedStyle(document.querySelector('.hero h1')).paddingTop === '2px'
-                  : getComputedStyle(document.querySelector('#site-nav > a:first-child')).color ===
-                    'rgb(180, 0, 180)',
+                  : getComputedStyle(document.querySelector('#site-nav > a[href="#services"]'))
+                      .color === 'rgb(180, 0, 180)',
               mode,
             )
           }
