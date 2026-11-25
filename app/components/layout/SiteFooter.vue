@@ -1,27 +1,5 @@
 <script setup lang="ts">
 const baseURL = useRuntimeConfig().app.baseURL
-
-const footerDomHrefs = [
-  '#process',
-  '#services',
-  '#packages',
-  '#approach',
-  '#faq',
-  '#benefits',
-] as const
-
-const footerExploreLinks = footerDomHrefs.map((href) => {
-  const visualIndex = navigationLinks.findIndex((link) => link.href === href)
-
-  if (visualIndex === -1) {
-    throw new Error(`Footer Explore link not found in navigationLinks: ${href}`)
-  }
-
-  return {
-    ...navigationLinks[visualIndex]!,
-    visualOrder: visualIndex + 1,
-  }
-})
 </script>
 
 <template>
@@ -40,6 +18,15 @@ const footerExploreLinks = footerDomHrefs.map((href) => {
             <span>LucidReach <span class="brand-accent">Digital</span></span>
           </a>
           <p>Clearer websites. Wider reach.</p>
+        </div>
+        <div class="footer-column-explore">
+          <p class="footer-label">Explore</p>
+          <a
+            v-for="link in navigationLinks"
+            :key="link.href"
+            :href="link.href"
+            >{{ link.label }}</a
+          >
         </div>
         <div class="footer-column-contact">
           <p class="footer-label">Contact</p>
@@ -77,16 +64,6 @@ const footerExploreLinks = footerDomHrefs.map((href) => {
               /><span class="sr-only">LucidReach Digital on YouTube</span></a
             >
           </div>
-        </div>
-        <div class="footer-column-explore">
-          <p class="footer-label">Explore</p>
-          <a
-            v-for="link in footerExploreLinks"
-            :key="link.href"
-            :href="link.href"
-            :style="{ order: link.visualOrder }"
-            >{{ link.label }}</a
-          >
         </div>
       </div>
       <div class="footer-bottom">
@@ -260,18 +237,6 @@ const footerExploreLinks = footerDomHrefs.map((href) => {
     flex-col
     items-start
     gap-2;
-}
-
-.footer-column-brand {
-  @apply order-1;
-}
-
-.footer-column-explore {
-  @apply order-2;
-}
-
-.footer-column-contact {
-  @apply order-3;
 }
 
 .footer-grid p {
