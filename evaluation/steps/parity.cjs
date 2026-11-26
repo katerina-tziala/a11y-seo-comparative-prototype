@@ -9,7 +9,7 @@
 //   4. saves a full-page screenshot of the initial state and a screenshot of the changed region for every other state.
 // Output: <run>_parity_measurements.json and <run>_parity_report.html (A = baseline, B = accessibility-governed).
 // --mode=geometry and --mode=style add a deliberate difference to test the script itself; their files are never evidence.
-const { chromium } = require('playwright')
+const { chromium, errors } = require('playwright')
 const fs = require('node:fs/promises')
 const path = require('node:path')
 const { performance } = require('node:perf_hooks')
@@ -885,6 +885,7 @@ async function captureState(page, state, file) {
     viewports: views,
     measurementDefinition: `Rendered DOM boxes with their own visible paint, in document coordinates including off-viewport content; hidden/sr-only/zero-box/wholly overflow-clipped nodes excluded. Matching: normalized visible text across DOM positions, with a fallback to the same text fragments in any order. Repeated and empty text pairs follow DOM order within their group. Tags are ignored. Compares ${STYLE_PROPERTIES.length} computed CSS properties, including cursor, on matched elements and their generated ::before and ::after pseudo-elements.`,
     results: [],
+    retries: [],
     errors: [],
   }
   for (const view of views) {
@@ -924,7 +925,19 @@ async function captureState(page, state, file) {
         page.on('pageerror', (e) => pageErrors.push(e.message))
         try {
           await neutral(page)
-          await page.goto(url, { waitUntil: 'networkidle' })
+          const navigation = { waitUntil: 'networkidle' }
+          try {
+            await page.goto(url, navigation)
+          } catch (e) {
+            if (!(e instanceof errors.TimeoutError)) throw e
+            report.retries.push({
+              viewport: view.id,
+              state: state.id,
+              version,
+              firstError: e.message,
+            })
+            await page.goto(url, navigation)
+          }
           // Each state has its own new context/page: stronger isolation than reloading a previous form state.
           await assetsReady(page)
           await page.addStyleTag({
@@ -1021,6 +1034,7 @@ async function captureState(page, state, file) {
           dryRunOnly: DRY,
           completed: report.results.length,
           last: state.id,
+          retries: report.retries,
           errors: report.errors,
         }),
       )

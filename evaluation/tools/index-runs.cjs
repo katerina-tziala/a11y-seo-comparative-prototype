@@ -42,11 +42,23 @@ for (const run of fs.existsSync(EVIDENCE) ? fs.readdirSync(EVIDENCE).sort() : []
     continue
   }
   const tags = (info.repository && info.repository.latestTags) || {}
+  const parityFile = path.join(EVIDENCE, run, 'parity', `${run}_parity_measurements.json`)
+  let parity
+  try {
+    parity = JSON.parse(fs.readFileSync(parityFile, 'utf8'))
+  } catch {
+    // Missing or unreadable parity measurements leave the run invalid.
+  }
   const valid =
     Array.isArray(info.parts) &&
-    info.parts.length === 4 &&
-    info.parts.every((p) => p.exitCode === 0) &&
-    info.chromeUnchanged === true
+    ['Lighthouse', 'Checks', 'Report'].every((name) =>
+      info.parts.some((p) => p.part === name && p.exitCode === 0),
+    ) &&
+    info.chromeUnchanged === true &&
+    parity?.summary?.differs === 0 &&
+    parity.summary.unavailable === 0 &&
+    Array.isArray(parity.errors) &&
+    parity.errors.length === 0
   const chrome = info.versions
     ? info.versions.chromeAtStart === info.versions.chromeAtEnd
       ? info.versions.chromeAtStart

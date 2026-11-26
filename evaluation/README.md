@@ -52,7 +52,7 @@ npm ci
 npm run evaluate -- <run>
 ```
 
-The run name has lowercase letters, numbers and hyphens, for example `pilot-01` or `final-01`. Each run needs a new name: the script stops if the run folder already exists, so that no earlier result is replaced. At the end, the script prints one line. The run is valid when all four parts are `ok` and `chromeUnchanged` is `true`.
+The run name has lowercase letters, numbers and hyphens, for example `pilot-01` or `final-01`. Each run needs a new name: the script stops if the run folder already exists, so that no earlier result is replaced. The last line gives visual-parity counts (same, differs, not applicable, unavailable and errors), the status of Lighthouse, Checks and Report, and `chromeUnchanged`. A run is fully valid when Lighthouse, Checks and Report are `ok`, `chromeUnchanged` is `true`, and visual parity has zero differing or unavailable states and zero errors. Visual parity retries a navigation timeout once for each affected state and implementation. The parity measurements and progress files record these retries.
 
 Runs whose names start with `dryrun` test the scripts. They are not evidence and are not committed.
 

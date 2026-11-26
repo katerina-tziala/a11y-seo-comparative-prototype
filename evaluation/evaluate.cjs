@@ -111,15 +111,23 @@ function part(name, script, args, extraEnv) {
     cwd: __dirname,
   })
   const failed = info.parts.filter((p) => p.exitCode !== 0)
+  const parts = info.parts.map(
+    (p) => `${p.part}: ${p.exitCode === 0 ? 'ok' : 'exit ' + p.exitCode}`,
+  )
+  if (info.parts[0].exitCode === 0) {
+    const parity = JSON.parse(
+      fs.readFileSync(path.join(DIRS.parity, `${RUN}_parity_measurements.json`), 'utf8'),
+    )
+    const { same, differs, notApplicable, unavailable } = parity.summary
+    parts[0] = `Visual parity: same=${same}, differs=${differs}, not applicable=${notApplicable}, unavailable=${unavailable}, errors=${parity.errors.length}`
+  }
   console.log(
     '\n' +
       JSON.stringify({
         run: RUN,
         folder: RUNDIR,
         chromeUnchanged: info.chromeUnchanged,
-        parts: info.parts.map(
-          (p) => `${p.part}: ${p.exitCode === 0 ? 'ok' : 'exit ' + p.exitCode}`,
-        ),
+        parts,
       }),
   )
   if (failed.length || !info.chromeUnchanged) process.exitCode = 1
