@@ -11,8 +11,7 @@ const EVIDENCE = path.resolve(__dirname, '..', '..', 'evidence')
 const README = path.join(EVIDENCE, 'README.md')
 const START = '<!-- runs:start -->',
   END = '<!-- runs:end -->'
-const HEADER =
-  '| Run | Type | Date | Baseline | Accessibility-governed | Chrome | Valid |\n| --- | --- | --- | --- | --- | --- | --- |'
+const HEADER = ['Run', 'Type', 'Date', 'Baseline', 'Accessibility-governed', 'Chrome', 'Valid']
 
 const type = (run) =>
   /^pilot-/.test(run)
@@ -66,12 +65,32 @@ for (const run of fs.existsSync(EVIDENCE) ? fs.readdirSync(EVIDENCE).sort() : []
     : ''
   rows.push({
     at: info.startedAt || '',
-    line: `| ${run} | ${type(run)} | ${date(info.startedAt)} | ${ref(tags.baseline)} | ${ref(tags.governed)} | ${chrome} | ${valid ? 'Yes' : 'No'} |`,
+    cells: [
+      run,
+      type(run),
+      date(info.startedAt),
+      ref(tags.baseline),
+      ref(tags.governed),
+      String(chrome),
+      valid ? 'Yes' : 'No',
+    ],
   })
 }
 
 rows.sort((a, b) => a.at.localeCompare(b.at)) // in the order of the runs
-const table = [START, HEADER, ...rows.map((r) => r.line), END].join('\n')
+const widths = HEADER.map((cell, i) =>
+  rows.reduce((width, row) => Math.max(width, row.cells[i].length), cell.length),
+)
+const formatRow = (cells) => `| ${cells.map((cell, i) => cell.padEnd(widths[i])).join(' | ')} |`
+const table = [
+  START,
+  '',
+  formatRow(HEADER),
+  formatRow(widths.map((width) => '-'.repeat(width))),
+  ...rows.map(({ cells }) => formatRow(cells)),
+  '',
+  END,
+].join('\n')
 let text = fs.existsSync(README)
   ? fs.readFileSync(README, 'utf8')
   : `# Evidence\n\n${START}\n${END}\n`
