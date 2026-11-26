@@ -62,7 +62,7 @@ const AUDITS = {
   AR39: [],
   AR40: ['focus-traps'],
   AR41: ['logical-tab-order'],
-  AR46: ['html-has-lang'],
+  AR46: ['html-has-lang', 'html-lang-valid'],
   AR48: ['valid-lang'],
   SI01: ['document-title'],
   SI02: ['image-alt'],
