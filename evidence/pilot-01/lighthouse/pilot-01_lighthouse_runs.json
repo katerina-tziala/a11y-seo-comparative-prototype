@@ -1,0 +1,70 @@
+{
+ "run": "pilot-01",
+ "expectedVersion": "13.5.0",
+ "urls": {
+  "baseline": "https://katerina-tziala.github.io/a11y-seo-comparative-prototype/baseline/",
+  "governed": "https://katerina-tziala.github.io/a11y-seo-comparative-prototype/accessibility-governed/"
+ },
+ "runs": [
+  {
+   "implementation": "baseline",
+   "mode": "mobile",
+   "attempt": 1,
+   "files": [
+    "pilot-01_baseline_lighthouse_mobile_01.html",
+    "pilot-01_baseline_lighthouse_mobile_01.json"
+   ],
+   "started": "2026-11-26T19:33:18.300Z",
+   "finished": "2026-11-26T19:33:33.433Z",
+   "lighthouseVersion": "13.5.0",
+   "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "implementation": "governed",
+   "mode": "mobile",
+   "attempt": 1,
+   "files": [
+    "pilot-01_governed_lighthouse_mobile_01.html",
+    "pilot-01_governed_lighthouse_mobile_01.json"
+   ],
+   "started": "2026-11-26T19:33:33.439Z",
+   "finished": "2026-11-26T19:33:43.612Z",
+   "lighthouseVersion": "13.5.0",
+   "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "implementation": "baseline",
+   "mode": "desktop",
+   "attempt": 1,
+   "files": [
+    "pilot-01_baseline_lighthouse_desktop_01.html",
+    "pilot-01_baseline_lighthouse_desktop_01.json"
+   ],
+   "started": "2026-11-26T19:33:43.612Z",
+   "finished": "2026-11-26T19:33:53.490Z",
+   "lighthouseVersion": "13.5.0",
+   "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "implementation": "governed",
+   "mode": "desktop",
+   "attempt": 1,
+   "files": [
+    "pilot-01_governed_lighthouse_desktop_01.html",
+    "pilot-01_governed_lighthouse_desktop_01.json"
+   ],
+   "started": "2026-11-26T19:33:53.491Z",
+   "finished": "2026-11-26T19:34:03.371Z",
+   "lighthouseVersion": "13.5.0",
+   "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+   "ok": true,
+   "problems": []
+  }
+ ]
+}

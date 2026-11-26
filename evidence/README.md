@@ -12,7 +12,8 @@ A comparison of two runs (`npm run compare`) writes `compare_<runA>_<runB>.json`
 
 <!-- runs:start -->
 
-| Run | Type | Date | Baseline | Accessibility-governed | Chrome | Valid |
-| --- | ---- | ---- | -------- | ---------------------- | ------ | ----- |
+| Run      | Type  | Date       | Baseline              | Accessibility-governed | Chrome        | Valid |
+| -------- | ----- | ---------- | --------------------- | ---------------------- | ------------- | ----- |
+| pilot-01 | Pilot | 26/11/2026 | baseline-v1 (98f9937) | governed-v1 (419f033)  | 158.0.8127.89 | Yes   |
 
 <!-- runs:end -->

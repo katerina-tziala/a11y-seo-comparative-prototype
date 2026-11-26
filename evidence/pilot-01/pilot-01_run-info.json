@@ -1,0 +1,68 @@
+{
+ "run": "pilot-01",
+ "dryRun": false,
+ "protocol": "evaluation protocol (Master Thesis 3 Evaluation)",
+ "startedAt": "2026-11-26T19:30:33.020Z",
+ "computer": {
+  "platform": "darwin",
+  "release": "27.2.0",
+  "macOS": "27.2.1"
+ },
+ "versions": {
+  "node": "v26.4.0",
+  "playwright": "1.62.1",
+  "lighthouse": "13.5.0",
+  "axeCore": "4.14.0",
+  "chromeAtStart": "158.0.8127.89",
+  "chromeAtEnd": "158.0.8127.89"
+ },
+ "urls": {
+  "baseline": "https://katerina-tziala.github.io/a11y-seo-comparative-prototype/baseline/",
+  "governed": "https://katerina-tziala.github.io/a11y-seo-comparative-prototype/accessibility-governed/"
+ },
+ "repository": {
+  "commit": "cb1caa09e93cbfd475c81df778ae01506e4d6e0a",
+  "latestTags": {
+   "baseline": {
+    "name": "baseline-v1",
+    "commit": "98f9937d7dc69c2209be13bf9321670b45c36eed"
+   },
+   "governed": {
+    "name": "governed-v1",
+    "commit": "419f033c934ec902ab17a615fcf79fdf9509ee6f"
+   }
+  }
+ },
+ "parts": [
+  {
+   "part": "Visual parity",
+   "script": "steps/parity.cjs",
+   "started": "2026-11-26T19:30:33.825Z",
+   "finished": "2026-11-26T19:33:18.264Z",
+   "exitCode": 0
+  },
+  {
+   "part": "Lighthouse",
+   "script": "steps/lighthouse.cjs",
+   "started": "2026-11-26T19:33:18.264Z",
+   "finished": "2026-11-26T19:34:03.375Z",
+   "exitCode": 0
+  },
+  {
+   "part": "Checks",
+   "script": "steps/checks/index.cjs",
+   "started": "2026-11-26T19:34:03.375Z",
+   "finished": "2026-11-26T19:36:33.893Z",
+   "exitCode": 0
+  },
+  {
+   "part": "Report",
+   "script": "steps/report/index.cjs",
+   "started": "2026-11-26T19:36:33.893Z",
+   "finished": "2026-11-26T19:36:34.007Z",
+   "exitCode": 0
+  }
+ ],
+ "chromeUnchanged": true,
+ "finishedAt": "2026-11-26T19:36:34.499Z"
+}
