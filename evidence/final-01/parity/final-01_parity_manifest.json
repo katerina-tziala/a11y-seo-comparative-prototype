@@ -1,0 +1,490 @@
+{
+  "dryRunOnly": false,
+  "files": [
+    {
+      "file": "final-01_baseline_parity_desktop_faq-second-open.png",
+      "bytes": 18362
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_form-checked.png",
+      "bytes": 64470
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_form-confirmation.png",
+      "bytes": 117397
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_form-errors.png",
+      "bytes": 65399
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-faq-audit.png",
+      "bytes": 3592
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-footer-link.png",
+      "bytes": 2243
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-header-1.png",
+      "bytes": 1854
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-header-2.png",
+      "bytes": 2148
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-header-3.png",
+      "bytes": 2521
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-header-4.png",
+      "bytes": 1621
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-header-5.png",
+      "bytes": 1968
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-header-6.png",
+      "bytes": 1225
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-header-7.png",
+      "bytes": 3671
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-hero-primary.png",
+      "bytes": 3682
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-hero-secondary.png",
+      "bytes": 5259
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-learn-more.png",
+      "bytes": 1576
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-radio-card.png",
+      "bytes": 4163
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-social-icon.png",
+      "bytes": 1866
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_hover-submit.png",
+      "bytes": 3796
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_initial.png",
+      "bytes": 1439595
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_pointer-focus-radio.png",
+      "bytes": 4283
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_pointer-focus-text.png",
+      "bytes": 4022
+    },
+    {
+      "file": "final-01_baseline_parity_desktop_pressed-submit.png",
+      "bytes": 3796
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_faq-second-open.png",
+      "bytes": 17246
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_form-checked.png",
+      "bytes": 67595
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_form-confirmation.png",
+      "bytes": 103294
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_form-errors.png",
+      "bytes": 68579
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_hover-faq-audit.png",
+      "bytes": 3581
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_hover-footer-link.png",
+      "bytes": 2374
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_hover-hero-primary.png",
+      "bytes": 6279
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_hover-hero-secondary.png",
+      "bytes": 7144
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_hover-learn-more.png",
+      "bytes": 1576
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_hover-radio-card.png",
+      "bytes": 3939
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_hover-social-icon.png",
+      "bytes": 1768
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_hover-submit.png",
+      "bytes": 2984
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_initial.png",
+      "bytes": 1125265
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_menu-open.png",
+      "bytes": 40822
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_packages-end.png",
+      "bytes": 27198
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_packages-middle.png",
+      "bytes": 25132
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_packages-start.png",
+      "bytes": 24278
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_pointer-focus-radio.png",
+      "bytes": 4079
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_pointer-focus-text.png",
+      "bytes": 4070
+    },
+    {
+      "file": "final-01_baseline_parity_mobile_pressed-submit.png",
+      "bytes": 2984
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_faq-second-open.png",
+      "bytes": 39293
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_form-checked.png",
+      "bytes": 156369
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_form-confirmation.png",
+      "bytes": 283613
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_form-errors.png",
+      "bytes": 156336
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_hover-faq-audit.png",
+      "bytes": 8090
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_hover-footer-link.png",
+      "bytes": 4701
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_hover-hero-primary.png",
+      "bytes": 14588
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_hover-hero-secondary.png",
+      "bytes": 19177
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_hover-learn-more.png",
+      "bytes": 3204
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_hover-radio-card.png",
+      "bytes": 10213
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_hover-social-icon.png",
+      "bytes": 3785
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_hover-submit.png",
+      "bytes": 8034
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_initial.png",
+      "bytes": 3125996
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_pointer-focus-radio.png",
+      "bytes": 10790
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_pointer-focus-text.png",
+      "bytes": 9480
+    },
+    {
+      "file": "final-01_baseline_parity_zoom200_pressed-submit.png",
+      "bytes": 8034
+    },
+    {
+      "file": "final-01_governed_parity_desktop_faq-second-open.png",
+      "bytes": 18362
+    },
+    {
+      "file": "final-01_governed_parity_desktop_form-checked.png",
+      "bytes": 64470
+    },
+    {
+      "file": "final-01_governed_parity_desktop_form-confirmation.png",
+      "bytes": 117397
+    },
+    {
+      "file": "final-01_governed_parity_desktop_form-errors.png",
+      "bytes": 65399
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-faq-audit.png",
+      "bytes": 3592
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-footer-link.png",
+      "bytes": 2243
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-header-1.png",
+      "bytes": 1854
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-header-2.png",
+      "bytes": 2148
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-header-3.png",
+      "bytes": 2521
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-header-4.png",
+      "bytes": 1621
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-header-5.png",
+      "bytes": 1968
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-header-6.png",
+      "bytes": 1225
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-header-7.png",
+      "bytes": 3671
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-hero-primary.png",
+      "bytes": 3682
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-hero-secondary.png",
+      "bytes": 5259
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-learn-more.png",
+      "bytes": 1576
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-radio-card.png",
+      "bytes": 4163
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-social-icon.png",
+      "bytes": 1866
+    },
+    {
+      "file": "final-01_governed_parity_desktop_hover-submit.png",
+      "bytes": 3796
+    },
+    {
+      "file": "final-01_governed_parity_desktop_initial.png",
+      "bytes": 1439595
+    },
+    {
+      "file": "final-01_governed_parity_desktop_pointer-focus-radio.png",
+      "bytes": 4283
+    },
+    {
+      "file": "final-01_governed_parity_desktop_pointer-focus-text.png",
+      "bytes": 4022
+    },
+    {
+      "file": "final-01_governed_parity_desktop_pressed-submit.png",
+      "bytes": 3796
+    },
+    {
+      "file": "final-01_governed_parity_mobile_faq-second-open.png",
+      "bytes": 17246
+    },
+    {
+      "file": "final-01_governed_parity_mobile_form-checked.png",
+      "bytes": 67595
+    },
+    {
+      "file": "final-01_governed_parity_mobile_form-confirmation.png",
+      "bytes": 103294
+    },
+    {
+      "file": "final-01_governed_parity_mobile_form-errors.png",
+      "bytes": 68579
+    },
+    {
+      "file": "final-01_governed_parity_mobile_hover-faq-audit.png",
+      "bytes": 3581
+    },
+    {
+      "file": "final-01_governed_parity_mobile_hover-footer-link.png",
+      "bytes": 2374
+    },
+    {
+      "file": "final-01_governed_parity_mobile_hover-hero-primary.png",
+      "bytes": 6279
+    },
+    {
+      "file": "final-01_governed_parity_mobile_hover-hero-secondary.png",
+      "bytes": 7144
+    },
+    {
+      "file": "final-01_governed_parity_mobile_hover-learn-more.png",
+      "bytes": 1576
+    },
+    {
+      "file": "final-01_governed_parity_mobile_hover-radio-card.png",
+      "bytes": 3939
+    },
+    {
+      "file": "final-01_governed_parity_mobile_hover-social-icon.png",
+      "bytes": 1768
+    },
+    {
+      "file": "final-01_governed_parity_mobile_hover-submit.png",
+      "bytes": 2984
+    },
+    {
+      "file": "final-01_governed_parity_mobile_initial.png",
+      "bytes": 1125265
+    },
+    {
+      "file": "final-01_governed_parity_mobile_menu-open.png",
+      "bytes": 40822
+    },
+    {
+      "file": "final-01_governed_parity_mobile_packages-end.png",
+      "bytes": 27198
+    },
+    {
+      "file": "final-01_governed_parity_mobile_packages-middle.png",
+      "bytes": 25132
+    },
+    {
+      "file": "final-01_governed_parity_mobile_packages-start.png",
+      "bytes": 24278
+    },
+    {
+      "file": "final-01_governed_parity_mobile_pointer-focus-radio.png",
+      "bytes": 4079
+    },
+    {
+      "file": "final-01_governed_parity_mobile_pointer-focus-text.png",
+      "bytes": 4070
+    },
+    {
+      "file": "final-01_governed_parity_mobile_pressed-submit.png",
+      "bytes": 2984
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_faq-second-open.png",
+      "bytes": 39293
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_form-checked.png",
+      "bytes": 156369
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_form-confirmation.png",
+      "bytes": 283613
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_form-errors.png",
+      "bytes": 156336
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_hover-faq-audit.png",
+      "bytes": 8090
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_hover-footer-link.png",
+      "bytes": 4701
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_hover-hero-primary.png",
+      "bytes": 14588
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_hover-hero-secondary.png",
+      "bytes": 19177
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_hover-learn-more.png",
+      "bytes": 3204
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_hover-radio-card.png",
+      "bytes": 10213
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_hover-social-icon.png",
+      "bytes": 3785
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_hover-submit.png",
+      "bytes": 8034
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_initial.png",
+      "bytes": 3125996
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_pointer-focus-radio.png",
+      "bytes": 10790
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_pointer-focus-text.png",
+      "bytes": 9480
+    },
+    {
+      "file": "final-01_governed_parity_zoom200_pressed-submit.png",
+      "bytes": 8034
+    },
+    {
+      "file": "final-01_parity_measurements.json",
+      "bytes": 10684597
+    },
+    {
+      "file": "final-01_parity_progress.json",
+      "bytes": 82
+    },
+    {
+      "file": "final-01_parity_report.html",
+      "bytes": 62582
+    }
+  ],
+  "totalBytes": 25068059
+}
